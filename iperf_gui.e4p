@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Project SYSTEM "Project-5.1.dtd">
 <!-- eric project file for project iperf_gui -->
-<!-- Saved: 2020-04-27, 18:21:57 -->
+<!-- Saved: 2020-05-22, 14:39:58 -->
 <!-- Copyright (C) 2020 ,  -->
 <Project version="5.1">
   <Language>en_US</Language>
@@ -15,15 +15,119 @@
   <Sources>
     <Source>Ui_iperf_client.py</Source>
     <Source>Ui_iperf_server.py</Source>
+    <Source>Ui_script_more.py</Source>
     <Source>__init__.py</Source>
     <Source>iperf_client.py</Source>
+    <Source>main.py</Source>
+    <Source>script_more.py</Source>
   </Sources>
   <Forms>
     <Form>iperf_client.ui</Form>
     <Form>iperf_server.ui</Form>
+    <Form>script_more.ui</Form>
   </Forms>
   <Vcs>
-    <VcsType>None</VcsType>
+    <VcsType>Git</VcsType>
+    <VcsOptions>
+      <dict>
+        <key>
+          <string>add</string>
+        </key>
+        <value>
+          <list>
+            <string></string>
+          </list>
+        </value>
+        <key>
+          <string>checkout</string>
+        </key>
+        <value>
+          <list>
+            <string></string>
+          </list>
+        </value>
+        <key>
+          <string>commit</string>
+        </key>
+        <value>
+          <list>
+            <string></string>
+          </list>
+        </value>
+        <key>
+          <string>diff</string>
+        </key>
+        <value>
+          <list>
+            <string></string>
+          </list>
+        </value>
+        <key>
+          <string>export</string>
+        </key>
+        <value>
+          <list>
+            <string></string>
+          </list>
+        </value>
+        <key>
+          <string>global</string>
+        </key>
+        <value>
+          <list>
+            <string></string>
+          </list>
+        </value>
+        <key>
+          <string>history</string>
+        </key>
+        <value>
+          <list>
+            <string></string>
+          </list>
+        </value>
+        <key>
+          <string>log</string>
+        </key>
+        <value>
+          <list>
+            <string></string>
+          </list>
+        </value>
+        <key>
+          <string>remove</string>
+        </key>
+        <value>
+          <list>
+            <string></string>
+          </list>
+        </value>
+        <key>
+          <string>status</string>
+        </key>
+        <value>
+          <list>
+            <string></string>
+          </list>
+        </value>
+        <key>
+          <string>tag</string>
+        </key>
+        <value>
+          <list>
+            <string></string>
+          </list>
+        </value>
+        <key>
+          <string>update</string>
+        </key>
+        <value>
+          <list>
+            <string></string>
+          </list>
+        </value>
+      </dict>
+    </VcsOptions>
   </Vcs>
   <FiletypeAssociations>
     <FiletypeAssociation pattern="*.e4p" type="OTHERS"/>
