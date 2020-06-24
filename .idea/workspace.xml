@@ -1,15 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ab384861-2ddd-48f5-8099-545f055a8da3" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.eric6project/iperf_gui.e4q" beforeDir="false" afterPath="$PROJECT_DIR$/.eric6project/iperf_gui.e4q" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.eric6project/iperf_gui.e6t" beforeDir="false" afterPath="$PROJECT_DIR$/.eric6project/iperf_gui.e6t" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ui_iperf_client.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ui_iperf_client.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/iperf_client.py" beforeDir="false" afterPath="$PROJECT_DIR$/iperf_client.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/iperf_client.ui" beforeDir="false" afterPath="$PROJECT_DIR$/iperf_client.ui" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-    </list>
+    <list default="true" id="ab384861-2ddd-48f5-8099-545f055a8da3" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -154,7 +146,7 @@
       <workItem from="1591150034614" duration="49000" />
       <workItem from="1592382485143" duration="1026000" />
       <workItem from="1592452424095" duration="26000" />
-      <workItem from="1592968614975" duration="19328000" />
+      <workItem from="1592968614975" duration="19756000" />
     </task>
     <servers />
   </component>
