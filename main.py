@@ -9,6 +9,7 @@ from PyQt5.QtGui import QPixmap
 from PyQt5.QtWidgets import QApplication
 from iperf_client import MainWindow
 import logging.handlers
+import os
 
 
 version = "v1.0.0"
@@ -18,6 +19,9 @@ package_time = ""
 
 
 def log(stationinfo):
+
+    if not os.path.exists("log/"):
+        os.mkdir('log/')
     now = datetime.datetime.now().strftime("%Y-%m-%d")
     LOG_FILE = "log/" + stationinfo.lower() + '_' + now + '.log'
     logger = logging.getLogger("myapp")

@@ -41,7 +41,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.save_state = False
         self.filePath = ''
         self.iperfVer = '2'
-        self.throughputdTh = ThroughputThread(self.tableWidget)
+        self.throughputdTh = ThroughputThread(self.textBrowser)
         self.throughputdTh.signal_result.connect(self.setThroughputResult)
         self.tDTh = TimeDownThread()
         self.tDTh.signal_Time.connect(self.setTimeDown)
@@ -65,6 +65,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.spinBox_time.setValue(60)
         self.tableWidget.removeColumn(0)
         self.tableWidget.removeColumn(0)
+        self.tableWidget.setColumnCount(3)
         self.tableWidget.setColumnWidth(0, 110)
         self.tableWidget.setColumnWidth(1, 190)
         self.tableWidget.setColumnWidth(2, 180)
@@ -96,12 +97,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.groupBox_test.setEnabled(checked)
 
     def setTimeDown(self, p0):
-            self.label_countDown.setText(str(p0) + ' s')
+        self.label_countDown.setText(str(p0) + ' s')
 
     def updateStatusBar(self):
         self.label_count.setText('共计：{}次  成功：{}次  失败：{}次'.format(self.total, self.total-self.failTotal, self.failTotal))
 
-    def addInfo(self, tableWidget, *args):
+    def addInfo(self, tableWidget, args):
         row = tableWidget.rowCount()
         tableWidget.setRowCount(row + 1)
         i = 0
@@ -116,17 +117,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 self.addTableWidgetEntry(row, i, arg, tableWidget)
             i += 1
-        self.tableWidget.scrollToBottom()
+        tableWidget.scrollToBottom()
 
     def addTableWidgetEntry(self, x, y, p0, tbWidget):
         item = QTableWidgetItem()
         item.setTextAlignment(Qt.AlignCenter)
-        if x == 1 and self.iperfVer == '2':
-            item.setFlags(Qt.ItemIsEditable)
-        elif x == 2 and self.iperfVer == '3':
-            item.setFlags(Qt.ItemIsEditable)
-        else:
-            pass
+        # tableWidget禁止编辑
+        # if x == 1 and self.iperfVer == '2':
+        #     item.setFlags(Qt.ItemIsEditable)
+        # elif x == 2 and self.iperfVer == '3':
+        #     item.setFlags(Qt.ItemIsEditable)
+        # else:
+        #     pass
         item.setText(self.translate("MainWindow", p0))
         # item.setFont(self.setCellFont())
         tbWidget.setItem(x, y, item)
@@ -137,7 +139,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             tbWidget.removeRow(0)
 
     def setThroughputResult(self, p0):
-        if "testing" == p0[0]:
+        print("result", p0)
+        if not p0:
+            print("吞吐量测试, 错误返回值")
+        elif "testing" == p0[0]:
             self.label_error.setText("吞吐量测试中，请稍等...")
             return
         elif "ping fail" == p0[0]:
@@ -153,7 +158,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         elif "result" == p0[0]:
             now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             self.label_error.setText(self.translate("GeneralWindow", "吞吐量测试已完成"))
-            if self.iperfVer == 3:
+            if self.iperfVer == "3":
                 self.label_res_tx.setText(self.translate("GeneralWindow", p0[1] + ' Mbps'))
                 self.label_res_rx.setText(self.translate("GeneralWindow", p0[2] + ' Mbps'))
                 self.addInfo(self.tableWidget, (p0[1] + ' Mbps', p0[2] + ' Mbps', '', '编辑', now))
@@ -172,6 +177,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.statusBar.showMessage('Stop')
         self.cCount -= 1
         if self.cCount > 0:
+            print("循环等待中", self.cCount)
             self.label_error.setText("等待中...")
             cInterval = self.spinBox_cInterval.value()
             if cInterval < 5:
@@ -187,11 +193,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 self.throughputdTh.start()
                 self.statusBar.showMessage('Start')
-            if self.iperfVer == 2:
-                self.label_res_th.clear()
-            elif self.iperfVer == 3:
-                self.label_res_rx.clear()
-                self.label_res_tx.clear()
+            # if self.iperfVer == "2":
+            #     self.label_res_th.clear()
+            # elif self.iperfVer == "3":
+            #     self.label_res_rx.clear()
+            #     self.label_res_tx.clear()
         else:
             self.setTabState(True)
             self.pushButton_a.setEnabled(True)
@@ -314,9 +320,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # TODO: not implemented yet
         # raise NotImplementedError
         self.label_error.clear()
+        if self.iperfVer == "2":
+            self.label_res_th.clear()
+        elif self.iperfVer == "3":
+            self.label_res_rx.clear()
+            self.label_res_tx.clear()
 
         pro = self.comboBox_pro.currentText()
-        c_ip = self.lineEdit_c_param.text()
+        c_ip = self.lineEdit_c_ip.text()
         if not c_ip:
             self.label_error.setText("请先进行设置再开始")
             return
@@ -338,6 +349,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if c_p > 0:
             c_param = c_param + ' -p ' + str(self.spinBox_p.value())
         self.throughputdTh.setParam(self.iperfVer, c_ip, c_param, c_time, self.tDTh)
+
+        if self.checkBox_cc.isChecked():
+            self.cCount = self.spinBox_cCount.value()
 
         if self.isScript:
             self.index = 0
@@ -365,6 +379,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         try:
             self.throughputdTh.close()
+            if self.checkBox_cc.isChecked():
+                self.cCount = 0
             if self.isScript:
                 self.scriptTh.stop()
         except Exception as e:
@@ -778,12 +794,12 @@ class ThroughputThread(QThread):
 
     signal_result = pyqtSignal(tuple)
 
-    def __init__(self, tbWidget, parent=None):
+    def __init__(self, textBrowser, parent=None):
         super(ThroughputThread, self).__init__(parent)
-        self.tbWidget = tbWidget
+        self.textBrowser = textBrowser
         self.stopBool = False
         self.cmd = ''
-        self.iperfVer = 2
+        self.iperfVer = "2"
         self.pResult = False
 
     def setParam(self, iperfVer, c_ip, param, tTime, tDTh):
@@ -792,19 +808,27 @@ class ThroughputThread(QThread):
         self.param = param
         self.tTime = tTime
         self.tDTh = tDTh
+        self.tDTh.signal_TimeOver.connect(self.timeOver)
         if " -P " in self.cmd:
             self.pResult = True
         else:
             self.pResult = False
 
+    def timeOver(self):
+        time.sleep(5)
+        if not self.stopBool:
+            self.stop()
+            self.signal_result.emit(("fail",))
+
     def run(self):
+
         if not getLinkState(self.c_ip):
             self.signal_result.emit(("ping fail",))
             return
-        self.param = ' -c ' + self.c_ip + self.param
+        self.param = ' -c ' + self.c_ip + ' ' + self.param + ' -t ' + str(self.tTime)
         if self.iperfVer == '2':
             self.param = 'iperf ' + self.param
-        elif self.iperfVer == '2':
+        elif self.iperfVer == '3':
             self.param = 'iperf3 ' + self.param
         else:
             self.signal_result.emit(("fail",))
@@ -821,14 +845,15 @@ class ThroughputThread(QThread):
                                         stderr=subprocess.PIPE,
                                         shell=True)
         self.signal_result.emit(("testing",))
-        self.tbWidget.append("testing")
+        self.textBrowser.append("Testing")
 
-        if self.iperfVer == 2:
+        if self.iperfVer == "2":
             self.getIperfResult()
-        elif self.iperfVer == 3:
+        elif self.iperfVer == "3":
             self.getIperf3Result()
 
         self.tDTh.stop()
+        self.stopBool = True
 
     def stop(self):
         self.stopBool = True
@@ -845,15 +870,20 @@ class ThroughputThread(QThread):
 
     def getIperfResult(self):
         tmp = ''
+
         while not self.stopBool:
             out = str(self.process.stdout.readline(), encoding="gb2312", errors="ignore")
-            self.tbWidget.append(out)
+            print("out:", out)
+            self.textBrowser.append(out)
             if not out:
                 break
             elif "read failed" in out or "connect failed" in out \
-                    or "WARNING: did not receive ack of last datagram after 10 tries" in out:
-                self.close()
+                    or "WARNING: did not receive ack of last datagram after 10 tries" in out \
+                    or "iperf: ignoring extra argument" in out \
+                    or "write failed: Connection reset by peer" in out \
+                    or "write failed: Software caused connection abort" in out:
                 self.signal_result.emit(("connect fail",))
+                self.close()
                 return
 
             if "0.0-"+str(self.tTime)+'.' in out:
@@ -872,8 +902,10 @@ class ThroughputThread(QThread):
     def getIperf3Result(self):
         tmp = []
         while not self.stopBool:
+
             out = str(self.process.stdout.readline(), encoding="gb2312", errors="ignore")
-            self.tbWidget.append(out)
+            print("out:", out)
+            self.textBrowser.append(out)
             if not out:
                 break
             elif "read failed" in out or "connect failed" in out \
@@ -897,9 +929,11 @@ class ThroughputThread(QThread):
                 receiver = re.findall(r'[\d.]* \w*/sec', line)[0].split(' ')[0]
         self.signal_result.emit(("result", sender, receiver))
 
+
 class TimeDownThread(QThread):
 
     signal_Time = pyqtSignal(int)
+    signal_TimeOver = pyqtSignal()
 
     def __init__(self, parent=None):
         super(TimeDownThread, self).__init__(parent)
@@ -920,6 +954,7 @@ class TimeDownThread(QThread):
             time.sleep(tempTime)
             self.tTime = self.tTime - self.intervalTime
             self.signal_Time.emit(self.tTime)
+        self.signal_TimeOver.emit()
 
     def stop(self):
         self.stopBool = True
@@ -962,7 +997,6 @@ class ScriptThread(QThread):
                         pass
                 index += 0
 
-
             time.sleep(self.c_time/2)
             i += 1
 
@@ -987,7 +1021,6 @@ class ScriptThread(QThread):
                 self.signal_sRes.emit((index, 'Fail', ''))
         if "运行前" in opp:
             self.signal_index.emit()
-
 
     def runTelnet(self, index, opp, ip, user, passwd, cmd, res_re):
         print("run telnet")
