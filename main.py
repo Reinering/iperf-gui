@@ -18,12 +18,12 @@ package_time = ""
 
 
 
-def log(stationinfo):
+def log():
 
     if not os.path.exists("log/"):
         os.mkdir('log/')
     now = datetime.datetime.now().strftime("%Y-%m-%d")
-    LOG_FILE = "log/" + stationinfo.lower() + '_' + now + '.log'
+    LOG_FILE = "log/" + now + '.log'
     logger = logging.getLogger("myapp")
     hdlr = logging.handlers.RotatingFileHandler(LOG_FILE,maxBytes=1024*10240,backupCount=400)
     logging.basicConfig(level=logging.DEBUG,
@@ -45,6 +45,8 @@ class Usage(Exception):
 def main(argv=None):
     if argv is None:
         argv = sys.argv
+
+    logger = log()
     try:
         try:
             opts, args = getopt.getopt(argv[1:], "h", ["help"])

@@ -744,9 +744,9 @@ class Ui_MainWindow(object):
         self.tab_6.setObjectName("tab_6")
         self.gridLayout_14 = QtWidgets.QGridLayout(self.tab_6)
         self.gridLayout_14.setObjectName("gridLayout_14")
-        self.textBrowser_2 = QtWidgets.QTextBrowser(self.tab_6)
-        self.textBrowser_2.setObjectName("textBrowser_2")
-        self.gridLayout_14.addWidget(self.textBrowser_2, 0, 0, 1, 1)
+        self.textBrowser_help = QtWidgets.QTextBrowser(self.tab_6)
+        self.textBrowser_help.setObjectName("textBrowser_help")
+        self.gridLayout_14.addWidget(self.textBrowser_help, 0, 0, 1, 1)
         self.tabWidget.addTab(self.tab_6, "")
         self.gridLayout_2.addWidget(self.tabWidget, 0, 0, 1, 1)
         MainWindow.setCentralWidget(self.centralWidget)
@@ -755,7 +755,7 @@ class Ui_MainWindow(object):
         MainWindow.setStatusBar(self.statusBar)
 
         self.retranslateUi(MainWindow)
-        self.tabWidget.setCurrentIndex(4)
+        self.tabWidget.setCurrentIndex(5)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -839,7 +839,7 @@ class Ui_MainWindow(object):
         item.setText(_translate("MainWindow", "1000.000"))
         self.tableWidget.setSortingEnabled(__sortingEnabled)
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_4), _translate("MainWindow", "Result"))
-        self.textBrowser_2.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+        self.textBrowser_help.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'微软雅黑\'; font-size:10pt; font-weight:400; font-style:normal;\">\n"

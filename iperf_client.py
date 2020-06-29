@@ -21,6 +21,7 @@ from rn_common.telnet import Telnet
 from rn_common.netTools import getLinkState
 from Ui_iperf_client import Ui_MainWindow
 from script_more import Dialog
+import logging
 
 
 class MainWindow(QMainWindow, Ui_MainWindow):
@@ -45,6 +46,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.throughputdTh.signal_result.connect(self.setThroughputResult)
         self.tDTh = TimeDownThread()
         self.tDTh.signal_Time.connect(self.setTimeDown)
+        self.cctdTh = TimeDownThread()
+        self.cctdTh.signal_TimeOver.connect(self.recieveIntervCC)
         self.cCount = 0
         self.total = 0
         self.failTotal = 0
@@ -52,6 +55,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.isScript = False
         self.scriptNum = 1
         self.scriptKey = 0
+        self.isScrollDown = False
         self.horizontalLayout_script_List = {}
         self.serList = []
         self.initWidget()
@@ -173,36 +177,40 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     self.rowCount += 1
 
         self.total += 1
-        self.updateStatusBar()
         self.statusBar.showMessage('Stop')
         self.cCount -= 1
         if self.cCount > 0:
+            self.label_count.setText('(循环剩余：{}次)  共计：{}次  成功：{}次  失败：{}次'.format(self.cCount, self.total, self.total-self.failTotal, self.failTotal))
             print("循环等待中", self.cCount)
             self.label_error.setText("等待中...")
             cInterval = self.spinBox_cInterval.value()
             if cInterval < 5:
-                time.sleep(5)
+                self.cctdTh.setTime(5, 0)
             else:
-                time.sleep(self.spinBox_cInterval.value())
-            if self.isScript:
-                self.index = 0
-                self.scriptTh.start()
-                if self.waitNum == 0:
-                    self.throughputdTh.start()
-                    self.statusBar.showMessage('Start')
-            else:
-                self.throughputdTh.start()
-                self.statusBar.showMessage('Start')
-            # if self.iperfVer == "2":
-            #     self.label_res_th.clear()
-            # elif self.iperfVer == "3":
-            #     self.label_res_rx.clear()
-            #     self.label_res_tx.clear()
+                self.cctdTh.setTime(self.spinBox_cInterval.value(), 0)
+            self.cctdTh.start()
         else:
+            self.label_count.setText('共计：{}次  成功：{}次  失败：{}次'.format(self.total, self.total-self.failTotal, self.failTotal))
             self.setTabState(True)
             self.pushButton_a.setEnabled(True)
             self.pushButton_s.setEnabled(False)
             self.statusBar.showMessage('Finish', 5000)
+
+    def recieveIntervCC(self):
+        if self.isScript:
+            self.index = 0
+            self.scriptTh.start()
+            if self.waitNum == 0:
+                self.throughputdTh.start()
+                self.statusBar.showMessage('Start')
+        else:
+            self.throughputdTh.start()
+            self.statusBar.showMessage('Start')
+        # if self.iperfVer == "2":
+        #     self.label_res_th.clear()
+        # elif self.iperfVer == "3":
+        #     self.label_res_rx.clear()
+        #     self.label_res_tx.clear()
 
     def getScriptArgs(self):
         if self.isScript:
@@ -319,6 +327,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         """
         # TODO: not implemented yet
         # raise NotImplementedError
+        print("start")
+        logging.info("start")
         self.label_error.clear()
         if self.iperfVer == "2":
             self.label_res_th.clear()
@@ -369,23 +379,27 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     @pyqtSlot()
     def on_pushButton_s_clicked(self):
         """
+
         Slot documentation goes here.
         """
         # TODO: not implemented yet
         # raise NotImplementedError
-        self.setTabState(True)
-        self.pushButton_a.setEnabled(True)
-        self.pushButton_s.setEnabled(False)
-
+        logging.info("stop...")
         try:
             self.throughputdTh.close()
             if self.checkBox_cc.isChecked():
                 self.cCount = 0
+                self.cctdTh.stop()
             if self.isScript:
                 self.scriptTh.stop()
         except Exception as e:
             print(e)
+            logging.error(e)
+
         self.statusBar.showMessage('Stop')
+        self.setTabState(True)
+        self.pushButton_a.setEnabled(True)
+        self.pushButton_s.setEnabled(False)
 
     @pyqtSlot()
     def on_pushButton_save_clicked(self):
@@ -787,6 +801,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.horizontalLayout_script_List[args[0]][-1]['baudbit'] = args[1]
             self.horizontalLayout_script_List[args[0]][-1]['user'] = args[2]
             self.horizontalLayout_script_List[args[0]][-1]['passwd'] = args[3]
+    
+    @pyqtSlot()
+    def on_textBrowser_textChanged(self):
+        """
+        Slot documentation goes here.
+        """
+        # TODO: not implemented yet
+        # raise NotImplementedError
+        QApplication.processEvents()
+        if self.isScrollDown:
+            self.textBrowser.moveCursor(self.textBrowser.textCursor().End)
+
 
 
 
@@ -825,11 +851,11 @@ class ThroughputThread(QThread):
         if not getLinkState(self.c_ip):
             self.signal_result.emit(("ping fail",))
             return
-        self.param = ' -c ' + self.c_ip + ' ' + self.param + ' -t ' + str(self.tTime)
+        paramTemp = ' -c ' + self.c_ip + ' ' + self.param + ' -t ' + str(self.tTime)
         if self.iperfVer == '2':
-            self.param = 'iperf ' + self.param
+            paramTemp = 'iperf ' + paramTemp
         elif self.iperfVer == '3':
-            self.param = 'iperf3 ' + self.param
+            paramTemp = 'iperf3 ' + paramTemp
         else:
             self.signal_result.emit(("fail",))
             return
@@ -838,8 +864,8 @@ class ThroughputThread(QThread):
         self.stopBool = False
 
         self.tDTh.start()
-        print(os.getcwd() + '\\iperf\\' + self.param)
-        self.process = subprocess.Popen(os.getcwd() + '\\iperf\\' + self.param,
+        print(os.getcwd() + '\\iperf\\' + paramTemp)
+        self.process = subprocess.Popen(os.getcwd() + '\\iperf\\' + paramTemp,
                                         stdin=subprocess.PIPE,
                                         stdout=subprocess.PIPE,
                                         stderr=subprocess.PIPE,
@@ -948,12 +974,17 @@ class TimeDownThread(QThread):
     def run(self):
         # print("倒计时开始")
         self.stopBool = False
+
         tempTime = self.intervalTime - 0.01
         self.signal_Time.emit(self.tTime)
         while not self.stopBool and self.tTime > 0:
-            time.sleep(tempTime)
-            self.tTime = self.tTime - self.intervalTime
-            self.signal_Time.emit(self.tTime)
+            if tempTime > 0:
+                time.sleep(tempTime)
+                self.tTime = self.tTime - self.intervalTime
+                self.signal_Time.emit(self.tTime)
+            else:
+                time.sleep(5)
+                self.tTime = self.tTime - 5
         self.signal_TimeOver.emit()
 
     def stop(self):
@@ -1018,6 +1049,7 @@ class ScriptThread(QThread):
                 self.signal_sRes.emit((index, 'success', p))
             except Exception as e:
                 print(e)
+                logging.error(e)
                 self.signal_sRes.emit((index, 'Fail', ''))
         if "运行前" in opp:
             self.signal_index.emit()

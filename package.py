@@ -12,9 +12,9 @@ import platform
 
 
 Version = "v2.2.3"
-Computer_Digits = 'x86'
+Computer_Digits = 'x64'
 TypeNum = 2
-pyVer = "3.6.7"
+pyVer = "3.6.9"
 FileList = [
     {
         'name': "main.py",
@@ -189,8 +189,10 @@ def packaging():
         if PackageArgs['distpath']:
             tmp = PackageArgs['distpath'] + '\\' + file['name'].replace('.py', '.exe')
             if os.path.exists(tmp):
-                subprocess.run('mv ' + tmp + ' ' + PackageArgs['distpath'] + '\\' + file['outName'] + '_' + Type[TypeNum] + Computer_Digits + '_' + now + '.exe'
-                               , shell=True)
+                if TypeNum == 4:
+                    subprocess.run('mv ' + tmp + ' ' + PackageArgs['distpath'] + '\\' + file['outName'] + '_' + Computer_Digits + '_' + now + '.exe', shell=True)
+                else:
+                    subprocess.run('mv ' + tmp + ' ' + PackageArgs['distpath'] + '\\' + file['outName'] + '_' + Type[TypeNum] + Computer_Digits + '_' + now + '.exe', shell=True)
 
     if isclean:
         # subprocess.run("DEL /F /Q /S " + name + '.spec', shell=True)
