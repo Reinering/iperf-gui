@@ -11,7 +11,7 @@ from PyQt5 import QtWidgets, QtCore
 import sip
 import subprocess, threading
 from pyexcel import writeExcel
-import os
+import os, sys
 import datetime, time
 import re, decimal
 import serial, serial.tools.list_ports
@@ -42,8 +42,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.save_state = False
         self.filePath = ''
         self.iperfVer = '2'
-        self.throughputdTh = ThroughputThread(self.textBrowser)
+        self.throughputdTh = ThroughputThread()
         self.throughputdTh.signal_result.connect(self.setThroughputResult)
+        self.throughputdTh.signal_tb.connect(self.appendTB)
         self.tDTh = TimeDownThread()
         self.tDTh.signal_Time.connect(self.setTimeDown)
         self.cctdTh = TimeDownThread()
@@ -74,7 +75,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.tableWidget.setColumnWidth(1, 190)
         self.tableWidget.setColumnWidth(2, 180)
         self.clearTableWidgetEntry(self.tableWidget)
-
         self.comboBox_serial.setHidden(True)
         self.pushButton_refresh.setHidden(True)
         self.scrollArea.setEnabled(False)
@@ -163,18 +163,24 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             self.label_error.setText(self.translate("GeneralWindow", "吞吐量测试已完成"))
             if self.iperfVer == "3":
+                p0 = list(p0)
+                if not p0[1]:
+                    p0[1] = 'None'
+                if not p0[2]:
+                    p0[2] = 'None'
                 self.label_res_tx.setText(self.translate("GeneralWindow", p0[1] + ' Mbps'))
+
                 self.label_res_rx.setText(self.translate("GeneralWindow", p0[2] + ' Mbps'))
-                self.addInfo(self.tableWidget, (p0[1] + ' Mbps', p0[2] + ' Mbps', '', '编辑', now))
-                if self.save_state:
-                    writeExcel(self.filePath, 'Iperf3 吞吐量', (self.rowCount, p0[1], p0[2], now))
-                    self.rowCount += 1
+                # self.addInfo(self.tableWidget, (p0[1] + ' Mbps', p0[2] + ' Mbps', '', '编辑', now))
+                # if self.save_state:
+                #     writeExcel(self.filePath, 'Iperf3 吞吐量', (self.rowCount, p0[1], p0[2], now))
+                #     self.rowCount += 1
             else:
                 self.label_res_th.setText(self.translate("GeneralWindow", p0[1] + ' Mbps'))
-                self.addInfo(self.tableWidget, (p0[1] + ' Mbps', '', '编辑', now))
-                if self.save_state:
-                    writeExcel(self.filePath, 'Iperf2 吞吐量', (self.rowCount, p0[1], now))
-                    self.rowCount += 1
+                # self.addInfo(self.tableWidget, (p0[1] + ' Mbps', '', '编辑', now))
+                # if self.save_state:
+                #     writeExcel(self.filePath, 'Iperf2 吞吐量', (self.rowCount, p0[1], now))
+                #     self.rowCount += 1
 
         self.total += 1
         self.statusBar.showMessage('Stop')
@@ -396,8 +402,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             print(e)
             logging.error(e)
 
-        self.statusBar.showMessage('Stop')
-        self.setTabState(True)
+        # self.statusBar.showMessage('Stop')
+        # self.setTabState(True)
         self.pushButton_a.setEnabled(True)
         self.pushButton_s.setEnabled(False)
 
@@ -813,16 +819,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if self.isScrollDown:
             self.textBrowser.moveCursor(self.textBrowser.textCursor().End)
 
+    def appendTB(self, p0):
+        self.textBrowser.append(p0)
 
 
 
 class ThroughputThread(QThread):
 
     signal_result = pyqtSignal(tuple)
+    signal_tb = pyqtSignal(str)
 
-    def __init__(self, textBrowser, parent=None):
+    def __init__(self, parent=None):
         super(ThroughputThread, self).__init__(parent)
-        self.textBrowser = textBrowser
         self.stopBool = False
         self.cmd = ''
         self.iperfVer = "2"
@@ -864,14 +872,17 @@ class ThroughputThread(QThread):
         self.stopBool = False
 
         self.tDTh.start()
-        print(os.getcwd() + '\\iperf\\' + paramTemp)
-        self.process = subprocess.Popen(os.getcwd() + '\\iperf\\' + paramTemp,
+        tmp = sys.argv[0]
+        cmd = tmp.replace(tmp.split('\\')[-1], 'iperf\\' + paramTemp)
+        # print(os.getcwd() + '\\iperf\\' + paramTemp)
+        print(cmd)
+        self.process = subprocess.Popen(cmd,
                                         stdin=subprocess.PIPE,
                                         stdout=subprocess.PIPE,
                                         stderr=subprocess.PIPE,
                                         shell=True)
         self.signal_result.emit(("testing",))
-        self.textBrowser.append("Testing")
+        self.signal_tb.emit("Testing")
 
         if self.iperfVer == "2":
             self.getIperfResult()
@@ -888,7 +899,7 @@ class ThroughputThread(QThread):
     def close(self):
         self.stopBool = True
         self.tDTh.stop()
-        self.process = subprocess.Popen("taskkill /f /im iperf*",
+        self.process = subprocess.Popen('taskkill /f /fi "imagename eq iperf* " /fi "imagename ne iperf_client*"',
                                         stdin=subprocess.PIPE,
                                         stdout=subprocess.PIPE,
                                         stderr=subprocess.PIPE,
@@ -900,14 +911,15 @@ class ThroughputThread(QThread):
         while not self.stopBool:
             out = str(self.process.stdout.readline(), encoding="gb2312", errors="ignore")
             print("out:", out)
-            self.textBrowser.append(out)
+            self.signal_tb.emit(out)
             if not out:
                 break
             elif "read failed" in out or "connect failed" in out \
                     or "WARNING: did not receive ack of last datagram after 10 tries" in out \
                     or "iperf: ignoring extra argument" in out \
                     or "write failed: Connection reset by peer" in out \
-                    or "write failed: Software caused connection abort" in out:
+                    or "write failed: Software caused connection abort" in out \
+                    or "read failed: Message too long" in out:
                 self.signal_result.emit(("connect fail",))
                 self.close()
                 return
@@ -920,8 +932,11 @@ class ThroughputThread(QThread):
         print("tmp", tmp)
         result = None
         if "0.0-"+str(self.tTime)+'.' in tmp:
-            result = re.findall(r'[\d.]* \w*/sec', tmp)[0].split(' ')[0]
-            self.signal_result.emit(("result", result))
+            if ' -d ' in self.param:
+                pass
+            else:
+                result = re.findall(r'[\d.]* \w*/sec', tmp)[0].split(' ')[0]
+                self.signal_result.emit(("result", result))
         else:
             self.signal_result.emit(("fail",))
 
@@ -931,7 +946,7 @@ class ThroughputThread(QThread):
 
             out = str(self.process.stdout.readline(), encoding="gb2312", errors="ignore")
             print("out:", out)
-            self.textBrowser.append(out)
+            self.signal_tb.emit(out)
             if not out:
                 break
             elif "read failed" in out or "connect failed" in out \
@@ -949,10 +964,13 @@ class ThroughputThread(QThread):
         sender = None
         receiver = None
         for line in tmp:
-            if "sender" in line:
-                sender = re.findall(r'[\d.]* \w*/sec', line)[0].split(' ')[0]
-            elif "receiver" in line:
-                receiver = re.findall(r'[\d.]* \w*/sec', line)[0].split(' ')[0]
+            if ' -d ' in self.param:
+                pass
+            else:
+                if "sender" in line:
+                    sender = re.findall(r'[\d.]* \w*/sec', line)[0].split(' ')[0]
+                elif "receiver" in line:
+                    receiver = re.findall(r'[\d.]* \w*/sec', line)[0].split(' ')[0]
         self.signal_result.emit(("result", sender, receiver))
 
 

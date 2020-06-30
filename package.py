@@ -12,9 +12,9 @@ import platform
 
 
 Version = "v2.2.3"
-Computer_Digits = 'x64'
+Computer_Digits = 'x86'
 TypeNum = 2
-pyVer = "3.6.9"
+pyVer = "3.6.7"
 FileList = [
     {
         'name': "main.py",
