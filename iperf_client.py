@@ -22,6 +22,16 @@ from rn_common.netTools import getLinkState
 from Ui_iperf_client import Ui_MainWindow
 from script_more import Dialog
 import logging
+from collections import deque
+
+OPTION = (('-f', '-i', '-l', '-m', '-o', '-p', '-u', '-w', '-B', '-C', '-M', '-N', '-V'),
+          ('-s', '-D', '-R'),
+          ('-b', '-c', '-d', '-n', '-r', '-t', '-F', '-I', '-L', '-P', '-T'),
+          )
+OPTION3 = (('-p', '-f', '-i', '-F', '-B', '-V', '-J', '--logfile', '-d', '-v', '-h'),
+           ('-s', '-D', '-I', '-l'),
+           ('-c', '-u', '-b', '-t', '-n', '-k', '-l', '--cport', '-P', '-R', '-w', '-M', '-N', '-4', '-6', '-S', '-Z', '-O', '-T', '--get-server-output', '--udp-counters-64bit'),
+           )
 
 
 class MainWindow(QMainWindow, Ui_MainWindow):
@@ -42,6 +52,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.save_state = False
         self.filePath = ''
         self.iperfVer = '2'
+        self.protocol = "TCP"
         self.throughputdTh = ThroughputThread()
         self.throughputdTh.signal_result.connect(self.setThroughputResult)
         self.throughputdTh.signal_tb.connect(self.appendTB)
@@ -53,6 +64,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.total = 0
         self.failTotal = 0
         self.rowCount = 0
+        self.rowC2 = 0
+        self.rowC3 = 0
         self.isScript = False
         self.scriptNum = 1
         self.scriptKey = 0
@@ -64,17 +77,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def initWidget(self):
         self.tabWidget.setTabEnabled(3, False)
         self.tabWidget.setCurrentIndex(0)
+        self.stackedWidget.setCurrentIndex(0)
         self.widget_iperf3.hide()
         self.label_countDown.setText('0')
         self.pushButton_s.setEnabled(False)
         self.spinBox_time.setValue(60)
-        self.tableWidget.removeColumn(0)
-        self.tableWidget.removeColumn(0)
-        self.tableWidget.setColumnCount(3)
-        self.tableWidget.setColumnWidth(0, 110)
-        self.tableWidget.setColumnWidth(1, 190)
-        self.tableWidget.setColumnWidth(2, 180)
-        self.clearTableWidgetEntry(self.tableWidget)
         self.comboBox_serial.setHidden(True)
         self.pushButton_refresh.setHidden(True)
         self.scrollArea.setEnabled(False)
@@ -152,35 +159,35 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         elif "ping fail" == p0[0]:
             self.label_error.setText("吞吐量测试， 网络连接失败， 请检查后重试")
             self.failTotal += 1
-
         elif "connect fail" == p0[0]:
             self.label_error.setText("吞吐量测试， 连接服务端失败， 请检查后重试")
             self.failTotal += 1
         elif "fail" == p0[0]:
             self.label_error.setText("吞吐量测试， 测试失败，未获取到测试结果")
             self.failTotal += 1
-        elif "result" == p0[0]:
-            now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        elif "result" == p0[0] and p0[1]:
+            result = p0[1]
             self.label_error.setText(self.translate("GeneralWindow", "吞吐量测试已完成"))
             if self.iperfVer == "3":
-                p0 = list(p0)
-                if not p0[1]:
-                    p0[1] = 'None'
-                if not p0[2]:
-                    p0[2] = 'None'
-                self.label_res_tx.setText(self.translate("GeneralWindow", p0[1] + ' Mbps'))
-
-                self.label_res_rx.setText(self.translate("GeneralWindow", p0[2] + ' Mbps'))
-                # self.addInfo(self.tableWidget, (p0[1] + ' Mbps', p0[2] + ' Mbps', '', '编辑', now))
-                # if self.save_state:
-                #     writeExcel(self.filePath, 'Iperf3 吞吐量', (self.rowCount, p0[1], p0[2], now))
-                #     self.rowCount += 1
+                if self.protocol == "UDP":
+                    pass
+                else:
+                    self.label_res_tx.setText(self.translate("GeneralWindow", result[1] + ' Mbps'))
+                    self.label_res_rx.setText(self.translate("GeneralWindow", result[2] + ' Mbps'))
+                self.addInfo(self.tableWidget_ver3, result)
+                if self.save_state:
+                    self.excelTh.setParam(self.filePath, 'iperf3', p0)
+                    self.excelTh.start()
+                    self.rowC3 += 1
             else:
-                self.label_res_th.setText(self.translate("GeneralWindow", p0[1] + ' Mbps'))
-                # self.addInfo(self.tableWidget, (p0[1] + ' Mbps', '', '编辑', now))
-                # if self.save_state:
-                #     writeExcel(self.filePath, 'Iperf2 吞吐量', (self.rowCount, p0[1], now))
-                #     self.rowCount += 1
+                if self.protocol == "UDP":
+                    pass
+                self.label_res_th.setText(self.translate("GeneralWindow", result[1] + ' Mbps'))
+                self.addInfo(self.tableWidget_ver2, result)
+                if self.save_state:
+                    self.excelTh.setParam(self.filePath, 'iperf', self.rowC2, p0)
+                    self.excelTh.start()
+                    self.rowC2 += 1
 
         self.total += 1
         self.statusBar.showMessage('Stop')
@@ -285,6 +292,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # raise NotImplementedError
         self.label_path.setEnabled(checked)
         self.pushButton_save.setEnabled(checked)
+        if checked:
+            self.excelTh = ExcelThread()
+        else:
+            del self.excelTh
 
     @pyqtSlot(str)
     def on_comboBox_ver_activated(self, p0):
@@ -300,31 +311,36 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if p0 == '2':
             self.widget_iperf2.show()
             self.widget_iperf3.hide()
-            self.tableWidget.removeColumn(0)
-            # self.tableWidget.setColumnCount(4)
             item = QTableWidgetItem()
             item.setText(self.translate("MainWindow", "Throughput/Mbps"))
-            self.tableWidget.setHorizontalHeaderItem(0, item)
-            self.tableWidget.setColumnWidth(0, 110)
-            self.tableWidget.setColumnWidth(1, 190)
-            self.tableWidget.setColumnWidth(2, 180)
+            self.stackedWidget.setCurrentIndex(0)
         elif p0 == '3':
             self.widget_iperf2.hide()
             self.widget_iperf3.show()
-            # self.tableWidget.setColumnCount(5)
-            self.tableWidget.insertColumn(0)
             item = QTableWidgetItem()
             item.setText(self.translate("MainWindow", "Tx/Mbps"))
-            self.tableWidget.setHorizontalHeaderItem(0, item)
             item = QTableWidgetItem()
             item.setText(self.translate("MainWindow", "Rx/Mpbs"))
-            self.tableWidget.setHorizontalHeaderItem(1, item)
-            self.tableWidget.setColumnWidth(0, 60)
-            self.tableWidget.setColumnWidth(1, 60)
-            self.tableWidget.setColumnWidth(2, 180)
-            self.tableWidget.setColumnWidth(3, 180)
+            self.stackedWidget.setCurrentIndex(1)
         else:
             pass
+
+    @pyqtSlot(str)
+    def on_comboBox_pro_activated(self, p0):
+        """
+        Slot documentation goes here.
+
+        @param p0 DESCRIPTION
+        @type str
+        """
+        # TODO: not implemented yet
+        # raise NotImplementedError
+        self.protocol = p0
+        c_param = self.lineEdit_c_param.text()
+        if p0 == 'UDP' and ' -l' in c_param:
+            self.lineEdit_c_param.setText("-l 1024 -i 1")
+        else:
+            self.lineEdit_c_param.setText("-i 1")
 
     @pyqtSlot()
     def on_pushButton_a_clicked(self):
@@ -333,7 +349,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         """
         # TODO: not implemented yet
         # raise NotImplementedError
-        print("start")
         logging.info("start")
         self.label_error.clear()
         if self.iperfVer == "2":
@@ -362,8 +377,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if pro == "UDP":
             c_param = c_param + ' -u '
         c_p = self.spinBox_p.value()
-        if c_p > 0:
-            c_param = c_param + ' -p ' + str(self.spinBox_p.value())
+        if c_p > 1 and ' -P' not in c_param:
+            c_param = c_param + ' -P ' + str(self.spinBox_p.value())
         self.throughputdTh.setParam(self.iperfVer, c_ip, c_param, c_time, self.tDTh)
 
         if self.checkBox_cc.isChecked():
@@ -422,6 +437,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if fileName:
             self.label_path.setText(fileName.replace('/', '\\'))
             self.rowCount = 0
+            self.rowC2 = 0
+            self.rowC3 = 0
             self.clearTableWidgetEntry(self.tableWidget)
 
     @pyqtSlot()
@@ -448,15 +465,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # TODO: not implemented yet
         # raise NotImplementedError
         self.label_error_c.clear()
-
+        c_param = self.lineEdit_c_param.text()
         if self.iperfVer == '2':
             self.label_res_th.clear()
+            for p in OPTION[1]:
+                if p in c_param and not OPTION[0].count(p)and not OPTION[2].count(p):
+                    self.label_error_c.setText("参数填写错误")
         elif self.iperfVer == '3':
             self.label_res_rx.clear()
             self.label_res_tx.clear()
-
-        c_param = self.lineEdit_c_param.text()
-        # print(c_param)
+            for p in OPTION3[1]:
+                if p in c_param and not OPTION3[0].count(p) and not OPTION3[2].count(p):
+                    self.label_error_c.setText("参数填写错误")
         if '-t ' in c_param:
             self.lineEdit_c_param.clear()
             self.label_error_c.setText("iperf 参数无法设置-t 测试时间参数，请重新设置")
@@ -821,6 +841,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def appendTB(self, p0):
         self.textBrowser.append(p0)
+    
 
 
 
@@ -835,6 +856,7 @@ class ThroughputThread(QThread):
         self.cmd = ''
         self.iperfVer = "2"
         self.pResult = False
+        self.maxlen = 10
 
     def setParam(self, iperfVer, c_ip, param, tTime, tDTh):
         self.iperfVer = iperfVer
@@ -843,16 +865,23 @@ class ThroughputThread(QThread):
         self.tTime = tTime
         self.tDTh = tDTh
         self.tDTh.signal_TimeOver.connect(self.timeOver)
-        if " -P " in self.cmd:
-            self.pResult = True
-        else:
-            self.pResult = False
 
-    def timeOver(self):
-        time.sleep(5)
-        if not self.stopBool:
-            self.stop()
-            self.signal_result.emit(("fail",))
+        p = re.findall(r'-P[ ]?([\d])+', param)
+        if p:
+            p = int(p[0])
+            if p < 5:
+                self.maxlen = 10
+            else:
+                self.maxlen = 2*p
+
+    def timeOver(self, p0):
+        if p0 == "stop":
+            if ' -d' in self.param and not self.stopBool:
+                self.close()
+                return
+            if not self.stopBool:
+                self.close()
+                self.signal_result.emit(("fail",))
 
     def run(self):
 
@@ -906,78 +935,169 @@ class ThroughputThread(QThread):
                                         shell=True)
 
     def getIperfResult(self):
-        tmp = ''
+        lines = deque(maxlen=self.maxlen)
+        result = []
+        now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
         while not self.stopBool:
             out = str(self.process.stdout.readline(), encoding="gb2312", errors="ignore")
             print("out:", out)
-            self.signal_tb.emit(out)
             if not out:
                 break
             elif "read failed" in out or "connect failed" in out \
-                    or "WARNING: did not receive ack of last datagram after 10 tries" in out \
                     or "iperf: ignoring extra argument" in out \
                     or "write failed: Connection reset by peer" in out \
                     or "write failed: Software caused connection abort" in out \
+                    or "recvfrom failed: Interrupted function call" in out \
                     or "read failed: Message too long" in out:
                 self.signal_result.emit(("connect fail",))
                 self.close()
                 return
-
-            if "0.0-"+str(self.tTime)+'.' in out:
-                if self.pResult and "[SUM]" in out:
-                    tmp = out
-                elif not self.pResult:
-                    tmp = out
-        print("tmp", tmp)
-        result = None
-        if "0.0-"+str(self.tTime)+'.' in tmp:
-            if ' -d ' in self.param:
-                pass
             else:
-                result = re.findall(r'[\d.]* \w*/sec', tmp)[0].split(' ')[0]
-                self.signal_result.emit(("result", result))
+                lines.append(out)
+            self.signal_tb.emit(out)
+
+        if ' -u ' in self.param and ' -P' in self.param:
+            tag = False
+            s_result = []
+            for line in lines:
+                if 'Server Report:' in line:
+                    tag = True
+                elif "0.0-"+str(self.tTime)+'.' in line and tag:
+                    s_result = re.findall(r'[\d.]* \w*/sec|[\d.]* \w*ms|[\d]*%', line)
+                    tag = False
+                    if len(result) >= 1:
+                        s_result[0] = s_result[0].split(' ')[0]
+                        if len(result) >= 2:
+                            s_result[1] = s_result[1].split(' ')[0]
+                        else:
+                            s_result.extend(['', ''])
+                elif "[SUM]" in line and "0.0-"+str(self.tTime)+'.' in line:
+                    result.extend(re.findall(r'[\d.]* \w*/sec|[\d.]* \w*ms|[\d]*%', line))
+                    if len(result) >= 1:
+                        result[0] = result[0].split(' ')[0]
+                        if len(result) >= 2:
+                            result[1] = result[1].split(' ')[0]
+                        else:
+                            result.extend(['', ''])
+                else:
+                    pass
+
+            if result and s_result:
+                result.extend(s_result)
+                result.extend(['', now, ''])
+                result.insert(0, 'UDP')
+            elif result:
+                result.extend(['', '', '', '', now, ''])
+                result.insert(0, 'UDP')
+            elif s_result:
+                result.extend(['', '', ''])
+                result.extend(s_result)
+                result.extend(['', now, ''])
+                result.insert(0, 'UDP')
+            else:
+                pass
+        elif ' -u ' in self.param:
+            tag = False
+            s_result = []
+            for line in lines:
+                if 'Server Report:' in line:
+                    tag = True
+                elif "0.0-"+str(self.tTime)+'.' in line:
+                    if tag:
+                        s_result = re.findall(r'[\d.]* \w*/sec|[\d.]* \w*ms|[\d]*%', line)
+                        tag = False
+                        if len(result) >= 1:
+                            s_result[0] = s_result[0].split(' ')[0]
+                            if len(result) >= 2:
+                                s_result[1] = s_result[1].split(' ')[0]
+                            else:
+                                s_result.extend(['', ''])
+                    else:
+                        result.extend(re.findall(r'[\d.]* \w*/sec|[\d.]* \w*ms|[\d]*%', line))
+                        if len(result) >= 1:
+                            result[0] = result[0].split(' ')[0]
+                            if len(result) >= 2:
+                                result[1] = result[1].split(' ')[0]
+                            else:
+                                result.extend(['', ''])
+                else:
+                    pass
+
+            if result and s_result:
+                result.extend(s_result)
+                result.extend(['', now, ''])
+                result.insert(0, 'UDP')
+            elif result:
+                result.extend(['', '', '', '', now, ''])
+                result.insert(0, 'UDP')
+            elif s_result:
+                result.extend(['', '', ''])
+                result.extend(s_result)
+                result.extend(['', now, ''])
+                result.insert(0, 'UDP')
+            else:
+                pass
+        elif ' -P' in self.param:
+            for line in lines:
+                if "[SUM]" in "0.0-"+str(self.tTime)+'.' in line:
+                    result.extend(['TCP', re.findall(r'([\d.]*) \w*/sec', line)[0], '', '', '', '', '', '', now, ''])
         else:
-            self.signal_result.emit(("fail",))
+            for line in lines:
+                if "0.0-"+str(self.tTime)+'.' in line:
+                    result.extend(['TCP', re.findall(r'([\d.]*) \w*/sec', line)[0], '', '', '', '', '', '', now, ''])
+
+        self.signal_result.emit(("result", result))
 
     def getIperf3Result(self):
-        tmp = []
-        while not self.stopBool:
+        lines = deque(maxlen=self.maxlen)
+        result = []
+        now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
+        while not self.stopBool:
             out = str(self.process.stdout.readline(), encoding="gb2312", errors="ignore")
             print("out:", out)
-            self.signal_tb.emit(out)
             if not out:
                 break
             elif "read failed" in out or "connect failed" in out \
-                    or "WARNING: did not receive ack of last datagram after 10 tries" in out \
                     or "iperf3: error" in out:
                 self.close()
                 self.signal_result.emit(("connect fail",))
                 return
-            elif "0.00-"+str(self.tTime)+'.' in out:
-                if self.pResult and "[SUM]" in out:
-                    tmp.append(out)
-                elif not self.pResult:
-                    tmp.append(out)
-        print("tmp", tmp)
-        sender = None
-        receiver = None
-        for line in tmp:
-            if ' -d ' in self.param:
-                pass
             else:
+                lines.append(out)
+            self.signal_tb.emit(out)
+            self.process.stdout.flush()
+        if ' -u ' in self.param and ' -P' in self.param:
+            pass
+        elif ' -u ' in self.param:
+            pass
+        elif ' -P' in self.param:
+            for line in lines:
+                if "[SUM]" in line and "sender" in line:
+                    result.append(re.findall(r'[\d.]* \w*/sec', line)[0].split(' ')[0])
+                elif "[SUM]" in line and "receiver" in line:
+                    result.append(re.findall(r'[\d.]* \w*/sec', line)[0].split(' ')[0])
+            if result:
+                result.insert(0, 'TCP')
+                result.extend(['', '', '', now, ''])
+        else:
+            for line in lines:
                 if "sender" in line:
-                    sender = re.findall(r'[\d.]* \w*/sec', line)[0].split(' ')[0]
+                    result.append(re.findall(r'[\d.]* \w*/sec', line)[0].split(' ')[0])
                 elif "receiver" in line:
-                    receiver = re.findall(r'[\d.]* \w*/sec', line)[0].split(' ')[0]
-        self.signal_result.emit(("result", sender, receiver))
+                    result.append(re.findall(r'[\d.]* \w*/sec', line)[0].split(' ')[0])
+            if result:
+                result.insert(0, 'TCP')
+                result.extend(['', '', '', now, ''])
+
+        self.signal_result.emit(("result", result))
 
 
 class TimeDownThread(QThread):
 
     signal_Time = pyqtSignal(int)
-    signal_TimeOver = pyqtSignal()
+    signal_TimeOver = pyqtSignal(str)
 
     def __init__(self, parent=None):
         super(TimeDownThread, self).__init__(parent)
@@ -1003,7 +1123,10 @@ class TimeDownThread(QThread):
             else:
                 time.sleep(5)
                 self.tTime = self.tTime - 5
-        self.signal_TimeOver.emit()
+        self.signal_TimeOver.emit('over')
+
+        time.sleep(5)
+        self.signal_TimeOver.emit('stop')
 
     def stop(self):
         self.stopBool = True
@@ -1092,6 +1215,22 @@ def runSSH(signal_sRes, signal_index, index, opp, ip, user, passwd, cmd, res_re)
 
     if "运行前" in opp:
         signal_index.emit()
+
+class ExcelThread(QThread):
+
+    def __init__(self, parent=None):
+        super(ExcelThread, self).__init__(parent)
+
+    def setParam(self, filePath=None, sheetName=None, *args):
+        self.filePath = filePath
+        self.sheetName = sheetName
+        self.args = args
+
+    def run(self):
+        if self.filePath and self.sheetName:
+            writeExcel(self.filePath, self.sheetName, self.args)
+        self.filePath = None
+        self.sheetName = None
 
 
 if __name__ == "__main__":

@@ -16,3 +16,4 @@ dist/
 log/
 *.spec
 test*
+test.py
