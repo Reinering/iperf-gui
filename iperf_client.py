@@ -23,6 +23,8 @@ from Ui_iperf_client import Ui_MainWindow
 from script_more import Dialog
 import logging
 from collections import deque
+import requests
+import json
 
 OPTION = (('-f', '-i', '-l', '-m', '-o', '-p', '-u', '-w', '-B', '-C', '-M', '-N', '-V'),
           ('-s', '-D', '-R'),
@@ -38,6 +40,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     """
     Class documentation goes here.
     """
+
     def __init__(self, parent=None):
         """
         Constructor
@@ -48,6 +51,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         super(MainWindow, self).__init__(parent)
         self.setupUi(self)
         self.translate = QCoreApplication.translate
+        self.stopBool = False
         self.cc_state = False
         self.save_state = False
         self.filePath = ''
@@ -67,6 +71,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.rowC2 = 0
         self.rowC3 = 0
         self.isScript = False
+        self.isReport = False
         self.scriptNum = 1
         self.scriptKey = 0
         self.isScrollDown = False
@@ -78,6 +83,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.tabWidget.setTabEnabled(3, False)
         self.tabWidget.setCurrentIndex(0)
         self.stackedWidget.setCurrentIndex(0)
+        self.textBrowser_v3.hide()
         self.widget_iperf3.hide()
         self.label_countDown.setText('0')
         self.pushButton_s.setEnabled(False)
@@ -90,6 +96,28 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                                                   self.lineEdit_script_ip, self.comboBox_serial, self.pushButton_script_more, self.label_13, self.comboBox_opp,
                                                   self.horizontalLayout_18, self.label_17, self.lineEdit_script, self.horizontalLayout_17, self.label_18,
                                                   self.lineEdit_re, {'baudbit': 115200, 'user': 'root', 'passwd': 'nE7jA%5m'}]
+        self.tableWidget_ver2.setColumnHidden(4, True)
+        self.tableWidget_ver2.setColumnHidden(5, True)
+        self.tableWidget_ver2.setColumnHidden(6, True)
+        self.tableWidget_ver2.setColumnWidth(0, 60)
+        self.tableWidget_ver2.setColumnWidth(1, 120)
+        self.tableWidget_ver2.setColumnWidth(2, 40)
+        self.tableWidget_ver2.setColumnWidth(3, 60)
+        self.tableWidget_ver2.setColumnWidth(4, 120)
+        self.tableWidget_ver2.setColumnWidth(5, 40)
+        self.tableWidget_ver2.setColumnWidth(6, 60)
+        self.tableWidget_ver2.setColumnWidth(7, 70)
+        self.tableWidget_ver2.setColumnWidth(8, 120)
+        self.tableWidget_ver2.setColumnWidth(9, 50)
+        self.tableWidget_ver3.setColumnWidth(0, 60)
+        self.tableWidget_ver3.setColumnWidth(1, 60)
+        self.tableWidget_ver3.setColumnWidth(2, 60)
+        self.tableWidget_ver3.setColumnWidth(3, 40)
+        self.tableWidget_ver3.setColumnWidth(4, 60)
+        self.tableWidget_ver3.setColumnWidth(5, 70)
+        self.tableWidget_ver3.setColumnWidth(6, 120)
+        self.tableWidget_ver3.setColumnWidth(7, 50)
+
 
         self.label_count = QLabel()
         font = QFont()
@@ -100,6 +128,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.statusBar.addPermanentWidget(self.label_count)
         self.on_pushButton_refresh_clicked()
         self.statusBar.showMessage('Ready')
+
+        self.lineEdit_c_ip.setText("192.168.1.81")
 
     def setTabState(self, checked):
         self.tabWidget.setTabEnabled(1, checked)
@@ -165,39 +195,45 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         elif "fail" == p0[0]:
             self.label_error.setText("吞吐量测试， 测试失败，未获取到测试结果")
             self.failTotal += 1
-        elif "result" == p0[0] and p0[1]:
-            result = p0[1]
-            self.label_error.setText(self.translate("GeneralWindow", "吞吐量测试已完成"))
-            if self.iperfVer == "3":
-                if self.protocol == "UDP":
-                    pass
-                else:
+        elif "result" == p0[0]:
+            if p0[1]:
+                result = p0[1]
+                self.label_error.setText(self.translate("GeneralWindow", "吞吐量测试已完成"))
+                if self.iperfVer == "3":
+                    if self.protocol == "UDP":
+                        pass
                     self.label_res_tx.setText(self.translate("GeneralWindow", result[1] + ' Mbps'))
                     self.label_res_rx.setText(self.translate("GeneralWindow", result[2] + ' Mbps'))
-                self.addInfo(self.tableWidget_ver3, result)
-                if self.save_state:
-                    self.excelTh.setParam(self.filePath, 'iperf3', p0)
-                    self.excelTh.start()
-                    self.rowC3 += 1
+                    self.addInfo(self.tableWidget_ver3, result)
+                    if self.save_state:
+                        self.excelTh.setParam(self.filePath, 'iperf3', self.rowC3, result)
+                        self.excelTh.start()
+                        self.rowC3 += 1
+                else:
+                    if self.protocol == "UDP":
+                        pass
+                    self.label_res_th.setText(self.translate("GeneralWindow", result[1] + ' Mbps'))
+                    self.addInfo(self.tableWidget_ver2, result)
+                    if self.save_state:
+                        self.excelTh.setParam(self.filePath, 'iperf', self.rowC2, result)
+                        self.excelTh.start()
+                        self.rowC2 += 1
+                if self.isReport:
+                    self.reportTh.setData(self.iperfVer, result)
+                    self.reportTh.start()
             else:
-                if self.protocol == "UDP":
-                    pass
-                self.label_res_th.setText(self.translate("GeneralWindow", result[1] + ' Mbps'))
-                self.addInfo(self.tableWidget_ver2, result)
-                if self.save_state:
-                    self.excelTh.setParam(self.filePath, 'iperf', self.rowC2, p0)
-                    self.excelTh.start()
-                    self.rowC2 += 1
+                self.failTotal += 1
+                self.label_error.setText(self.translate("GeneralWindow", "吞吐量测试， 测试失败，未获取到测试结果"))
 
         self.total += 1
         self.statusBar.showMessage('Stop')
         self.cCount -= 1
-        if self.cCount > 0:
+        if self.cCount > 0 and not self.stopBool:
             self.label_count.setText('(循环剩余：{}次)  共计：{}次  成功：{}次  失败：{}次'.format(self.cCount, self.total, self.total-self.failTotal, self.failTotal))
             print("循环等待中", self.cCount)
             self.label_error.setText("等待中...")
             cInterval = self.spinBox_cInterval.value()
-            if cInterval < 5:
+            if cInterval < 5 and not self.stopBool:
                 self.cctdTh.setTime(5, 0)
             else:
                 self.cctdTh.setTime(self.spinBox_cInterval.value(), 0)
@@ -208,22 +244,24 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.pushButton_a.setEnabled(True)
             self.pushButton_s.setEnabled(False)
             self.statusBar.showMessage('Finish', 5000)
+            self.stopBool = True
 
     def recieveIntervCC(self):
-        if self.isScript:
-            self.index = 0
-            self.scriptTh.start()
-            if self.waitNum == 0:
+        if not self.stopBool:
+            if self.isScript:
+                self.index = 0
+                self.scriptTh.start()
+                if self.waitNum == 0:
+                    self.throughputdTh.start()
+                    self.statusBar.showMessage('Start')
+            else:
                 self.throughputdTh.start()
                 self.statusBar.showMessage('Start')
-        else:
-            self.throughputdTh.start()
-            self.statusBar.showMessage('Start')
-        # if self.iperfVer == "2":
-        #     self.label_res_th.clear()
-        # elif self.iperfVer == "3":
-        #     self.label_res_rx.clear()
-        #     self.label_res_tx.clear()
+                if self.iperfVer == "2":
+                    self.label_res_th.clear()
+                elif self.iperfVer == "3":
+                    self.label_res_rx.clear()
+                    self.label_res_tx.clear()
 
     def getScriptArgs(self):
         if self.isScript:
@@ -311,12 +349,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if p0 == '2':
             self.widget_iperf2.show()
             self.widget_iperf3.hide()
+            self.textBrowser_v2.show()
+            self.textBrowser_v3.hide()
             item = QTableWidgetItem()
             item.setText(self.translate("MainWindow", "Throughput/Mbps"))
             self.stackedWidget.setCurrentIndex(0)
         elif p0 == '3':
             self.widget_iperf2.hide()
             self.widget_iperf3.show()
+            self.textBrowser_v2.hide()
+            self.textBrowser_v3.show()
             item = QTableWidgetItem()
             item.setText(self.translate("MainWindow", "Tx/Mbps"))
             item = QTableWidgetItem()
@@ -336,11 +378,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # TODO: not implemented yet
         # raise NotImplementedError
         self.protocol = p0
-        c_param = self.lineEdit_c_param.text()
-        if p0 == 'UDP' and ' -l' in c_param:
-            self.lineEdit_c_param.setText("-l 1024 -i 1")
+        # c_param = self.lineEdit_c_param.text()
+        if p0 == 'UDP':
+            self.tableWidget_ver2.setColumnHidden(4, False)
+            self.tableWidget_ver2.setColumnHidden(5, False)
+            self.tableWidget_ver2.setColumnHidden(6, False)
+            self.lineEdit_c_param.setText("-i 1")
         else:
             self.lineEdit_c_param.setText("-i 1")
+            self.tableWidget_ver2.setColumnHidden(4, True)
+            self.tableWidget_ver2.setColumnHidden(5, True)
+            self.tableWidget_ver2.setColumnHidden(6, True)
+            self.lineEdit_c_param.setText("-l 1024 -i 1")
 
     @pyqtSlot()
     def on_pushButton_a_clicked(self):
@@ -350,6 +399,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # TODO: not implemented yet
         # raise NotImplementedError
         logging.info("start")
+        self.stopBool = False
         self.label_error.clear()
         if self.iperfVer == "2":
             self.label_res_th.clear()
@@ -384,6 +434,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if self.checkBox_cc.isChecked():
             self.cCount = self.spinBox_cCount.value()
 
+        if self.isReport:
+            ipPort = self.lineEdit_report_ip.text()
+            if not ipPort:
+                self.label_error_t.setText("结果上报：IP:PORT不能为空")
+                return
+            uri = self.lineEdit_report_uri.text()
+            if not uri:
+                uri = '/'
+            self.reportTh.setParam(self.comboBox_report_proto.currentText(), self.comboBox_report_method.currentText(), ipPort, uri, self.comboBox_report_formart.currentText())
+
         if self.isScript:
             self.index = 0
             self.args, self.waitNum = self.getScriptArgs()
@@ -406,6 +466,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # TODO: not implemented yet
         # raise NotImplementedError
         logging.info("stop...")
+        self.stopBool = True
         try:
             self.throughputdTh.close()
             if self.checkBox_cc.isChecked():
@@ -413,12 +474,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.cctdTh.stop()
             if self.isScript:
                 self.scriptTh.stop()
+            self.label_error.setText("已停止")
         except Exception as e:
             print(e)
             logging.error(e)
 
-        # self.statusBar.showMessage('Stop')
-        # self.setTabState(True)
+        self.statusBar.showMessage('Stop')
+        self.setTabState(True)
         self.pushButton_a.setEnabled(True)
         self.pushButton_s.setEnabled(False)
 
@@ -453,7 +515,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if c_ip == '':
             return
         if not re.match(r'^((2(5[0-5]|[0-4]\d))|[0-1]?\d{1,2})(\.((2(5[0-5]|[0-4]\d))|[0-1]?\d{1,2})){3}$', c_ip):
-            self.lineEdit_c_ip.clear()
             self.label_error_c.setText("IP地址格式错误，请重新输入")
             return
 
@@ -842,6 +903,45 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def appendTB(self, p0):
         self.textBrowser.append(p0)
     
+    @pyqtSlot(bool)
+    def on_checkBox_report_clicked(self, checked):
+        """
+        Slot documentation goes here.
+        
+        @param checked DESCRIPTION
+        @type bool
+        """
+        # TODO: not implemented yet
+        # raise NotImplementedError
+        self.groupBox_report.setEnabled(checked)
+        self.isReport = checked
+        if checked:
+            self.reportTh = ReportThread()
+        else:
+            try:
+                del self.reportTh
+            except Exception as e:
+                print(e)
+
+    @pyqtSlot()
+    def on_lineEdit_report_ip_editingFinished(self):
+        """
+        Slot documentation goes here.
+        """
+        # TODO: not implemented yet
+        # raise NotImplementedError
+        self.label_error_t.clear()
+        r_ip = self.lineEdit_report_ip.text()
+        if r_ip == '':
+            return
+        if not re.match(r'^((2(5[0-5]|[0-4]\d))|[0-1]?\d{1,2})(\.((2(5[0-5]|[0-4]\d))|[0-1]?\d{1,2})){3}:(?:[1-9]\d{1,3}|[1-5]\d{4}|6[0-4]\d{3}|65[0-4]\d{2}|655[0-2]\d|6553[0-5])$', r_ip):
+            self.label_error_t.setText("IP:PORT地址格式错误，请重新输入")
+            return
+
+
+
+
+
 
 
 
@@ -881,7 +981,7 @@ class ThroughputThread(QThread):
                 return
             if not self.stopBool:
                 self.close()
-                self.signal_result.emit(("fail",))
+                # self.signal_result.emit(("fail",))
 
     def run(self):
 
@@ -1071,21 +1171,37 @@ class ThroughputThread(QThread):
         if ' -u ' in self.param and ' -P' in self.param:
             pass
         elif ' -u ' in self.param:
-            pass
+            for line in lines:
+                if "0.00-"+str(self.tTime)+'.' in line:
+                    result.extend(re.findall(r'[\d.]* \w*/sec|[\d.]* \w*ms|[\d]*%', line))
+                    if len(result) >= 1:
+                        result[0] = result[0].split(' ')[0]
+                        if len(result) >= 2:
+                            result[1] = result[1].split(' ')[0]
+                        else:
+                            result.extend(['', ''])
+                if ' -R ' in self.param:
+                    result.insert(1, '')
+                else:
+                    result.insert(0, '')
+            if result:
+                result.insert(0, 'UDP')
+                result.extend(['', now, ''])
+
         elif ' -P' in self.param:
             for line in lines:
-                if "[SUM]" in line and "sender" in line:
+                if "[SUM]" in line and "sender" in line and "0.00-"+str(self.tTime)+'.' in line:
                     result.append(re.findall(r'[\d.]* \w*/sec', line)[0].split(' ')[0])
-                elif "[SUM]" in line and "receiver" in line:
+                elif "[SUM]" in line and "receiver" in line and "0.00-"+str(self.tTime)+'.' in line:
                     result.append(re.findall(r'[\d.]* \w*/sec', line)[0].split(' ')[0])
             if result:
                 result.insert(0, 'TCP')
                 result.extend(['', '', '', now, ''])
         else:
             for line in lines:
-                if "sender" in line:
+                if "sender" in line and "0.00-"+str(self.tTime)+'.' in line:
                     result.append(re.findall(r'[\d.]* \w*/sec', line)[0].split(' ')[0])
-                elif "receiver" in line:
+                elif "receiver" in line and "0.00-"+str(self.tTime)+'.' in line:
                     result.append(re.findall(r'[\d.]* \w*/sec', line)[0].split(' ')[0])
             if result:
                 result.insert(0, 'TCP')
@@ -1131,6 +1247,7 @@ class TimeDownThread(QThread):
     def stop(self):
         self.stopBool = True
 
+
 class ScriptThread(QThread):
 
     signal_sRes = pyqtSignal(tuple)
@@ -1157,7 +1274,7 @@ class ScriptThread(QThread):
                 print('arg ', arg)
                 if arg[0] == self.opp[i]:
                     if "SSH" in arg[1]:
-                        s = threading.Thread(runSSH, args=(self.signal_sRes, self.signal_index, index, arg[0], arg[2], arg[-1][1], arg[-1][2], arg[3], arg[4]))
+                        s = threading.Thread(self.runSSH, args=(self.signal_sRes, self.signal_index, index, arg[0], arg[2], arg[-1][1], arg[-1][2], arg[3], arg[4]))
                         s.start()
                     elif "TELNET" in arg[1]:
                         tl = threading.Thread(self.runTelnet, args=(index, arg[0], arg[2], arg[-1][1], arg[-1][2], arg[3], arg[4]))
@@ -1197,24 +1314,156 @@ class ScriptThread(QThread):
 
     def runTelnet(self, index, opp, ip, user, passwd, cmd, res_re):
         print("run telnet")
-        if cmd:
-            pass
-        else:
+        if not cmd:
             self.signal_sRes.emit((index, 'Fail', ''))
+        else:
+            tl = Telnet()
+            tl.auth(ip, 23, user, passwd, ('root@OpenWrt:~#', 'Password:'))
+            tl.exec_cmd(cmd)
+            out = tl.read_very_lazy()
+            tl.close('exit')
+            p = re.findall(res_re, out)
+            self.signal_sRes.emit((index, 'success', p))
+        if "运行前" in opp:
+            self.signal_index.emit()
+
+    def runSSH(self, index, opp, ip, user, passwd, cmd, res_re):
+        print("run SSH")
+        if not cmd:
+            self.signal_sRes.emit((index, 'Fail', ''))
+        else:
+            ssh = SSH()
+            try:
+                ssh.authSSH(ip, 22, user, passwd)
+                out = ssh.exec_cmd(cmd)
+                ssh.close()
+                p = re.findall(res_re, out)
+                self.signal_sRes.emit((index, 'success', p))
+            except Exception as e:
+                print(e)
+                logging.error(e)
 
         if "运行前" in opp:
             self.signal_index.emit()
 
 
-def runSSH(signal_sRes, signal_index, index, opp, ip, user, passwd, cmd, res_re):
-    print("run SSH")
-    if cmd:
-        pass
-    else:
-        signal_sRes.emit((index, 'Fail', ''))
+class ReportThread(QThread):
 
-    if "运行前" in opp:
-        signal_index.emit()
+    def __init__(self, parent=None):
+        super(ReportThread, self).__init__(parent)
+
+    def setParam(self, proto, method, ipPort, uri, dataFormat):
+        self.proto = proto
+        self.method = method
+        self.ipPort = ipPort
+        self.uri = uri
+        self.headers = {
+            'Host': 'jzkjgroup.com',
+            'Accept': 'text/html, application/xhtml+xml, image/jxr, */*',
+            'Accept-Encoding': 'gzip, deflate, br',
+            'Accept-Language': 'zh-Hans-CN, zh-Hans; q=0.5',
+            'Conntent-Type': 'application/json; charset=utf-8',
+            'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36 QIHU 360SE',
+        }
+        self.dataFormat = dataFormat
+        if self.dataFormat == 'JSON':
+            self.headers['Conntent-Type'] = 'application/json; charset=utf-8'
+        elif self.dataFormat == 'TXT':
+            self.headers['Conntent-Type'] = 'text/html; charset=utf-8'
+        else:
+            pass
+
+    def setData(self, iperfVer, data):
+        self.data = data
+        self.iperfVer = iperfVer
+
+    def run(self):
+        if not self.data:
+            return
+        if self.dataFormat == 'JSON' or self.dataFormat == 'TXT':
+            self.data = json.dumps(self.data)
+
+        if self.proto == 'HTTP':
+            self.runHttp()
+        else:
+            pass
+
+        self.data = None
+
+    def runHttp(self):
+        url = "http://" + self.ipPort + self.uri + ('/' if self.uri[-1] != '/') + 'iperf' + self.iperfVer
+        count = 0
+        while count < 3:
+            try:
+                if self.method == 'POST':
+                    page = requests.post(url, self.data, headers=self.headers)
+                elif self.method == 'GET':
+                    page = requests.get(url, self.data, headers=self.headers)
+                elif self.method == 'PUT':
+                    page = requests.put(url, self.data, headers=self.headers)
+                else:
+                    return
+                if page.ok:
+                    break
+                else:
+                    raise requests.exceptions.BaseHTTPError
+            except requests.exceptions.ChunkedEncodingError as e:
+                time.sleep(5)
+                count += 1
+            except requests.exceptions.BaseHTTPError as e:
+                time.sleep(5)
+                count += 1
+
+def reportResult(proto, method, ipPort, uri, iperfVer, dataFormat, data):
+    headers = {
+        'Host': 'jzkjgroup.com',
+        'Accept': 'text/html, application/xhtml+xml, image/jxr, */*',
+        'Accept-Encoding': 'gzip, deflate, br',
+        'Accept-Language': 'zh-Hans-CN, zh-Hans; q=0.5',
+        'Conntent-Type': 'application/json; charset=utf-8',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36 QIHU 360SE',
+    }
+    if dataFormat == 'JSON':
+        headers['Conntent-Type'] = 'application/json; charset=utf-8'
+    elif dataFormat == 'TXT':
+        headers['Conntent-Type'] = 'text/html; charset=utf-8'
+    else:
+        pass
+
+    def runHttp(method, headers, url, data):
+        count = 0
+        while count < 3:
+            try:
+                if method == 'POST':
+                    page = requests.post(url, data, headers=headers)
+                elif method == 'GET':
+                    page = requests.get(url, data, headers=headers)
+                elif method == 'PUT':
+                    page = requests.put(url, data, headers=headers)
+                else:
+                    return
+                if page.ok:
+                    break
+                else:
+                    raise requests.exceptions.BaseHTTPError
+            except requests.exceptions.ChunkedEncodingError as e:
+                time.sleep(5)
+                count += 1
+            except requests.exceptions.BaseHTTPError as e:
+                time.sleep(5)
+                count += 1
+
+    if not data:
+        return
+    if dataFormat == 'JSON':
+        data = json.dumps(data)
+    url = "http://" + ipPort + uri + ('/' if uri[-1] != '/') + 'iperf' + iperfVer
+    if proto == 'HTTP':
+        runHttp(method, headers, url, data)
+    else:
+        pass
+
+
 
 class ExcelThread(QThread):
 
