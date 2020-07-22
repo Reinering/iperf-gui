@@ -195,6 +195,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         elif "fail" == p0[0]:
             self.label_error.setText("吞吐量测试， 测试失败，未获取到测试结果")
             self.failTotal += 1
+        elif "report" == p0[0]:
+            if p0[1]:
+                self.label_error.setText("测试结果上报成功")
+                self.textBrowser.append("测试结果上报成功")
+            else:
+                self.label_error.setText("测试结果上报失败")
+                self.textBrowser.append("测试结果上报失败")
+
         elif "result" == p0[0]:
             if p0[1]:
                 result = p0[1]
@@ -917,6 +925,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.isReport = checked
         if checked:
             self.reportTh = ReportThread()
+            self.reportTh.signal_result.connect(self.setThroughputResult)
         else:
             try:
                 del self.reportTh
@@ -1349,6 +1358,8 @@ class ScriptThread(QThread):
 
 class ReportThread(QThread):
 
+    signal_result = pyqtSignal(tuple)
+
     def __init__(self, parent=None):
         super(ReportThread, self).__init__(parent)
 
@@ -1404,7 +1415,8 @@ class ReportThread(QThread):
                 else:
                     return
                 if page.ok:
-                    break
+                    self.signal_result.emit(("report", True))
+                    return
                 else:
                     raise requests.exceptions.BaseHTTPError
             except requests.exceptions.ChunkedEncodingError as e:
@@ -1413,6 +1425,7 @@ class ReportThread(QThread):
             except requests.exceptions.BaseHTTPError as e:
                 time.sleep(5)
                 count += 1
+        self.signal_result.emit(("report", False))
 
 def reportResult(proto, method, ipPort, uri, iperfVer, dataFormat, data):
     headers = {
