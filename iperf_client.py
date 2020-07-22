@@ -1383,6 +1383,7 @@ class ReportThread(QThread):
             self.headers['Conntent-Type'] = 'text/html; charset=utf-8'
         else:
             pass
+        print("参数传递", self.ipPort)
 
     def setData(self, iperfVer, data):
         self.data = data
@@ -1391,6 +1392,7 @@ class ReportThread(QThread):
     def run(self):
         if not self.data:
             return
+
         if self.dataFormat == 'JSON' or self.dataFormat == 'TXT':
             self.data = json.dumps(self.data)
 
@@ -1402,12 +1404,12 @@ class ReportThread(QThread):
         self.data = None
 
     def runHttp(self):
-        url = "http://" + self.ipPort + self.uri + '/' if self.uri[-1] != '/' else '' + 'iperf' + self.iperfVer
+        url = "http://" + self.ipPort + self.uri + ('/' if self.uri[-1] != '/' else '') + 'iperf' + self.iperfVer
         count = 0
         while count < 3:
             try:
                 if self.method == 'POST':
-                    page = requests.post(url, self.data, headers=self.headers)
+                    page = requests.post(url, data=self.data, headers=self.headers)
                 elif self.method == 'GET':
                     page = requests.get(url, self.data, headers=self.headers)
                 elif self.method == 'PUT':
@@ -1426,6 +1428,24 @@ class ReportThread(QThread):
                 time.sleep(5)
                 count += 1
         self.signal_result.emit(("report", False))
+
+
+class ExcelThread(QThread):
+
+    def __init__(self, parent=None):
+        super(ExcelThread, self).__init__(parent)
+
+    def setParam(self, filePath=None, sheetName=None, *args):
+        self.filePath = filePath
+        self.sheetName = sheetName
+        self.args = args
+
+    def run(self):
+        if self.filePath and self.sheetName:
+            writeExcel(self.filePath, self.sheetName, self.args)
+        self.filePath = None
+        self.sheetName = None
+
 
 def reportResult(proto, method, ipPort, uri, iperfVer, dataFormat, data):
     headers = {
@@ -1470,7 +1490,7 @@ def reportResult(proto, method, ipPort, uri, iperfVer, dataFormat, data):
         return
     if dataFormat == 'JSON':
         data = json.dumps(data)
-    url = "http://" + ipPort + uri + '/' if uri[-1] != '/' else '' + 'iperf' + iperfVer
+    url = "http://" + ipPort + uri + ('/' if uri[-1] != '/' else '') + 'iperf' + iperfVer
     if proto == 'HTTP':
         runHttp(method, headers, url, data)
     else:
@@ -1478,21 +1498,6 @@ def reportResult(proto, method, ipPort, uri, iperfVer, dataFormat, data):
 
 
 
-class ExcelThread(QThread):
-
-    def __init__(self, parent=None):
-        super(ExcelThread, self).__init__(parent)
-
-    def setParam(self, filePath=None, sheetName=None, *args):
-        self.filePath = filePath
-        self.sheetName = sheetName
-        self.args = args
-
-    def run(self):
-        if self.filePath and self.sheetName:
-            writeExcel(self.filePath, self.sheetName, self.args)
-        self.filePath = None
-        self.sheetName = None
 
 
 if __name__ == "__main__":
