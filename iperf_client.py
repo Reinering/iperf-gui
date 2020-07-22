@@ -1391,7 +1391,7 @@ class ReportThread(QThread):
         self.data = None
 
     def runHttp(self):
-        url = "http://" + self.ipPort + self.uri + ('/' if self.uri[-1] != '/') + 'iperf' + self.iperfVer
+        url = "http://" + self.ipPort + self.uri + '/' if self.uri[-1] != '/' else '' + 'iperf' + self.iperfVer
         count = 0
         while count < 3:
             try:
@@ -1457,7 +1457,7 @@ def reportResult(proto, method, ipPort, uri, iperfVer, dataFormat, data):
         return
     if dataFormat == 'JSON':
         data = json.dumps(data)
-    url = "http://" + ipPort + uri + ('/' if uri[-1] != '/') + 'iperf' + iperfVer
+    url = "http://" + ipPort + uri + '/' if uri[-1] != '/' else '' + 'iperf' + iperfVer
     if proto == 'HTTP':
         runHttp(method, headers, url, data)
     else:
