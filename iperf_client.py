@@ -130,6 +130,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.statusBar.showMessage('Ready')
 
         self.lineEdit_c_ip.setText("192.168.1.81")
+        self.lineEdit_c_ip.setText("192.168.188.251")
 
     def setTabState(self, checked):
         self.tabWidget.setTabEnabled(1, checked)
@@ -215,9 +216,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 if self.iperfVer == "3":
                     if self.protocol == "UDP":
                         pass
-                    self.label_res_tx.setText(self.translate("GeneralWindow", result["tx"] + ' ' + result["Mbps"]))
-                    self.label_res_rx.setText(self.translate("GeneralWindow", result["rx"] + ' ' + result["Mbps"]))
-                    self.addInfo(self.tableWidget_ver3, result["proto"], result["tx"], result["rx"], result["loss"], result["delay"], result["direct"], result["time"], "")
+                    self.label_res_tx.setText(self.translate("GeneralWindow", result["tx"] + ' ' + result["unit"]))
+                    self.label_res_rx.setText(self.translate("GeneralWindow", result["rx"] + ' ' + result["unit"]))
+                    self.addInfo(self.tableWidget_ver3, (result["proto"], result["tx"], result["rx"], result["loss"], result["delay"], result["direct"], result["time"], ""))
                     if self.save_state:
                         self.excelTh.setParam(self.filePath, 'iperf3', self.rowC3, result)
                         self.excelTh.start()
@@ -225,8 +226,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     if self.protocol == "UDP":
                         pass
-                    self.label_res_th.setText(self.translate("GeneralWindow", result["throughput"] + ' ' + result["Mbps"]))
-                    self.addInfo(self.tableWidget_ver2, result["proto"], result["throughput"], result["loss"], result["delay"], result["direct"], result["time"], "")
+                    self.label_res_th.setText(self.translate("GeneralWindow", result["throughput"] + ' ' + result["unit"]))
+                    self.addInfo(self.tableWidget_ver2, (result["proto"], result["throughput"], result["loss"], result["delay"], result["direct"], result["time"], ""))
                     if self.save_state:
                         self.excelTh.setParam(self.filePath, 'iperf', self.rowC2, result)
                         self.excelTh.start()
@@ -241,7 +242,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                                 break
                             time.sleep(1)
                             count += 1
-                        self.reportTh.setData({"task": self.lineEdit_task.text(), "throughput": result, "script": self.scriptRes})
+                        self.reportTh.setData({"task": self.lineEdit_task.text(), "throughput": result, "script": self.scriptRes, })
                     else:
                         self.reportTh.setData({"task": self.lineEdit_task.text(), "throughput": result, "script": []})
                     self.reportTh.start()
@@ -1087,9 +1088,9 @@ class ThroughputThread(QThread):
     def getIperfResult(self):
         lines = deque(maxlen=self.maxlen)
         now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        result = {"iperfVer": 2, "proto": "", "throughput": "", "unit": "Mbps", "loss": "", "delay": "", "direct": "up", "time": now, }
+        result = {"iperfVer": 2, "proto": "", "throughput": "", "unit": "Mbps", "loss": "", "delay": "", "direct": "down", "time": now, }
         if "-R" in self.param:
-            result["direct"] = "down"
+            result["direct"] = "up"
 
         while not self.stopBool:
             out = str(self.process.stdout.readline(), encoding="gb2312", errors="ignore")
@@ -1176,7 +1177,7 @@ class ThroughputThread(QThread):
     def getIperf3Result(self):
         lines = deque(maxlen=self.maxlen)
         now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        result = {"iperfVer": 3, "proto": "", "rx": "", "tx": "", "unit": "Mbps", "loss": "", "delay": "", "direct": "down", "time": now, }
+        result = {"iperfVer": "3", "proto": "", "rx": "", "tx": "", "unit": "Mbps", "loss": "", "delay": "", "direct": "up", "time": now, }
         if "-R" in self.param:
             result["direct"] = "down"
 
@@ -1229,7 +1230,6 @@ class ThroughputThread(QThread):
 
         self.signal_result.emit(("result", result))
 
-
 class TimeDownThread(QThread):
 
     signal_Time = pyqtSignal(int)
@@ -1266,7 +1266,6 @@ class TimeDownThread(QThread):
 
     def stop(self):
         self.stopBool = True
-
 
 class ScriptThread(QThread):
 
@@ -1456,7 +1455,6 @@ class ReportThread(QThread):
                 count += 1
         self.signal_result.emit(("report", False))
 
-
 class ExcelThread(QThread):
 
     def __init__(self, parent=None):
@@ -1472,7 +1470,6 @@ class ExcelThread(QThread):
             writeExcel(self.filePath, self.sheetName, self.args)
         self.filePath = None
         self.sheetName = None
-
 
 def reportResult(proto, method, ipPort, uri, iperfVer, dataFormat, data):
     headers = {
