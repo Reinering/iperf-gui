@@ -253,6 +253,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.pushButton_s.setEnabled(False)
             self.statusBar.showMessage('Finish', 5000)
             self.stopBool = True
+            if not self.checkBox_lock.isChecked():
+                text = self.lineEdit_task.text()
+                tmp = text.split('_')
+                if len(tmp) <= 1:
+                    self.lineEdit_task.setText(tmp[0] + '_1')
+                else:
+                    try:
+                        self.lineEdit_task.setText(text.replace(tmp[-1], str(int(tmp[-1]) + 1)))
+                    except Exception as e:
+                        print(e)
+                        self.lineEdit_task.setText(text + '_1')
 
     def recieveIntervCC(self):
         if not self.stopBool:
@@ -447,7 +458,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             if not ipPort:
                 self.label_error_t.setText("结果上报：IP:PORT不能为空")
                 return
-            uri = self.lineEdit_report_uri.text()
+            uri = self.comboBox_report_uri.currentText()
             if not uri:
                 uri = '/'
             self.reportTh.setParam(self.comboBox_report_proto.currentText(), self.comboBox_report_method.currentText(), ipPort, uri, self.comboBox_report_formart.currentText())
@@ -946,7 +957,21 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if not re.match(r'^((2(5[0-5]|[0-4]\d))|[0-1]?\d{1,2})(\.((2(5[0-5]|[0-4]\d))|[0-1]?\d{1,2})){3}:(?:[1-9]\d{1,3}|[1-5]\d{4}|6[0-4]\d{3}|65[0-4]\d{2}|655[0-2]\d|6553[0-5])$', r_ip):
             self.label_error_t.setText("IP:PORT地址格式错误，请重新输入")
             return
-
+    
+    @pyqtSlot(bool)
+    def on_checkBox_lock_clicked(self, checked):
+        """
+        Slot documentation goes here.
+        
+        @param checked DESCRIPTION
+        @type bool
+        """
+        # TODO: not implemented yet
+        # raise NotImplementedError
+        if checked:
+            self.lineEdit_task.setEnabled(False)
+        else:
+            self.lineEdit_task.setEnabled(True)
 
 
 
