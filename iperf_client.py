@@ -179,6 +179,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         for i in range(row):
             tbWidget.removeRow(0)
 
+    def setScriptResult(self, p0):
+        if "script" == p0[0]:
+            self.scriptRes.append(p0[1])
+        else:
+            pass
+
     def setThroughputResult(self, p0):
         print("result", p0)
         if not p0:
@@ -202,7 +208,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 self.label_error.setText("测试结果上报失败")
                 self.textBrowser.append("测试结果上报失败")
-
         elif "result" == p0[0]:
             if p0[1]:
                 result = p0[1]
@@ -210,9 +215,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 if self.iperfVer == "3":
                     if self.protocol == "UDP":
                         pass
-                    self.label_res_tx.setText(self.translate("GeneralWindow", result[1] + ' Mbps'))
-                    self.label_res_rx.setText(self.translate("GeneralWindow", result[2] + ' Mbps'))
-                    self.addInfo(self.tableWidget_ver3, result)
+                    self.label_res_tx.setText(self.translate("GeneralWindow", result["tx"] + ' ' + result["Mbps"]))
+                    self.label_res_rx.setText(self.translate("GeneralWindow", result["rx"] + ' ' + result["Mbps"]))
+                    self.addInfo(self.tableWidget_ver3, result["proto"], result["tx"], result["rx"], result["loss"], result["delay"], result["direct"], result["time"], "")
                     if self.save_state:
                         self.excelTh.setParam(self.filePath, 'iperf3', self.rowC3, result)
                         self.excelTh.start()
@@ -220,14 +225,25 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     if self.protocol == "UDP":
                         pass
-                    self.label_res_th.setText(self.translate("GeneralWindow", result[1] + ' Mbps'))
-                    self.addInfo(self.tableWidget_ver2, result)
+                    self.label_res_th.setText(self.translate("GeneralWindow", result["throughput"] + ' ' + result["Mbps"]))
+                    self.addInfo(self.tableWidget_ver2, result["proto"], result["throughput"], result["loss"], result["delay"], result["direct"], result["time"], "")
                     if self.save_state:
                         self.excelTh.setParam(self.filePath, 'iperf', self.rowC2, result)
                         self.excelTh.start()
                         self.rowC2 += 1
+
+
                 if self.isReport:
-                    self.reportTh.setData(self.iperfVer, result)
+                    if self.isScript:
+                        count = 0
+                        while count < 5:
+                            if self.index == len(self.args):
+                                break
+                            time.sleep(1)
+                            count += 1
+                        self.reportTh.setData({"task": self.lineEdit_task.text(), "throughput": result, "script": self.scriptRes})
+                    else:
+                        self.reportTh.setData({"task": self.lineEdit_task.text(), "throughput": result, "script": []})
                     self.reportTh.start()
             else:
                 self.failTotal += 1
@@ -322,6 +338,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         print("STARTING")
         self.index += 1
         if self.index == self.waitNum:
+            time.sleep(5)
             self.throughputdTh.start()
 
     @pyqtSlot(bool)
@@ -468,6 +485,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.args, self.waitNum = self.getScriptArgs()
             self.scriptTh = ScriptThread(c_time, self.args)
             self.scriptTh.signal_index.connect(self.runThrouTh)
+            self.scriptTh.signal_sRes.connect(self.setScriptResult)
             self.scriptTh.start()
             if self.waitNum == 0:
                 self.throughputdTh.start()
@@ -611,6 +629,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.scrollArea.setEnabled(checked)
         self.pushButton_refresh.setEnabled(checked)
         self.isScript = checked
+        if checked:
+            self.scriptRes = []
     
     @pyqtSlot()
     def on_pushButton_script_add_clicked(self):
@@ -975,10 +995,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
 
 
-
-
-
-
 class ThroughputThread(QThread):
 
     signal_result = pyqtSignal(tuple)
@@ -1070,12 +1086,14 @@ class ThroughputThread(QThread):
 
     def getIperfResult(self):
         lines = deque(maxlen=self.maxlen)
-        result = []
         now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        result = {"iperfVer": 2, "proto": "", "throughput": "", "unit": "Mbps", "loss": "", "delay": "", "direct": "up", "time": now, }
+        if "-R" in self.param:
+            result["direct"] = "down"
 
         while not self.stopBool:
             out = str(self.process.stdout.readline(), encoding="gb2312", errors="ignore")
-            print("out:", out)
+            # print("out:", out)
             if not out:
                 break
             elif "read failed" in out or "connect failed" in out \
@@ -1092,105 +1110,79 @@ class ThroughputThread(QThread):
             self.signal_tb.emit(out)
 
         if ' -u ' in self.param and ' -P' in self.param:
+            result["proto"] = "udp"
             tag = False
-            s_result = []
             for line in lines:
                 if 'Server Report:' in line:
                     tag = True
                 elif "0.0-"+str(self.tTime)+'.' in line and tag:
-                    s_result = re.findall(r'[\d.]* \w*/sec|[\d.]* \w*ms|[\d]*%', line)
+                    tmp = re.findall(r'[\d.]* \w*/sec|[\d.]* \w*ms|[\d]*%', line)
                     tag = False
+                    if len(result) == 3:
+                        result["loss"] = tmp[2].split(' ')[0]
+                    if len(result) >= 2:
+                        result["delay"] = tmp[1].split(' ')[0]
                     if len(result) >= 1:
-                        s_result[0] = s_result[0].split(' ')[0]
-                        if len(result) >= 2:
-                            s_result[1] = s_result[1].split(' ')[0]
-                        else:
-                            s_result.extend(['', ''])
+                        result["throughput"] = tmp[0].split(' ')[0]
                 elif "[SUM]" in line and "0.0-"+str(self.tTime)+'.' in line:
-                    result.extend(re.findall(r'[\d.]* \w*/sec|[\d.]* \w*ms|[\d]*%', line))
+                    tmp = re.findall(r'[\d.]* \w*/sec|[\d.]* \w*ms|[\d]*%', line)
+                    if len(result) == 3:
+                        result["loss"] = tmp[2].split(' ')[0]
+                    if len(result) >= 2:
+                        result["delay"] = tmp[1].split(' ')[0]
                     if len(result) >= 1:
-                        result[0] = result[0].split(' ')[0]
-                        if len(result) >= 2:
-                            result[1] = result[1].split(' ')[0]
-                        else:
-                            result.extend(['', ''])
+                        result["throughput"] = tmp[0].split(' ')[0]
                 else:
                     pass
-
-            if result and s_result:
-                result.extend(s_result)
-                result.extend(['', now, ''])
-                result.insert(0, 'UDP')
-            elif result:
-                result.extend(['', '', '', '', now, ''])
-                result.insert(0, 'UDP')
-            elif s_result:
-                result.extend(['', '', ''])
-                result.extend(s_result)
-                result.extend(['', now, ''])
-                result.insert(0, 'UDP')
-            else:
-                pass
         elif ' -u ' in self.param:
+            result["proto"] = "udp"
             tag = False
-            s_result = []
             for line in lines:
                 if 'Server Report:' in line:
                     tag = True
                 elif "0.0-"+str(self.tTime)+'.' in line:
                     if tag:
-                        s_result = re.findall(r'[\d.]* \w*/sec|[\d.]* \w*ms|[\d]*%', line)
+                        tmp = re.findall(r'[\d.]* \w*/sec|[\d.]* \w*ms|[\d]*%', line)
                         tag = False
+                        if len(result) == 3:
+                            result["loss"] = tmp[2].split(' ')[0]
+                        if len(result) >= 2:
+                            result["delay"] = tmp[1].split(' ')[0]
                         if len(result) >= 1:
-                            s_result[0] = s_result[0].split(' ')[0]
-                            if len(result) >= 2:
-                                s_result[1] = s_result[1].split(' ')[0]
-                            else:
-                                s_result.extend(['', ''])
+                            result["throughput"] = tmp[0].split(' ')[0]
                     else:
-                        result.extend(re.findall(r'[\d.]* \w*/sec|[\d.]* \w*ms|[\d]*%', line))
+                        tmp = re.findall(r'[\d.]* \w*/sec|[\d.]* \w*ms|[\d]*%', line)
+                        if len(result) == 3:
+                            result["loss"] = tmp[2].split(' ')[0]
+                        if len(result) >= 2:
+                            result["delay"] = tmp[1].split(' ')[0]
                         if len(result) >= 1:
-                            result[0] = result[0].split(' ')[0]
-                            if len(result) >= 2:
-                                result[1] = result[1].split(' ')[0]
-                            else:
-                                result.extend(['', ''])
+                            result["throughput"] = tmp[0].split(' ')[0]
                 else:
                     pass
-
-            if result and s_result:
-                result.extend(s_result)
-                result.extend(['', now, ''])
-                result.insert(0, 'UDP')
-            elif result:
-                result.extend(['', '', '', '', now, ''])
-                result.insert(0, 'UDP')
-            elif s_result:
-                result.extend(['', '', ''])
-                result.extend(s_result)
-                result.extend(['', now, ''])
-                result.insert(0, 'UDP')
-            else:
-                pass
         elif ' -P' in self.param:
+            result["proto"] = "tcp"
             for line in lines:
                 if "[SUM]" in "0.0-"+str(self.tTime)+'.' in line:
-                    result.extend(['TCP', re.findall(r'([\d.]*) \w*/sec', line)[0], '', '', '', '', '', '', now, ''])
+                    result["throughput"] = re.findall(r'([\d.]*) \w*/sec', line)[0]
         else:
+            result["proto"] = "tcp"
             for line in lines:
                 if "0.0-"+str(self.tTime)+'.' in line:
-                    result.extend(['TCP', re.findall(r'([\d.]*) \w*/sec', line)[0], '', '', '', '', '', '', now, ''])
+                    result["throughput"] = re.findall(r'([\d.]*) \w*/sec', line)[0]
 
         self.signal_result.emit(("result", result))
 
     def getIperf3Result(self):
         lines = deque(maxlen=self.maxlen)
-        result = []
         now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        result = {"iperfVer": 3, "proto": "", "rx": "", "tx": "", "unit": "Mbps", "loss": "", "delay": "", "direct": "down", "time": now, }
+        if "-R" in self.param:
+            result["direct"] = "down"
 
         while not self.stopBool:
             out = str(self.process.stdout.readline(), encoding="gb2312", errors="ignore")
-            print("out:", out)
+            # print("out:", out)
             if not out:
                 break
             elif "read failed" in out or "connect failed" in out \
@@ -1203,43 +1195,37 @@ class ThroughputThread(QThread):
             self.signal_tb.emit(out)
             self.process.stdout.flush()
         if ' -u ' in self.param and ' -P' in self.param:
-            pass
-        elif ' -u ' in self.param:
-            for line in lines:
-                if "0.00-"+str(self.tTime)+'.' in line:
-                    result.extend(re.findall(r'[\d.]* \w*/sec|[\d.]* \w*ms|[\d]*%', line))
-                    if len(result) >= 1:
-                        result[0] = result[0].split(' ')[0]
-                        if len(result) >= 2:
-                            result[1] = result[1].split(' ')[0]
-                        else:
-                            result.extend(['', ''])
-                if ' -R ' in self.param:
-                    result.insert(1, '')
-                else:
-                    result.insert(0, '')
-            if result:
-                result.insert(0, 'UDP')
-                result.extend(['', now, ''])
-
-        elif ' -P' in self.param:
+            result["proto"] = "udp"
             for line in lines:
                 if "[SUM]" in line and "sender" in line and "0.00-"+str(self.tTime)+'.' in line:
-                    result.append(re.findall(r'[\d.]* \w*/sec', line)[0].split(' ')[0])
+                    result["tx"] = re.findall(r'[\d.]* \w*/sec', line)[0].split(' ')[0]
                 elif "[SUM]" in line and "receiver" in line and "0.00-"+str(self.tTime)+'.' in line:
-                    result.append(re.findall(r'[\d.]* \w*/sec', line)[0].split(' ')[0])
-            if result:
-                result.insert(0, 'TCP')
-                result.extend(['', '', '', now, ''])
+                    result["rx"] = re.findall(r'[\d.]* \w*/sec', line)[0].split(' ')[0]
+        elif ' -u ' in self.param:
+            result["proto"] = "udp"
+            for line in lines:
+                if "0.00-"+str(self.tTime)+'.' in line:
+                    tmp = re.findall(r'[\d.]* \w*/sec|[\d.]* \w*ms|[\d]*%', line)
+                    if len(result) == 3:
+                        result["loss"] = tmp[2].split(' ')[0]
+                    if len(result) >= 2:
+                        result["delay"] = tmp[1].split(' ')[0]
+                    if len(result) >= 1:
+                        result["throughput"] = tmp[0].split(' ')[0]
+        elif ' -P' in self.param:
+            result["proto"] = "tcp"
+            for line in lines:
+                if "[SUM]" in line and "sender" in line and "0.00-"+str(self.tTime)+'.' in line:
+                    result["tx"] = re.findall(r'[\d.]* \w*/sec', line)[0].split(' ')[0]
+                elif "[SUM]" in line and "receiver" in line and "0.00-"+str(self.tTime)+'.' in line:
+                    result["rx"] = re.findall(r'[\d.]* \w*/sec', line)[0].split(' ')[0]
         else:
+            result["proto"] = "tcp"
             for line in lines:
                 if "sender" in line and "0.00-"+str(self.tTime)+'.' in line:
-                    result.append(re.findall(r'[\d.]* \w*/sec', line)[0].split(' ')[0])
+                    result["tx"] = re.findall(r'[\d.]* \w*/sec', line)[0].split(' ')[0]
                 elif "receiver" in line and "0.00-"+str(self.tTime)+'.' in line:
-                    result.append(re.findall(r'[\d.]* \w*/sec', line)[0].split(' ')[0])
-            if result:
-                result.insert(0, 'TCP')
-                result.extend(['', '', '', now, ''])
+                    result["rx"] = re.findall(r'[\d.]* \w*/sec', line)[0].split(' ')[0]
 
         self.signal_result.emit(("result", result))
 
@@ -1311,10 +1297,10 @@ class ScriptThread(QThread):
                         s = threading.Thread(self.runSSH, args=(self.signal_sRes, self.signal_index, index, arg[0], arg[2], arg[-1][1], arg[-1][2], arg[3], arg[4]))
                         s.start()
                     elif "TELNET" in arg[1]:
-                        tl = threading.Thread(self.runTelnet, args=(index, arg[0], arg[2], arg[-1][1], arg[-1][2], arg[3], arg[4]))
+                        tl = threading.Thread(self.runTelnet, args=(self.signal_sRes, self.signal_index, index, arg[0], arg[2], arg[-1][1], arg[-1][2], arg[3], arg[4]))
                         tl.start()
                     elif "SERIAL" in arg[1]:
-                        ser = threading.Thread(self.runSerial, args=(index, arg[0], arg[3], arg[-1][0], arg[-1][1], arg[-1][2], arg[4], arg[5]))
+                        ser = threading.Thread(self.runSerial, args=(self.signal_sRes, self.signal_index, index, arg[0], arg[3], arg[-1][0], arg[-1][1], arg[-1][2], arg[4], arg[5]))
                         ser.start()
                     else:
                         pass
@@ -1329,7 +1315,7 @@ class ScriptThread(QThread):
     def runSerial(self, index, opp, com, bitNum, user, passwd, cmd, res_re):
         print("run serial")
         if not cmd:
-            self.signal_sRes.emit((index, 'Fail', ''))
+            self.signal_sRes.emit(("script", {"index": index, "opp": opp, "proto": "Serial", "com": com, "ip": "", "res": ""}))
         else:
             ser = Serial()
             try:
@@ -1338,33 +1324,46 @@ class ScriptThread(QThread):
                 ser.write(cmd)
                 out = ser.read()
                 p = re.findall(res_re, out)
-                self.signal_sRes.emit((index, 'success', p))
+                self.signal_sRes.emit(("script", {"index": index, "opp": opp, "proto": "Serial", "com": com, "ip": "", "res": p}))
             except Exception as e:
                 print(e)
                 logging.error(e)
-                self.signal_sRes.emit((index, 'Fail', ''))
-        if "运行前" in opp:
-            self.signal_index.emit()
+                self.signal_sRes.emit(("script", {"index": index, "opp": opp, "proto": "Serial", "com": com, "ip": "", "res": ""}))
+        if "运行前" == opp:
+            self.signal_index.emit(1)
+        elif "运行中" == opp:
+            self.signal_index.emit(2)
+        elif "运行后" == opp:
+            self.signal_index.emit(3)
 
     def runTelnet(self, index, opp, ip, user, passwd, cmd, res_re):
         print("run telnet")
         if not cmd:
-            self.signal_sRes.emit((index, 'Fail', ''))
+            self.signal_sRes.emit(("script", {"index": index, "opp": opp, "proto": "telnet", "com": "", "ip": ip, "res": ""}))
         else:
-            tl = Telnet()
-            tl.auth(ip, 23, user, passwd, ('root@OpenWrt:~#', 'Password:'))
-            tl.exec_cmd(cmd)
-            out = tl.read_very_lazy()
-            tl.close('exit')
-            p = re.findall(res_re, out)
-            self.signal_sRes.emit((index, 'success', p))
-        if "运行前" in opp:
-            self.signal_index.emit()
+            try:
+                tl = Telnet()
+                tl.auth(ip, 23, user, passwd, ('root@OpenWrt:~#', 'Password:'))
+                tl.exec_cmd(cmd)
+                out = tl.read_very_lazy()
+                tl.close('exit')
+                p = re.findall(res_re, out)
+                self.signal_sRes.emit(("script", {"index": index, "opp": opp, "proto": "telnet", "com": "", "ip": ip, "res": p}))
+            except Exception as e:
+                print(e)
+                logging.error(e)
+                self.signal_sRes.emit(("script", {"index": index, "opp": opp, "proto": "telnet", "com": "", "ip": ip, "res": p}))
+        if "运行前" == opp:
+            self.signal_index.emit("1")
+        elif "运行中" == opp:
+            self.signal_index.emit(2)
+        elif "运行后" == opp:
+            self.signal_index.emit(3)
 
     def runSSH(self, index, opp, ip, user, passwd, cmd, res_re):
         print("run SSH")
         if not cmd:
-            self.signal_sRes.emit((index, 'Fail', ''))
+            self.signal_sRes.emit(("script", {"index": index, "opp": opp, "proto": "ssh", "com": "", "ip": ip, "res": ""}))
         else:
             ssh = SSH()
             try:
@@ -1372,14 +1371,17 @@ class ScriptThread(QThread):
                 out = ssh.exec_cmd(cmd)
                 ssh.close()
                 p = re.findall(res_re, out)
-                self.signal_sRes.emit((index, 'success', p))
+                self.signal_sRes.emit(("script", {"index": index, "opp": opp, "proto": "ssh", "com": "", "ip": ip, "res": p}))
             except Exception as e:
                 print(e)
                 logging.error(e)
-
-        if "运行前" in opp:
-            self.signal_index.emit()
-
+                self.signal_sRes.emit(("script", {"index": index, "opp": opp, "proto": "ssh", "com": "", "ip": ip, "res": p}))
+        if "运行前" == opp:
+            self.signal_index.emit(1)
+        elif "运行中" == opp:
+            self.signal_index.emit(2)
+        elif "运行后" == opp:
+            self.signal_index.emit(3)
 
 class ReportThread(QThread):
 
@@ -1531,4 +1533,3 @@ if __name__ == "__main__":
     ui = MainWindow()
     ui.show()
     sys.exit(app.exec_())
-    
