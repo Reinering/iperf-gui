@@ -1099,7 +1099,7 @@
                </font>
               </property>
               <property name="text">
-               <string>结果上报</string>
+               <string>Report</string>
               </property>
              </widget>
             </item>

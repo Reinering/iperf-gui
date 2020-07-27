@@ -943,7 +943,7 @@ class Ui_MainWindow(object):
         self.comboBox_opp.setItemText(2, _translate("MainWindow", "测试前"))
         self.label_17.setText(_translate("MainWindow", "运行脚本:"))
         self.label_18.setText(_translate("MainWindow", "结果匹配:"))
-        self.checkBox_report.setText(_translate("MainWindow", "结果上报"))
+        self.checkBox_report.setText(_translate("MainWindow", "Report"))
         self.label_19.setText(_translate("MainWindow", "接口协议："))
         self.comboBox_report_proto.setItemText(0, _translate("MainWindow", "HTTP"))
         self.label_21.setText(_translate("MainWindow", "请求方法："))
