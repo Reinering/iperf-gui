@@ -957,7 +957,7 @@ class Ui_MainWindow(object):
         self.label_22.setText(_translate("MainWindow", "IP：PORT"))
         self.lineEdit_report_ip.setText(_translate("MainWindow", "10.110.30.86:8080"))
         self.label_20.setText(_translate("MainWindow", "URI："))
-        self.comboBox_report_uri.setItemText(0, _translate("MainWindow", "/api/v1"))
+        self.comboBox_report_uri.setItemText(0, _translate("MainWindow", "/test/iperf/"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_5), _translate("MainWindow", "Test Setting"))
         self.label_2.setText(_translate("MainWindow", "iperf version:"))
         self.comboBox_ver.setItemText(0, _translate("MainWindow", "2"))

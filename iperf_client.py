@@ -131,6 +131,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         self.lineEdit_c_ip.setText("192.168.1.81")
         self.lineEdit_c_ip.setText("192.168.188.251")
+        self.lineEdit_script.setText("cat /proc/version")
+        self.lineEdit_re.setText("r'[\d]*\.[\d]*\.[\d]*|[\w]*@jenkins|PREEMPT [\w: ]*'")
 
     def setTabState(self, checked):
         self.tabWidget.setTabEnabled(1, checked)
@@ -182,6 +184,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def setScriptResult(self, p0):
         if "script" == p0[0]:
+            print("script", p0[1])
             self.scriptRes.append(p0[1])
         else:
             pass
@@ -203,12 +206,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.label_error.setText("吞吐量测试， 测试失败，未获取到测试结果")
             self.failTotal += 1
         elif "report" == p0[0]:
-            if p0[1]:
-                self.label_error.setText("测试结果上报成功")
-                self.textBrowser.append("测试结果上报成功")
-            else:
-                self.label_error.setText("测试结果上报失败")
-                self.textBrowser.append("测试结果上报失败")
+            pass
         elif "result" == p0[0]:
             if p0[1]:
                 result = p0[1]
@@ -233,12 +231,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         self.excelTh.start()
                         self.rowC2 += 1
 
-
                 if self.isReport:
                     if self.isScript:
                         count = 0
                         while count < 5:
-                            if self.index == len(self.args):
+                            if self.scriptRunNum[0] + self.scriptRunNum[1] + self.scriptRunNum[2] == len(self.args):
                                 break
                             time.sleep(1)
                             count += 1
@@ -285,7 +282,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def recieveIntervCC(self):
         if not self.stopBool:
             if self.isScript:
-                self.index = 0
+                self.scriptRunNum.clear()
                 self.scriptTh.start()
                 if self.waitNum == 0:
                     self.throughputdTh.start()
@@ -335,11 +332,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             return None, None
 
-    def runThrouTh(self):
+    def runThrouTh(self, p0):
         print("STARTING")
-        self.index += 1
-        if self.index == self.waitNum:
-            time.sleep(5)
+
+        try:
+            self.scriptRunNum[p0] += 1
+        except Exception as e:
+            print(e)
+
+        if self.scriptRunNum[0] == self.waitNum:
             self.throughputdTh.start()
 
     @pyqtSlot(bool)
@@ -479,14 +480,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             uri = self.comboBox_report_uri.currentText()
             if not uri:
                 uri = '/'
-            self.reportTh.setParam(self.comboBox_report_proto.currentText(), self.comboBox_report_method.currentText(), ipPort, uri, self.comboBox_report_formart.currentText())
+            self.reportTh.setParam(self.iperfVer, self.comboBox_report_proto.currentText(), self.comboBox_report_method.currentText(), ipPort, uri, self.comboBox_report_formart.currentText())
 
         if self.isScript:
-            self.index = 0
+            self.scriptRunNum.clear()
             self.args, self.waitNum = self.getScriptArgs()
             self.scriptTh = ScriptThread(c_time, self.args)
             self.scriptTh.signal_index.connect(self.runThrouTh)
             self.scriptTh.signal_sRes.connect(self.setScriptResult)
+            self.scriptTh.signal_tb.connect(self.appendTB)
             self.scriptTh.start()
             if self.waitNum == 0:
                 self.throughputdTh.start()
@@ -632,6 +634,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.isScript = checked
         if checked:
             self.scriptRes = []
+            self.scriptRunNum = []
     
     @pyqtSlot()
     def on_pushButton_script_add_clicked(self):
@@ -957,7 +960,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.isReport = checked
         if checked:
             self.reportTh = ReportThread()
-            self.reportTh.signal_result.connect(self.setThroughputResult)
+            # self.reportTh.signal_result.connect(self.setThroughputResult)
+            self.reportTh.signal_tb.connect(self.appendTB)
         else:
             try:
                 del self.reportTh
@@ -1094,7 +1098,7 @@ class ThroughputThread(QThread):
 
         while not self.stopBool:
             out = str(self.process.stdout.readline(), encoding="gb2312", errors="ignore")
-            # print("out:", out)
+            print("out:", out)
             if not out:
                 break
             elif "read failed" in out or "connect failed" in out \
@@ -1270,7 +1274,8 @@ class TimeDownThread(QThread):
 class ScriptThread(QThread):
 
     signal_sRes = pyqtSignal(tuple)
-    signal_index = pyqtSignal()
+    signal_index = pyqtSignal(str)
+    signal_tb = pyqtSignal(str)
 
     def __init__(self, c_time, args, parent=None):
         """
@@ -1290,20 +1295,20 @@ class ScriptThread(QThread):
         while not self.stopBool and i < 3:
             index = 0
             for arg in self.args:
-                print('arg ', arg)
+                # print('arg ', arg)
                 if arg[0] == self.opp[i]:
                     if "SSH" in arg[1]:
-                        s = threading.Thread(self.runSSH, args=(self.signal_sRes, self.signal_index, index, arg[0], arg[2], arg[-1][1], arg[-1][2], arg[3], arg[4]))
+                        s = threading.Thread(target=self.runSSH, args=(self.signal_sRes, self.signal_index, index, arg[0], arg[2], arg[-1]["user"], arg[-1]["passwd"], arg[4], arg[5]))
                         s.start()
                     elif "TELNET" in arg[1]:
-                        tl = threading.Thread(self.runTelnet, args=(self.signal_sRes, self.signal_index, index, arg[0], arg[2], arg[-1][1], arg[-1][2], arg[3], arg[4]))
+                        tl = threading.Thread(target=self.runTelnet, args=(self.signal_sRes, self.signal_index, index, arg[0], arg[2], arg[-1]["user"], arg[-1]["passwd"], arg[3], arg[4]))
                         tl.start()
                     elif "SERIAL" in arg[1]:
-                        ser = threading.Thread(self.runSerial, args=(self.signal_sRes, self.signal_index, index, arg[0], arg[3], arg[-1][0], arg[-1][1], arg[-1][2], arg[4], arg[5]))
+                        ser = threading.Thread(target=self.runSerial, args=(self.signal_sRes, self.signal_index, index, arg[0], arg[3], arg[-1]["baudbit"], arg[-1]["user"], arg[-1]["passwd"], arg[4], arg[5]))
                         ser.start()
                     else:
                         pass
-                index += 0
+                index += 1
 
             time.sleep(self.c_time/2)
             i += 1
@@ -1311,7 +1316,7 @@ class ScriptThread(QThread):
     def stop(self):
         self.stopBool = True
 
-    def runSerial(self, index, opp, com, bitNum, user, passwd, cmd, res_re):
+    def runSerial(self, signal_sRes, signal_index, index, opp, com, bitNum, user, passwd, cmd, res_re):
         print("run serial")
         if not cmd:
             self.signal_sRes.emit(("script", {"index": index, "opp": opp, "proto": "Serial", "com": com, "ip": "", "res": ""}))
@@ -1325,17 +1330,17 @@ class ScriptThread(QThread):
                 p = re.findall(res_re, out)
                 self.signal_sRes.emit(("script", {"index": index, "opp": opp, "proto": "Serial", "com": com, "ip": "", "res": p}))
             except Exception as e:
-                print(e)
+                self.signal_tb.emit("脚本执行失败：index(" + str(index) + ") 错误：" + str(e))
                 logging.error(e)
                 self.signal_sRes.emit(("script", {"index": index, "opp": opp, "proto": "Serial", "com": com, "ip": "", "res": ""}))
         if "运行前" == opp:
-            self.signal_index.emit(1)
+            self.signal_index.emit(0)
         elif "运行中" == opp:
-            self.signal_index.emit(2)
+            self.signal_index.emit(1)
         elif "运行后" == opp:
-            self.signal_index.emit(3)
+            self.signal_index.emit(2)
 
-    def runTelnet(self, index, opp, ip, user, passwd, cmd, res_re):
+    def runTelnet(self, signal_sRes, signal_index, index, opp, ip, user, passwd, cmd, res_re):
         print("run telnet")
         if not cmd:
             self.signal_sRes.emit(("script", {"index": index, "opp": opp, "proto": "telnet", "com": "", "ip": ip, "res": ""}))
@@ -1349,17 +1354,17 @@ class ScriptThread(QThread):
                 p = re.findall(res_re, out)
                 self.signal_sRes.emit(("script", {"index": index, "opp": opp, "proto": "telnet", "com": "", "ip": ip, "res": p}))
             except Exception as e:
-                print(e)
+                self.signal_tb.emit("脚本执行失败：index(" + str(index) + ") 错误：" + str(e))
                 logging.error(e)
-                self.signal_sRes.emit(("script", {"index": index, "opp": opp, "proto": "telnet", "com": "", "ip": ip, "res": p}))
+                self.signal_sRes.emit(("script", {"index": index, "opp": opp, "proto": "telnet", "com": "", "ip": ip, "res": ""}))
         if "运行前" == opp:
-            self.signal_index.emit("1")
+            self.signal_index.emit(0)
         elif "运行中" == opp:
-            self.signal_index.emit(2)
+            self.signal_index.emit(1)
         elif "运行后" == opp:
-            self.signal_index.emit(3)
+            self.signal_index.emit(2)
 
-    def runSSH(self, index, opp, ip, user, passwd, cmd, res_re):
+    def runSSH(self, signal_sRes, signal_index, index, opp, ip, user, passwd, cmd, res_re):
         print("run SSH")
         if not cmd:
             self.signal_sRes.emit(("script", {"index": index, "opp": opp, "proto": "ssh", "com": "", "ip": ip, "res": ""}))
@@ -1368,28 +1373,32 @@ class ScriptThread(QThread):
             try:
                 ssh.authSSH(ip, 22, user, passwd)
                 out = ssh.exec_cmd(cmd)
+                print("ont", out)
                 ssh.close()
                 p = re.findall(res_re, out)
+                print("p", p)
                 self.signal_sRes.emit(("script", {"index": index, "opp": opp, "proto": "ssh", "com": "", "ip": ip, "res": p}))
             except Exception as e:
-                print(e)
+                self.signal_tb.emit("脚本执行失败：index(" + str(index) + ") 错误：" + str(e))
                 logging.error(e)
-                self.signal_sRes.emit(("script", {"index": index, "opp": opp, "proto": "ssh", "com": "", "ip": ip, "res": p}))
+                self.signal_sRes.emit(("script", {"index": index, "opp": opp, "proto": "ssh", "com": "", "ip": ip, "res": ""}))
         if "运行前" == opp:
-            self.signal_index.emit(1)
+            self.signal_index.emit(0)
         elif "运行中" == opp:
-            self.signal_index.emit(2)
+            self.signal_index.emit(1)
         elif "运行后" == opp:
-            self.signal_index.emit(3)
+            self.signal_index.emit(2)
 
 class ReportThread(QThread):
 
     signal_result = pyqtSignal(tuple)
+    signal_tb = pyqtSignal(str)
 
     def __init__(self, parent=None):
         super(ReportThread, self).__init__(parent)
 
-    def setParam(self, proto, method, ipPort, uri, dataFormat):
+    def setParam(self, iperfVer, proto, method, ipPort, uri, dataFormat):
+        self.iperfVer = iperfVer
         self.proto = proto
         self.method = method
         self.ipPort = ipPort
@@ -1411,9 +1420,8 @@ class ReportThread(QThread):
             pass
         print("参数传递", self.ipPort)
 
-    def setData(self, iperfVer, data):
+    def setData(self, data):
         self.data = data
-        self.iperfVer = iperfVer
 
     def run(self):
         if not self.data:
@@ -1443,6 +1451,7 @@ class ReportThread(QThread):
                 else:
                     return
                 if page.ok:
+                    self.signal_tb.emit("测试结果上报成功")
                     self.signal_result.emit(("report", True))
                     return
                 else:
@@ -1454,6 +1463,7 @@ class ReportThread(QThread):
                 time.sleep(5)
                 count += 1
         self.signal_result.emit(("report", False))
+        self.signal_tb.emit("测试结果上报失败")
 
 class ExcelThread(QThread):
 

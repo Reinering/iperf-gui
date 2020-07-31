@@ -1282,7 +1282,7 @@
                  </property>
                  <item>
                   <property name="text">
-                   <string>/api/v1</string>
+                   <string>/test/iperf/</string>
                   </property>
                  </item>
                 </widget>
