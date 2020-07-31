@@ -209,7 +209,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             pass
         elif "result" == p0[0]:
             if p0[1]:
-                result = p0[1]
+                result = p0[2]
                 self.label_error.setText(self.translate("GeneralWindow", "吞吐量测试已完成"))
                 if self.iperfVer == "3":
                     if self.protocol == "UDP":
@@ -230,7 +230,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         self.excelTh.setParam(self.filePath, 'iperf', self.rowC2, result)
                         self.excelTh.start()
                         self.rowC2 += 1
-
                 if self.isReport:
                     if self.isScript:
                         count = 0
@@ -944,7 +943,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.textBrowser.moveCursor(self.textBrowser.textCursor().End)
 
     def appendTB(self, p0):
-        self.textBrowser.append(p0)
+        if type(p0) == str:
+            self.textBrowser.append(p0)
     
     @pyqtSlot(bool)
     def on_checkBox_report_clicked(self, checked):
@@ -1095,7 +1095,7 @@ class ThroughputThread(QThread):
         result = {"iperfVer": 2, "proto": "", "throughput": "", "unit": "Mbps", "loss": "", "delay": "", "direct": "down", "time": now, }
         if "-R" in self.param:
             result["direct"] = "up"
-
+        resBool = False
         while not self.stopBool:
             out = str(self.process.stdout.readline(), encoding="gb2312", errors="ignore")
             print("out:", out)
@@ -1129,6 +1129,7 @@ class ThroughputThread(QThread):
                         result["delay"] = tmp[1].split(' ')[0]
                     if len(result) >= 1:
                         result["throughput"] = tmp[0].split(' ')[0]
+                    resBool = True
                 elif "[SUM]" in line and "0.0-"+str(self.tTime)+'.' in line:
                     tmp = re.findall(r'[\d.]* \w*/sec|[\d.]* \w*ms|[\d]*%', line)
                     if len(result) == 3:
@@ -1137,8 +1138,10 @@ class ThroughputThread(QThread):
                         result["delay"] = tmp[1].split(' ')[0]
                     if len(result) >= 1:
                         result["throughput"] = tmp[0].split(' ')[0]
+                    resBool = True
                 else:
                     pass
+
         elif ' -u ' in self.param:
             result["proto"] = "udp"
             tag = False
@@ -1155,6 +1158,7 @@ class ThroughputThread(QThread):
                             result["delay"] = tmp[1].split(' ')[0]
                         if len(result) >= 1:
                             result["throughput"] = tmp[0].split(' ')[0]
+                        resBool = True
                     else:
                         tmp = re.findall(r'[\d.]* \w*/sec|[\d.]* \w*ms|[\d]*%', line)
                         if len(result) == 3:
@@ -1163,6 +1167,7 @@ class ThroughputThread(QThread):
                             result["delay"] = tmp[1].split(' ')[0]
                         if len(result) >= 1:
                             result["throughput"] = tmp[0].split(' ')[0]
+                        resBool = True
                 else:
                     pass
         elif ' -P' in self.param:
@@ -1170,13 +1175,15 @@ class ThroughputThread(QThread):
             for line in lines:
                 if "[SUM]" in "0.0-"+str(self.tTime)+'.' in line:
                     result["throughput"] = re.findall(r'([\d.]*) \w*/sec', line)[0]
+                    resBool = True
         else:
             result["proto"] = "tcp"
             for line in lines:
                 if "0.0-"+str(self.tTime)+'.' in line:
                     result["throughput"] = re.findall(r'([\d.]*) \w*/sec', line)[0]
+                    resBool = True
 
-        self.signal_result.emit(("result", result))
+        self.signal_result.emit(("result", resBool, result))
 
     def getIperf3Result(self):
         lines = deque(maxlen=self.maxlen)
@@ -1184,7 +1191,7 @@ class ThroughputThread(QThread):
         result = {"iperfVer": "3", "proto": "", "rx": "", "tx": "", "unit": "Mbps", "loss": "", "delay": "", "direct": "up", "time": now, }
         if "-R" in self.param:
             result["direct"] = "down"
-
+        resBool = False
         while not self.stopBool:
             out = str(self.process.stdout.readline(), encoding="gb2312", errors="ignore")
             # print("out:", out)
@@ -1204,8 +1211,10 @@ class ThroughputThread(QThread):
             for line in lines:
                 if "[SUM]" in line and "sender" in line and "0.00-"+str(self.tTime)+'.' in line:
                     result["tx"] = re.findall(r'[\d.]* \w*/sec', line)[0].split(' ')[0]
+                    resBool = True
                 elif "[SUM]" in line and "receiver" in line and "0.00-"+str(self.tTime)+'.' in line:
                     result["rx"] = re.findall(r'[\d.]* \w*/sec', line)[0].split(' ')[0]
+                    resBool = True
         elif ' -u ' in self.param:
             result["proto"] = "udp"
             for line in lines:
@@ -1217,22 +1226,26 @@ class ThroughputThread(QThread):
                         result["delay"] = tmp[1].split(' ')[0]
                     if len(result) >= 1:
                         result["throughput"] = tmp[0].split(' ')[0]
+                    resBool = True
         elif ' -P' in self.param:
             result["proto"] = "tcp"
             for line in lines:
                 if "[SUM]" in line and "sender" in line and "0.00-"+str(self.tTime)+'.' in line:
                     result["tx"] = re.findall(r'[\d.]* \w*/sec', line)[0].split(' ')[0]
+                    resBool = True
                 elif "[SUM]" in line and "receiver" in line and "0.00-"+str(self.tTime)+'.' in line:
                     result["rx"] = re.findall(r'[\d.]* \w*/sec', line)[0].split(' ')[0]
+                    resBool = True
         else:
             result["proto"] = "tcp"
             for line in lines:
                 if "sender" in line and "0.00-"+str(self.tTime)+'.' in line:
                     result["tx"] = re.findall(r'[\d.]* \w*/sec', line)[0].split(' ')[0]
+                    resBool = True
                 elif "receiver" in line and "0.00-"+str(self.tTime)+'.' in line:
                     result["rx"] = re.findall(r'[\d.]* \w*/sec', line)[0].split(' ')[0]
-
-        self.signal_result.emit(("result", result))
+                    resBool = True
+        self.signal_result.emit(("result", resBool, result))
 
 class TimeDownThread(QThread):
 
@@ -1408,7 +1421,7 @@ class ReportThread(QThread):
             'Accept': 'text/html, application/xhtml+xml, image/jxr, */*',
             'Accept-Encoding': 'gzip, deflate, br',
             'Accept-Language': 'zh-Hans-CN, zh-Hans; q=0.5',
-            'Conntent-Type': 'application/json; charset=utf-8',
+            'Content-Type': 'application/json; charset=utf-8',
             'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36 QIHU 360SE',
         }
         self.dataFormat = dataFormat
@@ -1438,7 +1451,7 @@ class ReportThread(QThread):
         self.data = None
 
     def runHttp(self):
-        url = "http://" + self.ipPort + self.uri + ('/' if self.uri[-1] != '/' else '') + 'iperf' + self.iperfVer
+        url = "http://" + self.ipPort + self.uri + ('/' if self.uri[-1] != '/' else '') + self.iperfVer
         count = 0
         while count < 3:
             try:
@@ -1460,6 +1473,9 @@ class ReportThread(QThread):
                 time.sleep(5)
                 count += 1
             except requests.exceptions.BaseHTTPError as e:
+                time.sleep(5)
+                count += 1
+            except requests.exceptions.ConnectionError as e:
                 time.sleep(5)
                 count += 1
         self.signal_result.emit(("report", False))
@@ -1487,7 +1503,7 @@ def reportResult(proto, method, ipPort, uri, iperfVer, dataFormat, data):
         'Accept': 'text/html, application/xhtml+xml, image/jxr, */*',
         'Accept-Encoding': 'gzip, deflate, br',
         'Accept-Language': 'zh-Hans-CN, zh-Hans; q=0.5',
-        'Conntent-Type': 'application/json; charset=utf-8',
+        'Content-Type': 'application/json; charset=utf-8',
         'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36 QIHU 360SE',
     }
     if dataFormat == 'JSON':

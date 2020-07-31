@@ -1,205 +1,205 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Tasks SYSTEM "Tasks-6.0.dtd">
 <!-- eric6 tasks file for project iperf_gui -->
-<!-- Saved: 2020-07-31, 15:18:24 -->
+<!-- Saved: 2020-07-31, 18:03:05 -->
 <Tasks version="6.0">
   <ProjectScanFilter></ProjectScanFilter>
-  <Task priority="1" completed="False" type="1" uid="{037c487a-4031-429e-88c5-65222ca41620}">
+  <Task priority="1" completed="False" type="1" uid="{8ec3084e-f6f1-4822-ab66-7c801bd04e03}">
     <Summary>TODO: not implemented yet</Summary>
     <Description></Description>
-    <Created>2020-07-31, 15:17:55</Created>
+    <Created>2020-07-31, 18:02:57</Created>
+    <Resource>
+      <Filename>iperf_client.py</Filename>
+      <Linenumber>353</Linenumber>
+    </Resource>
+  </Task>
+  <Task priority="1" completed="False" type="1" uid="{a7b8efc4-8de2-47f2-81d5-3e1795e927af}">
+    <Summary>TODO: not implemented yet</Summary>
+    <Description></Description>
+    <Created>2020-07-31, 18:02:57</Created>
+    <Resource>
+      <Filename>iperf_client.py</Filename>
+      <Linenumber>366</Linenumber>
+    </Resource>
+  </Task>
+  <Task priority="1" completed="False" type="1" uid="{45049464-d319-4412-bd3e-34be4cbd5cbc}">
+    <Summary>TODO: not implemented yet</Summary>
+    <Description></Description>
+    <Created>2020-07-31, 18:02:57</Created>
+    <Resource>
+      <Filename>iperf_client.py</Filename>
+      <Linenumber>383</Linenumber>
+    </Resource>
+  </Task>
+  <Task priority="1" completed="False" type="1" uid="{76fc8ec1-04f7-4089-b933-9d0c09403631}">
+    <Summary>TODO: not implemented yet</Summary>
+    <Description></Description>
+    <Created>2020-07-31, 18:02:57</Created>
+    <Resource>
+      <Filename>iperf_client.py</Filename>
+      <Linenumber>415</Linenumber>
+    </Resource>
+  </Task>
+  <Task priority="1" completed="False" type="1" uid="{ec029c1f-9efb-47a0-aece-0b149d9f0408}">
+    <Summary>TODO: not implemented yet</Summary>
+    <Description></Description>
+    <Created>2020-07-31, 18:02:57</Created>
+    <Resource>
+      <Filename>iperf_client.py</Filename>
+      <Linenumber>436</Linenumber>
+    </Resource>
+  </Task>
+  <Task priority="1" completed="False" type="1" uid="{76ee1c54-ae12-4ff4-843e-c7058696f365}">
+    <Summary>TODO: not implemented yet</Summary>
+    <Description></Description>
+    <Created>2020-07-31, 18:02:57</Created>
+    <Resource>
+      <Filename>iperf_client.py</Filename>
+      <Linenumber>505</Linenumber>
+    </Resource>
+  </Task>
+  <Task priority="1" completed="False" type="1" uid="{cb1ee620-6404-454e-bd0b-7cec5581542e}">
+    <Summary>TODO: not implemented yet</Summary>
+    <Description></Description>
+    <Created>2020-07-31, 18:02:57</Created>
+    <Resource>
+      <Filename>iperf_client.py</Filename>
+      <Linenumber>531</Linenumber>
+    </Resource>
+  </Task>
+  <Task priority="1" completed="False" type="1" uid="{9f82443d-c844-415f-a66e-8b94fac868d6}">
+    <Summary>TODO: not implemented yet</Summary>
+    <Description></Description>
+    <Created>2020-07-31, 18:02:57</Created>
+    <Resource>
+      <Filename>iperf_client.py</Filename>
+      <Linenumber>550</Linenumber>
+    </Resource>
+  </Task>
+  <Task priority="1" completed="False" type="1" uid="{e1c16d31-1fae-4d7f-b503-96342d807cce}">
+    <Summary>TODO: not implemented yet</Summary>
+    <Description></Description>
+    <Created>2020-07-31, 18:02:57</Created>
+    <Resource>
+      <Filename>iperf_client.py</Filename>
+      <Linenumber>565</Linenumber>
+    </Resource>
+  </Task>
+  <Task priority="1" completed="False" type="1" uid="{93bae8d9-36c4-499f-9b56-3423a897ed17}">
+    <Summary>TODO: not implemented yet</Summary>
+    <Description></Description>
+    <Created>2020-07-31, 18:02:57</Created>
+    <Resource>
+      <Filename>iperf_client.py</Filename>
+      <Linenumber>600</Linenumber>
+    </Resource>
+  </Task>
+  <Task priority="1" completed="False" type="1" uid="{b6945838-14e1-4eae-9864-ee6560368ba1}">
+    <Summary>TODO: not implemented yet</Summary>
+    <Description></Description>
+    <Created>2020-07-31, 18:02:57</Created>
+    <Resource>
+      <Filename>iperf_client.py</Filename>
+      <Linenumber>629</Linenumber>
+    </Resource>
+  </Task>
+  <Task priority="1" completed="False" type="1" uid="{692f4d81-b360-487e-9938-e1c857b0321e}">
+    <Summary>TODO: not implemented yet</Summary>
+    <Description></Description>
+    <Created>2020-07-31, 18:02:57</Created>
+    <Resource>
+      <Filename>iperf_client.py</Filename>
+      <Linenumber>643</Linenumber>
+    </Resource>
+  </Task>
+  <Task priority="1" completed="False" type="1" uid="{2fe7bd23-1a17-4b8d-93b2-59d0c70e4955}">
+    <Summary>TODO: not implemented yet</Summary>
+    <Description></Description>
+    <Created>2020-07-31, 18:02:57</Created>
+    <Resource>
+      <Filename>iperf_client.py</Filename>
+      <Linenumber>837</Linenumber>
+    </Resource>
+  </Task>
+  <Task priority="1" completed="False" type="1" uid="{dd8edfb3-15e0-4c3f-804f-13844a782b1d}">
+    <Summary>TODO: not implemented yet</Summary>
+    <Description></Description>
+    <Created>2020-07-31, 18:02:57</Created>
+    <Resource>
+      <Filename>iperf_client.py</Filename>
+      <Linenumber>885</Linenumber>
+    </Resource>
+  </Task>
+  <Task priority="1" completed="False" type="1" uid="{7327b977-f6f3-4caa-9c39-2e7ee747867b}">
+    <Summary>TODO: not implemented yet</Summary>
+    <Description></Description>
+    <Created>2020-07-31, 18:02:57</Created>
+    <Resource>
+      <Filename>iperf_client.py</Filename>
+      <Linenumber>901</Linenumber>
+    </Resource>
+  </Task>
+  <Task priority="1" completed="False" type="1" uid="{f286b74d-1f31-4dad-b121-b569dee5f3c1}">
+    <Summary>TODO: not implemented yet</Summary>
+    <Description></Description>
+    <Created>2020-07-31, 18:02:57</Created>
+    <Resource>
+      <Filename>iperf_client.py</Filename>
+      <Linenumber>917</Linenumber>
+    </Resource>
+  </Task>
+  <Task priority="1" completed="False" type="1" uid="{66cabb89-f4d3-4268-ba77-35d6a90a233f}">
+    <Summary>TODO: not implemented yet</Summary>
+    <Description></Description>
+    <Created>2020-07-31, 18:02:57</Created>
+    <Resource>
+      <Filename>iperf_client.py</Filename>
+      <Linenumber>939</Linenumber>
+    </Resource>
+  </Task>
+  <Task priority="1" completed="False" type="1" uid="{78e27ec0-7133-4382-85d4-73256c335e28}">
+    <Summary>TODO: not implemented yet</Summary>
+    <Description></Description>
+    <Created>2020-07-31, 18:02:57</Created>
+    <Resource>
+      <Filename>iperf_client.py</Filename>
+      <Linenumber>956</Linenumber>
+    </Resource>
+  </Task>
+  <Task priority="1" completed="False" type="1" uid="{aa85e273-8bad-4415-be1d-adec4208e674}">
+    <Summary>TODO: not implemented yet</Summary>
+    <Description></Description>
+    <Created>2020-07-31, 18:02:57</Created>
+    <Resource>
+      <Filename>iperf_client.py</Filename>
+      <Linenumber>975</Linenumber>
+    </Resource>
+  </Task>
+  <Task priority="1" completed="False" type="1" uid="{a854dff6-f0be-41d6-9c68-ae69567729ce}">
+    <Summary>TODO: not implemented yet</Summary>
+    <Description></Description>
+    <Created>2020-07-31, 18:02:57</Created>
+    <Resource>
+      <Filename>iperf_client.py</Filename>
+      <Linenumber>993</Linenumber>
+    </Resource>
+  </Task>
+  <Task priority="1" completed="False" type="1" uid="{721f57af-6f40-4fec-81f2-21ca8b0ad01b}">
+    <Summary>TODO: not implemented yet</Summary>
+    <Description></Description>
+    <Created>2020-07-31, 18:03:02</Created>
     <Resource>
       <Filename>script_more.py</Filename>
       <Linenumber>38</Linenumber>
     </Resource>
   </Task>
-  <Task priority="1" completed="False" type="1" uid="{eca5f924-0f53-48e4-ab51-fff5caa04e71}">
+  <Task priority="1" completed="False" type="1" uid="{13e7e1fd-9f81-432f-89e6-6d351f3e4c69}">
     <Summary>TODO: not implemented yet</Summary>
     <Description></Description>
-    <Created>2020-07-31, 15:17:55</Created>
+    <Created>2020-07-31, 18:03:02</Created>
     <Resource>
       <Filename>script_more.py</Filename>
       <Linenumber>49</Linenumber>
-    </Resource>
-  </Task>
-  <Task priority="1" completed="False" type="1" uid="{0cba978f-5895-4467-8e7b-9962a66bdf87}">
-    <Summary>TODO: not implemented yet</Summary>
-    <Description></Description>
-    <Created>2020-07-31, 15:18:21</Created>
-    <Resource>
-      <Filename>iperf_client.py</Filename>
-      <Linenumber>354</Linenumber>
-    </Resource>
-  </Task>
-  <Task priority="1" completed="False" type="1" uid="{04fd5f88-81a1-4b72-870d-3fb31619373c}">
-    <Summary>TODO: not implemented yet</Summary>
-    <Description></Description>
-    <Created>2020-07-31, 15:18:21</Created>
-    <Resource>
-      <Filename>iperf_client.py</Filename>
-      <Linenumber>367</Linenumber>
-    </Resource>
-  </Task>
-  <Task priority="1" completed="False" type="1" uid="{63c0cf23-ff71-4b10-8341-fe41d4bf4ba1}">
-    <Summary>TODO: not implemented yet</Summary>
-    <Description></Description>
-    <Created>2020-07-31, 15:18:21</Created>
-    <Resource>
-      <Filename>iperf_client.py</Filename>
-      <Linenumber>384</Linenumber>
-    </Resource>
-  </Task>
-  <Task priority="1" completed="False" type="1" uid="{7b43c3a5-86ce-4d0b-a78b-b786649827ad}">
-    <Summary>TODO: not implemented yet</Summary>
-    <Description></Description>
-    <Created>2020-07-31, 15:18:21</Created>
-    <Resource>
-      <Filename>iperf_client.py</Filename>
-      <Linenumber>416</Linenumber>
-    </Resource>
-  </Task>
-  <Task priority="1" completed="False" type="1" uid="{968e0361-0942-4292-b625-866c2d06946d}">
-    <Summary>TODO: not implemented yet</Summary>
-    <Description></Description>
-    <Created>2020-07-31, 15:18:21</Created>
-    <Resource>
-      <Filename>iperf_client.py</Filename>
-      <Linenumber>437</Linenumber>
-    </Resource>
-  </Task>
-  <Task priority="1" completed="False" type="1" uid="{8327b715-d975-4ab8-a1c3-e832b98300f3}">
-    <Summary>TODO: not implemented yet</Summary>
-    <Description></Description>
-    <Created>2020-07-31, 15:18:21</Created>
-    <Resource>
-      <Filename>iperf_client.py</Filename>
-      <Linenumber>506</Linenumber>
-    </Resource>
-  </Task>
-  <Task priority="1" completed="False" type="1" uid="{0c0ef89b-d993-4f64-8bab-c4cbe3abc412}">
-    <Summary>TODO: not implemented yet</Summary>
-    <Description></Description>
-    <Created>2020-07-31, 15:18:21</Created>
-    <Resource>
-      <Filename>iperf_client.py</Filename>
-      <Linenumber>532</Linenumber>
-    </Resource>
-  </Task>
-  <Task priority="1" completed="False" type="1" uid="{c4c94d25-1824-49a8-8782-efd151249f64}">
-    <Summary>TODO: not implemented yet</Summary>
-    <Description></Description>
-    <Created>2020-07-31, 15:18:21</Created>
-    <Resource>
-      <Filename>iperf_client.py</Filename>
-      <Linenumber>551</Linenumber>
-    </Resource>
-  </Task>
-  <Task priority="1" completed="False" type="1" uid="{04542277-79a1-49da-8e8f-279da6d9348b}">
-    <Summary>TODO: not implemented yet</Summary>
-    <Description></Description>
-    <Created>2020-07-31, 15:18:21</Created>
-    <Resource>
-      <Filename>iperf_client.py</Filename>
-      <Linenumber>566</Linenumber>
-    </Resource>
-  </Task>
-  <Task priority="1" completed="False" type="1" uid="{f247235f-126c-4845-a7c6-b7329feff321}">
-    <Summary>TODO: not implemented yet</Summary>
-    <Description></Description>
-    <Created>2020-07-31, 15:18:21</Created>
-    <Resource>
-      <Filename>iperf_client.py</Filename>
-      <Linenumber>601</Linenumber>
-    </Resource>
-  </Task>
-  <Task priority="1" completed="False" type="1" uid="{84aba681-22aa-4e7b-bd66-3b8177823be6}">
-    <Summary>TODO: not implemented yet</Summary>
-    <Description></Description>
-    <Created>2020-07-31, 15:18:21</Created>
-    <Resource>
-      <Filename>iperf_client.py</Filename>
-      <Linenumber>630</Linenumber>
-    </Resource>
-  </Task>
-  <Task priority="1" completed="False" type="1" uid="{9b037289-6ec4-4339-a219-c878b6389eaf}">
-    <Summary>TODO: not implemented yet</Summary>
-    <Description></Description>
-    <Created>2020-07-31, 15:18:21</Created>
-    <Resource>
-      <Filename>iperf_client.py</Filename>
-      <Linenumber>644</Linenumber>
-    </Resource>
-  </Task>
-  <Task priority="1" completed="False" type="1" uid="{12bd43e8-f9f9-4b43-891b-0fc142f5261c}">
-    <Summary>TODO: not implemented yet</Summary>
-    <Description></Description>
-    <Created>2020-07-31, 15:18:21</Created>
-    <Resource>
-      <Filename>iperf_client.py</Filename>
-      <Linenumber>838</Linenumber>
-    </Resource>
-  </Task>
-  <Task priority="1" completed="False" type="1" uid="{7d0a074a-6a1a-43eb-b3e6-c66ee877fb48}">
-    <Summary>TODO: not implemented yet</Summary>
-    <Description></Description>
-    <Created>2020-07-31, 15:18:21</Created>
-    <Resource>
-      <Filename>iperf_client.py</Filename>
-      <Linenumber>886</Linenumber>
-    </Resource>
-  </Task>
-  <Task priority="1" completed="False" type="1" uid="{02183c14-50b8-48e5-bf69-728e150e9cf7}">
-    <Summary>TODO: not implemented yet</Summary>
-    <Description></Description>
-    <Created>2020-07-31, 15:18:21</Created>
-    <Resource>
-      <Filename>iperf_client.py</Filename>
-      <Linenumber>902</Linenumber>
-    </Resource>
-  </Task>
-  <Task priority="1" completed="False" type="1" uid="{d7ee1f9a-c3f1-4216-9897-cab68573533f}">
-    <Summary>TODO: not implemented yet</Summary>
-    <Description></Description>
-    <Created>2020-07-31, 15:18:21</Created>
-    <Resource>
-      <Filename>iperf_client.py</Filename>
-      <Linenumber>918</Linenumber>
-    </Resource>
-  </Task>
-  <Task priority="1" completed="False" type="1" uid="{0fa390c7-f7ca-4059-a898-620694c278f0}">
-    <Summary>TODO: not implemented yet</Summary>
-    <Description></Description>
-    <Created>2020-07-31, 15:18:21</Created>
-    <Resource>
-      <Filename>iperf_client.py</Filename>
-      <Linenumber>940</Linenumber>
-    </Resource>
-  </Task>
-  <Task priority="1" completed="False" type="1" uid="{bc63c3c0-b573-43be-b869-8fafd667ded6}">
-    <Summary>TODO: not implemented yet</Summary>
-    <Description></Description>
-    <Created>2020-07-31, 15:18:21</Created>
-    <Resource>
-      <Filename>iperf_client.py</Filename>
-      <Linenumber>957</Linenumber>
-    </Resource>
-  </Task>
-  <Task priority="1" completed="False" type="1" uid="{7ea871ae-b44e-4304-a872-f20512ad178a}">
-    <Summary>TODO: not implemented yet</Summary>
-    <Description></Description>
-    <Created>2020-07-31, 15:18:21</Created>
-    <Resource>
-      <Filename>iperf_client.py</Filename>
-      <Linenumber>976</Linenumber>
-    </Resource>
-  </Task>
-  <Task priority="1" completed="False" type="1" uid="{a7dd1e16-3460-400b-9284-423354720d55}">
-    <Summary>TODO: not implemented yet</Summary>
-    <Description></Description>
-    <Created>2020-07-31, 15:18:21</Created>
-    <Resource>
-      <Filename>iperf_client.py</Filename>
-      <Linenumber>994</Linenumber>
     </Resource>
   </Task>
 </Tasks>
