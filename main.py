@@ -25,7 +25,7 @@ def log():
     now = datetime.datetime.now().strftime("%Y-%m-%d")
     LOG_FILE = "log/" + now + '.log'
     logger = logging.getLogger("myapp")
-    hdlr = logging.handlers.RotatingFileHandler(LOG_FILE,maxBytes=1024*10240,backupCount=400)
+    hdlr = logging.handlers.RotatingFileHandler(LOG_FILE, maxBytes=1024*10240, backupCount=400)
     logging.basicConfig(level=logging.DEBUG,
                         format='%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s',
                         datefmt='%Y-%m-%d %H:%M:%S',
@@ -63,8 +63,8 @@ def main(argv=None):
         except getopt.error as msg:
             raise Usage(msg)
     except Usage as err:
-        print >>sys.stderr, err.msg
-        print >>sys.stderr, "for help use --help"
+        # print >>sys.stderr, err.msg
+        # print >>sys.stderr, "for help use --help"
         return 2
 
 

@@ -278,7 +278,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         print(e)
                         self.lineEdit_task.setText(text + '_1')
 
-    def recieveIntervCC(self):
+    def recieveIntervCC(self, p0):
         if not self.stopBool:
             if self.isScript:
                 self.scriptRunNum.clear()
@@ -341,6 +341,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         if self.scriptRunNum[0] == self.waitNum:
             self.throughputdTh.start()
+
+    def appendTB(self, p0):
+        if type(p0) == str:
+            self.textBrowser.append(p0)
 
     @pyqtSlot(bool)
     def on_checkBox_cc_clicked(self, checked):
@@ -942,10 +946,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if self.isScrollDown:
             self.textBrowser.moveCursor(self.textBrowser.textCursor().End)
 
-    def appendTB(self, p0):
-        if type(p0) == str:
-            self.textBrowser.append(p0)
-    
     @pyqtSlot(bool)
     def on_checkBox_report_clicked(self, checked):
         """
@@ -1019,7 +1019,7 @@ class ThroughputThread(QThread):
         self.param = param
         self.tTime = tTime
         self.tDTh = tDTh
-        self.tDTh.signal_TimeOver.connect(self.timeOver)
+        # self.tDTh.signal_TimeOver.connect(self.timeOver)
 
         p = re.findall(r'-P[ ]?([\d])+', param)
         if p:
@@ -1229,13 +1229,16 @@ class ThroughputThread(QThread):
                     resBool = True
         elif ' -P' in self.param:
             result["proto"] = "tcp"
-            for line in lines:
-                if "[SUM]" in line and "sender" in line and "0.00-"+str(self.tTime)+'.' in line:
-                    result["tx"] = re.findall(r'[\d.]* \w*/sec', line)[0].split(' ')[0]
-                    resBool = True
-                elif "[SUM]" in line and "receiver" in line and "0.00-"+str(self.tTime)+'.' in line:
-                    result["rx"] = re.findall(r'[\d.]* \w*/sec', line)[0].split(' ')[0]
-                    resBool = True
+            try:
+                for line in lines:
+                    if "[SUM]" in line and "sender" in line and "0.00-"+str(self.tTime)+'.' in line:
+                        result["tx"] = re.findall(r'[\d.]* \w*/sec', line)[0].split(' ')[0]
+                        resBool = True
+                    elif "[SUM]" in line and "receiver" in line and "0.00-"+str(self.tTime)+'.' in line:
+                        result["rx"] = re.findall(r'[\d.]* \w*/sec', line)[0].split(' ')[0]
+                        resBool = True
+            except Exception as e:
+                print(e)
         else:
             result["proto"] = "tcp"
             for line in lines:
@@ -1245,6 +1248,7 @@ class ThroughputThread(QThread):
                 elif "receiver" in line and "0.00-"+str(self.tTime)+'.' in line:
                     result["rx"] = re.findall(r'[\d.]* \w*/sec', line)[0].split(' ')[0]
                     resBool = True
+
         self.signal_result.emit(("result", resBool, result))
 
 class TimeDownThread(QThread):
@@ -1260,10 +1264,11 @@ class TimeDownThread(QThread):
 
     def setTime(self, p0, inTime=1):
         self.tTime = p0
+        self.pair = 0
         self.intervalTime = inTime
 
     def run(self):
-        # print("倒计时开始")
+        print("倒计时开始")
         self.stopBool = False
 
         tempTime = self.intervalTime - 0.01
@@ -1278,7 +1283,7 @@ class TimeDownThread(QThread):
                 self.tTime = self.tTime - 5
         self.signal_TimeOver.emit('over')
 
-        time.sleep(5)
+        time.sleep(10)
         self.signal_TimeOver.emit('stop')
 
     def stop(self):
@@ -1303,6 +1308,7 @@ class ScriptThread(QThread):
         self.opp = ["测试前", "测试中", "测试后"]
 
     def run(self):
+        print("script start")
         self.stopBool = False
         i = 0
         while not self.stopBool and i < 3:
@@ -1437,6 +1443,7 @@ class ReportThread(QThread):
         self.data = data
 
     def run(self):
+        print("report start")
         if not self.data:
             return
 
@@ -1492,6 +1499,7 @@ class ExcelThread(QThread):
         self.args = args
 
     def run(self):
+        print("excel start")
         if self.filePath and self.sheetName:
             writeExcel(self.filePath, self.sheetName, self.args)
         self.filePath = None
