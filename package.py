@@ -62,7 +62,12 @@ PackageArgs = {
             {
                 'version': '3.6.7',
                 "path": r"D:\ProgramData\Anaconda3\envs\py32",
-            }
+            },
+            {
+                'version': '3.7.8',
+                "path": r"D:\ProgramData\Anaconda3\envs\py37_32",
+            },
+
         ],
         'x64': [
             {
@@ -77,6 +82,11 @@ PackageArgs = {
                 'version': '3.6.9',
                 "path": r"D:\ProgramData\Anaconda3\envs\py36_64",
             },
+            {
+                'version': '3.7.8',
+                "path": r"D:\ProgramData\Anaconda3\envs\py37_64",
+            },
+
         ]
     }
 }

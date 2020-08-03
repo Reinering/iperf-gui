@@ -4,13 +4,10 @@
     <list default="true" id="ab384861-2ddd-48f5-8099-545f055a8da3" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.eric6project/iperf_gui.e4q" beforeDir="false" afterPath="$PROJECT_DIR$/.eric6project/iperf_gui.e4q" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.eric6project/iperf_gui.e6t" beforeDir="false" afterPath="$PROJECT_DIR$/.eric6project/iperf_gui.e6t" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/iperf_gui.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/iperf_gui.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/iperf3.exe.stackdump" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/iperf_client.py" beforeDir="false" afterPath="$PROJECT_DIR$/iperf_client.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.py" beforeDir="false" afterPath="$PROJECT_DIR$/package.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/script_more.py" beforeDir="false" afterPath="$PROJECT_DIR$/script_more.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,7 +43,7 @@
       <recent name="F:\git\iperf_gui" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.iperf_client">
+  <component name="RunManager" selected="Python.package">
     <configuration name="iperf_client" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="iperf_gui" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -137,9 +134,9 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.package" />
         <item itemvalue="Python.iperf_client" />
         <item itemvalue="Python.main" />
-        <item itemvalue="Python.package" />
         <item itemvalue="Python.test" />
       </list>
     </recent_temporary>
@@ -211,6 +208,7 @@
       <workItem from="1596192852410" duration="1837000" />
       <workItem from="1596415579545" duration="12392000" />
       <workItem from="1596434259454" duration="5948000" />
+      <workItem from="1596440482262" duration="7593000" />
     </task>
     <servers />
   </component>
@@ -222,28 +220,28 @@
       <screen x="0" y="40" width="1920" height="1040" />
     </state>
     <state x="739" y="314" key="FileChooserDialogImpl/0.40.1920.1040/1920.0.1600.900@0.40.1920.1040" timestamp="1596439962699" />
-    <state width="1876" height="145" key="GridCell.Tab.0.bottom" timestamp="1596440241259">
+    <state width="1876" height="275" key="GridCell.Tab.0.bottom" timestamp="1596442952464">
       <screen x="0" y="40" width="1920" height="1040" />
     </state>
-    <state width="1876" height="145" key="GridCell.Tab.0.bottom/0.40.1920.1040/1920.0.1600.900@0.40.1920.1040" timestamp="1596440241259" />
+    <state width="1876" height="275" key="GridCell.Tab.0.bottom/0.40.1920.1040/1920.0.1600.900@0.40.1920.1040" timestamp="1596442952464" />
     <state width="1876" height="148" key="GridCell.Tab.0.bottom/0.40.1920.1040@0.40.1920.1040" timestamp="1596101227711" />
     <state width="2516" height="209" key="GridCell.Tab.0.bottom/0.40.2560.1400/2560.0.1920.1080@0.40.2560.1400" timestamp="1590315134050" />
-    <state width="1876" height="145" key="GridCell.Tab.0.center" timestamp="1596440241259">
+    <state width="1876" height="275" key="GridCell.Tab.0.center" timestamp="1596442952464">
       <screen x="0" y="40" width="1920" height="1040" />
     </state>
-    <state width="1876" height="145" key="GridCell.Tab.0.center/0.40.1920.1040/1920.0.1600.900@0.40.1920.1040" timestamp="1596440241259" />
+    <state width="1876" height="275" key="GridCell.Tab.0.center/0.40.1920.1040/1920.0.1600.900@0.40.1920.1040" timestamp="1596442952464" />
     <state width="1876" height="148" key="GridCell.Tab.0.center/0.40.1920.1040@0.40.1920.1040" timestamp="1596101227711" />
     <state width="2516" height="209" key="GridCell.Tab.0.center/0.40.2560.1400/2560.0.1920.1080@0.40.2560.1400" timestamp="1590315134050" />
-    <state width="1876" height="145" key="GridCell.Tab.0.left" timestamp="1596440241259">
+    <state width="1876" height="275" key="GridCell.Tab.0.left" timestamp="1596442952464">
       <screen x="0" y="40" width="1920" height="1040" />
     </state>
-    <state width="1876" height="145" key="GridCell.Tab.0.left/0.40.1920.1040/1920.0.1600.900@0.40.1920.1040" timestamp="1596440241259" />
+    <state width="1876" height="275" key="GridCell.Tab.0.left/0.40.1920.1040/1920.0.1600.900@0.40.1920.1040" timestamp="1596442952464" />
     <state width="1876" height="148" key="GridCell.Tab.0.left/0.40.1920.1040@0.40.1920.1040" timestamp="1596101227711" />
     <state width="2516" height="209" key="GridCell.Tab.0.left/0.40.2560.1400/2560.0.1920.1080@0.40.2560.1400" timestamp="1590315134050" />
-    <state width="1876" height="145" key="GridCell.Tab.0.right" timestamp="1596440241259">
+    <state width="1876" height="275" key="GridCell.Tab.0.right" timestamp="1596442952464">
       <screen x="0" y="40" width="1920" height="1040" />
     </state>
-    <state width="1876" height="145" key="GridCell.Tab.0.right/0.40.1920.1040/1920.0.1600.900@0.40.1920.1040" timestamp="1596440241259" />
+    <state width="1876" height="275" key="GridCell.Tab.0.right/0.40.1920.1040/1920.0.1600.900@0.40.1920.1040" timestamp="1596442952464" />
     <state width="1876" height="148" key="GridCell.Tab.0.right/0.40.1920.1040@0.40.1920.1040" timestamp="1596101227711" />
     <state width="2516" height="209" key="GridCell.Tab.0.right/0.40.2560.1400/2560.0.1920.1080@0.40.2560.1400" timestamp="1590315134050" />
     <state width="1876" height="391" key="GridCell.Tab.1.bottom" timestamp="1596432904665">
@@ -274,8 +272,8 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/iperf_gui$test.coverage" NAME="test Coverage Results" MODIFIED="1596186102265" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/iperf_gui$package.coverage" NAME="package Coverage Results" MODIFIED="1596423224181" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/iperf_gui$iperf_client.coverage" NAME="iperf_client Coverage Results" MODIFIED="1596440241241" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/iperf_gui$package.coverage" NAME="package Coverage Results" MODIFIED="1596442952455" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/iperf_gui$iperf_client.coverage" NAME="iperf_client Coverage Results" MODIFIED="1596442454806" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/iperf_gui$main.coverage" NAME="main Coverage Results" MODIFIED="1596435634567" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

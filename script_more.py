@@ -37,7 +37,7 @@ class Dialog(QDialog, Ui_Dialog):
         """
         # TODO: not implemented yet
         # raise NotImplementedError
-        self.signal_param.emit((self.key, self.comboBox_baudrate.currentText(), self.lineEdit_user, self.lineEdit_passwd))
+        self.signal_param.emit((self.key, self.comboBox_baudrate.currentText(), self.lineEdit_user.text(), self.lineEdit_passwd.text()))
         time.sleep(2)
         self.close()
     
