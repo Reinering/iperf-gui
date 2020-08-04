@@ -159,7 +159,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         tableWidget.scrollToBottom()
 
     def addTableWidgetEntry(self, x, y, p0, tbWidget):
-        print(x, y, p0, tbWidget)
         item = QTableWidgetItem()
         item.setTextAlignment(Qt.AlignCenter)
         # tableWidget禁止编辑
@@ -327,7 +326,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def runThrouTh(self, index):
         for res in self.scriptRes:
             if index == res["index"]:
-                self.textBrowser.append("script index: " + str(index) + " result: " + ' '.join(res["res"]))
+                self.appendTB("script index: " + str(index) + " result: " + ' '.join(res["res"]))
         if len(self.scriptRes) == self.waitNum:
             self.throughputdTh.start()
 
@@ -1390,7 +1389,6 @@ class ScriptThread(QThread):
                 self.scriptRes.append({"index": index, "opp": opp, "proto": "ssh", "com": "", "ip": ip, "res": ""})
                 ssh.close()
         self.signal_index.emit(index)
-
 
 class ReportThread(QThread):
 

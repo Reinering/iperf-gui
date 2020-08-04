@@ -45,26 +45,28 @@ class Usage(Exception):
 def main(argv=None):
     if argv is None:
         argv = sys.argv
-
     logger = log()
     try:
         try:
             opts, args = getopt.getopt(argv[1:], "h", ["help"])
             app = QApplication(sys.argv)
-            # splash = QSplashScreen(QPixmap("pic/logo.jpg"))
-            # splash.show()
+            pic = "pic/logo.jpg"
+            existPic = os.path.exists(pic)
+            if existPic:
+                splash = QSplashScreen(QPixmap(pic))
+                splash.show()
             ui = MainWindow()
-            # log()
             ui.show()
-            # splash.finish(ui)
+            if existPic:
+                splash.finish(ui)
             sys.exit(app.exec_())
 
 
         except getopt.error as msg:
             raise Usage(msg)
     except Usage as err:
-        # print >>sys.stderr, err.msg
-        # print >>sys.stderr, "for help use --help"
+        print >>sys.stderr, err.msg
+        print >>sys.stderr, "for help use --help"
         return 2
 
 
