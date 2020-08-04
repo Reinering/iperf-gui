@@ -25,6 +25,7 @@ import logging
 from collections import deque
 import requests
 import json
+import copy
 
 OPTION = (('-f', '-i', '-l', '-m', '-o', '-p', '-u', '-w', '-B', '-C', '-M', '-N', '-V'),
           ('-s', '-D', '-R'),
@@ -96,19 +97,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                                                   self.lineEdit_script_ip, self.comboBox_serial, self.pushButton_script_more, self.label_13, self.comboBox_opp,
                                                   self.horizontalLayout_18, self.label_17, self.lineEdit_script, self.horizontalLayout_17, self.label_18,
                                                   self.lineEdit_re, {'baudbit': 115200, 'user': 'root', 'passwd': 'nE7jA%5m'}]
-        self.tableWidget_ver2.setColumnHidden(4, True)
-        self.tableWidget_ver2.setColumnHidden(5, True)
-        self.tableWidget_ver2.setColumnHidden(6, True)
         self.tableWidget_ver2.setColumnWidth(0, 60)
         self.tableWidget_ver2.setColumnWidth(1, 120)
         self.tableWidget_ver2.setColumnWidth(2, 40)
         self.tableWidget_ver2.setColumnWidth(3, 60)
-        self.tableWidget_ver2.setColumnWidth(4, 120)
-        self.tableWidget_ver2.setColumnWidth(5, 40)
-        self.tableWidget_ver2.setColumnWidth(6, 60)
-        self.tableWidget_ver2.setColumnWidth(7, 70)
-        self.tableWidget_ver2.setColumnWidth(8, 120)
-        self.tableWidget_ver2.setColumnWidth(9, 50)
+        self.tableWidget_ver2.setColumnWidth(4, 70)
+        self.tableWidget_ver2.setColumnWidth(5, 120)
+        self.tableWidget_ver2.setColumnWidth(6, 50)
         self.tableWidget_ver3.setColumnWidth(0, 60)
         self.tableWidget_ver3.setColumnWidth(1, 60)
         self.tableWidget_ver3.setColumnWidth(2, 60)
@@ -130,9 +125,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.statusBar.showMessage('Ready')
 
         self.lineEdit_c_ip.setText("192.168.1.81")
-        self.lineEdit_c_ip.setText("192.168.188.251")
+        self.lineEdit_c_ip.setText("192.168.10.100")
         self.lineEdit_script.setText("cat /proc/version")
-        self.lineEdit_re.setText("r'[\d]*\.[\d]*\.[\d]*|[\w]*@jenkins|PREEMPT [\w: ]*'")
+        self.lineEdit_re.setText("[\d]*\.[\d]*\.[\d]*|[\w]*@|PREEMPT [\w: ]*")
 
     def setTabState(self, checked):
         self.tabWidget.setTabEnabled(1, checked)
@@ -164,6 +159,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         tableWidget.scrollToBottom()
 
     def addTableWidgetEntry(self, x, y, p0, tbWidget):
+        print(x, y, p0, tbWidget)
         item = QTableWidgetItem()
         item.setTextAlignment(Qt.AlignCenter)
         # tableWidget禁止编辑
@@ -182,17 +178,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         for i in range(row):
             tbWidget.removeRow(0)
 
-    def setScriptResult(self, p0):
-        if "script" == p0[0]:
-            print("script", p0[1])
-            self.scriptRes.append(p0[1])
-        else:
-            pass
-
     def setThroughputResult(self, p0):
         print("result", p0)
         if not p0:
-            print("吞吐量测试, 错误返回值")
+            self.label_error.setText("吞吐量测试, 错误返回值")
         elif "testing" == p0[0]:
             self.label_error.setText("吞吐量测试中，请稍等...")
             return
@@ -233,11 +222,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 if self.isReport:
                     if self.isScript:
                         count = 0
-                        while count < 5:
-                            if self.scriptRunNum['0'] + self.scriptRunNum['1'] + self.scriptRunNum['2'] == len(self.args):
+                        while count < 10:
+                            if len(self.scriptRes) == len(self.args):
                                 break
                             time.sleep(1)
                             count += 1
+                        self.scriptRes.sort(key=lambda item : item['index'])
                         self.reportTh.setData({"task": self.lineEdit_task.text(), "throughput": result, "script": self.scriptRes, })
                     else:
                         self.reportTh.setData({"task": self.lineEdit_task.text(), "throughput": result, "script": []})
@@ -246,13 +236,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.failTotal += 1
                 self.label_error.setText(self.translate("GeneralWindow", "吞吐量测试， 测试失败，未获取到测试结果"))
 
+        if "fail" in p0[0] and self.isScript:
+            self.scriptTh.stop()
+
         self.total += 1
         self.statusBar.showMessage('Stop')
         self.cCount -= 1
         if self.cCount > 0 and not self.stopBool:
             self.label_count.setText('(循环剩余：{}次)  共计：{}次  成功：{}次  失败：{}次'.format(self.cCount, self.total, self.total-self.failTotal, self.failTotal))
             print("循环等待中", self.cCount)
-            self.label_error.setText("等待中...")
+            self.label_error.setText("循环等待中...")
             cInterval = self.spinBox_cInterval.value()
             if cInterval < 5 and not self.stopBool:
                 self.cctdTh.setTime(5, 0)
@@ -279,21 +272,21 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         self.lineEdit_task.setText(text + '_1')
 
     def recieveIntervCC(self, p0):
-        if not self.stopBool:
-            if self.isScript:
-                self.scriptRunNum = {'0':0, '1':0, '2':0}
-                self.scriptTh.start()
-                if self.waitNum == 0:
+        if p0 == 'over':
+            if not self.stopBool:
+                if self.isScript:
+                    self.scriptTh.start()
+                    if self.waitNum == 0:
+                        self.throughputdTh.start()
+                        self.statusBar.showMessage('Start')
+                else:
                     self.throughputdTh.start()
                     self.statusBar.showMessage('Start')
-            else:
-                self.throughputdTh.start()
-                self.statusBar.showMessage('Start')
-                if self.iperfVer == "2":
-                    self.label_res_th.clear()
-                elif self.iperfVer == "3":
-                    self.label_res_rx.clear()
-                    self.label_res_tx.clear()
+                    if self.iperfVer == "2":
+                        self.label_res_th.clear()
+                    elif self.iperfVer == "3":
+                        self.label_res_rx.clear()
+                        self.label_res_tx.clear()
 
     def getScriptArgs(self):
         if self.isScript:
@@ -315,31 +308,27 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             for i in self.horizontalLayout_script_List:
                 horizontalLayout_script = self.horizontalLayout_script_List[i]
-                # tmp.clear()
+                tmp.clear()
                 tmp.append(horizontalLayout_script[7].currentText())
                 tmp.append(horizontalLayout_script[9].text())
                 tmp.append(horizontalLayout_script[10].currentText())
                 opp = horizontalLayout_script[13].currentText()
-                if "运行前" in opp:
+                if "测试前" in opp:
                     count += 1
                 tmp.insert(0, opp)
                 tmp.append(horizontalLayout_script[16].text())
                 tmp.append(horizontalLayout_script[19].text())
                 tmp.append(horizontalLayout_script[-1])
-                scriptArgs.append(tmp)
+                scriptArgs.append(copy.copy(tmp))
             return scriptArgs, count
         else:
             return None, None
 
-    def runThrouTh(self, p0):
-        print("STARTING")
-
-        try:
-            self.scriptRunNum[p0] += 1
-        except Exception as e:
-            print(e)
-
-        if self.scriptRunNum['0'] == self.waitNum:
+    def runThrouTh(self, index):
+        for res in self.scriptRes:
+            if index == res["index"]:
+                self.textBrowser.append("script index: " + str(index) + " result: " + ' '.join(res["res"]))
+        if len(self.scriptRes) == self.waitNum:
             self.throughputdTh.start()
 
     def appendTB(self, p0):
@@ -485,11 +474,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.reportTh.setParam(self.iperfVer, self.comboBox_report_proto.currentText(), self.comboBox_report_method.currentText(), ipPort, uri, self.comboBox_report_formart.currentText())
 
         if self.isScript:
-            self.scriptRunNum = {'0':0, '1':0, '2':0}
             self.args, self.waitNum = self.getScriptArgs()
-            self.scriptTh = ScriptThread(c_time, self.args)
+            self.scriptTh = ScriptThread(c_time, self.args, self.scriptRes)
             self.scriptTh.signal_index.connect(self.runThrouTh)
-            self.scriptTh.signal_sRes.connect(self.setScriptResult)
             self.scriptTh.signal_tb.connect(self.appendTB)
             self.scriptTh.start()
             if self.waitNum == 0:
@@ -498,6 +485,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             self.throughputdTh.start()
             self.statusBar.showMessage('Start')
+
+        self.textBrowser.append("任务：" + self.lineEdit_task.text() + ' 开始......')
 
     @pyqtSlot()
     def on_pushButton_s_clicked(self):
@@ -636,8 +625,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.isScript = checked
         if checked:
             self.scriptRes = []
-            self.scriptRunNum = {'0':0, '1':0, '2':0}
-    
+        else:
+            del self.scriptRes
+
     @pyqtSlot()
     def on_pushButton_script_add_clicked(self):
         """
@@ -803,7 +793,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             _comboBox_opp.setItemText(2, self.translate("MainWindow", "测试前"))
             _pushButton_script_more.setText(self.translate("MainWindow", "..."))
             _label_17.setText(self.translate("MainWindow", "运行脚本:"))
-            _label_18.setText(self.translate("MainWindow", "结果匹配(正则表达式):"))
+            _label_18.setText(self.translate("MainWindow", "结果匹配:"))
 
             self.scriptNum += 1
             self.scriptKey += 1
@@ -1058,7 +1048,6 @@ class ThroughputThread(QThread):
         tmp = sys.argv[0]
         cmd = tmp.replace(tmp.split('\\')[-1], 'iperf\\' + paramTemp)
         # print(os.getcwd() + '\\iperf\\' + paramTemp)
-        print(cmd)
         self.process = subprocess.Popen(cmd,
                                         stdin=subprocess.PIPE,
                                         stdout=subprocess.PIPE,
@@ -1097,8 +1086,8 @@ class ThroughputThread(QThread):
         resBool = False
         outs = []
         while not self.stopBool:
-            out = str(self.process.stdout.readline(), encoding="gb2312", errors="ignore")
-            print("out:", out)
+            out = str(self.process.stdout.readline(), encoding="utf-8", errors="ignore")
+            # print("out:", out)
             outs.append(out)
             if not out:
                 break
@@ -1175,7 +1164,7 @@ class ThroughputThread(QThread):
         elif ' -P' in self.param:
             result["proto"] = "tcp"
             for line in lines:
-                if "[SUM]" in "0.0-"+str(self.tTime)+'.' in line:
+                if "[SUM]" in line and "0.0-"+str(self.tTime)+'.' in line:
                     result["throughput"] = re.findall(r'([\d.]*) \w*/sec', line)[0]
                     resBool = True
         else:
@@ -1197,7 +1186,7 @@ class ThroughputThread(QThread):
         outs = []
         while not self.stopBool:
             out = str(self.process.stdout.readline(), encoding="utf-8", errors="ignore")
-            print("out:", out)
+            # print("out:", out)
             outs.append(out)
             if not out:
                 break
@@ -1297,11 +1286,10 @@ class TimeDownThread(QThread):
 
 class ScriptThread(QThread):
 
-    signal_sRes = pyqtSignal(tuple)
-    signal_index = pyqtSignal(str)
     signal_tb = pyqtSignal(str)
+    signal_index = pyqtSignal(int)
 
-    def __init__(self, c_time, args, parent=None):
+    def __init__(self, c_time, args, scriptRes, parent=None):
         """
         :param args: [index, opp, proMode, [ip|serial, baudrate], script, re]
         :param c_time:
@@ -1312,24 +1300,25 @@ class ScriptThread(QThread):
         self.args = args
         self.c_time = c_time
         self.opp = ["测试前", "测试中", "测试后"]
+        self.scriptRes = scriptRes
 
     def run(self):
         print("script start")
         self.stopBool = False
+        self.scriptRes.clear()
         i = 0
         while not self.stopBool and i < 3:
             index = 0
             for arg in self.args:
-                # print('arg ', arg)
                 if arg[0] == self.opp[i]:
                     if "SSH" in arg[1]:
-                        s = threading.Thread(target=self.runSSH, args=(self.signal_sRes, self.signal_index, index, arg[0], arg[2], arg[-1]["user"], arg[-1]["passwd"], arg[4], arg[5]))
+                        s = threading.Thread(target=self.runSSH, args=(index, arg[0], arg[2], arg[-1]["user"], arg[-1]["passwd"], arg[4], arg[5]))
                         s.start()
                     elif "TELNET" in arg[1]:
-                        tl = threading.Thread(target=self.runTelnet, args=(self.signal_sRes, self.signal_index, index, arg[0], arg[2], arg[-1]["user"], arg[-1]["passwd"], arg[3], arg[4]))
+                        tl = threading.Thread(target=self.runTelnet, args=(index, arg[0], arg[2], arg[-1]["user"], arg[-1]["passwd"], arg[3], arg[4]))
                         tl.start()
                     elif "SERIAL" in arg[1]:
-                        ser = threading.Thread(target=self.runSerial, args=(self.signal_sRes, self.signal_index, index, arg[0], arg[3], arg[-1]["baudbit"], arg[-1]["user"], arg[-1]["passwd"], arg[4], arg[5]))
+                        ser = threading.Thread(target=self.runSerial, args=(index, arg[0], arg[3], arg[-1]["baudbit"], arg[-1]["user"], arg[-1]["passwd"], arg[4], arg[5]))
                         ser.start()
                     else:
                         pass
@@ -1341,10 +1330,10 @@ class ScriptThread(QThread):
     def stop(self):
         self.stopBool = True
 
-    def runSerial(self, signal_sRes, signal_index, index, opp, com, bitNum, user, passwd, cmd, res_re):
+    def runSerial(self, index, opp, com, bitNum, user, passwd, cmd, res_re):
         print("run serial")
         if not cmd:
-            self.signal_sRes.emit(("script", {"index": index, "opp": opp, "proto": "Serial", "com": com, "ip": "", "res": ""}))
+            self.scriptRes.append({"index": index, "opp": opp, "proto": "Serial", "com": com, "ip": "", "res": ""})
         else:
             ser = Serial()
             try:
@@ -1352,24 +1341,19 @@ class ScriptThread(QThread):
                 ser.auth('root', 'nE7jA%5m')
                 ser.write(cmd)
                 out = ser.read()
-                p = re.findall(res_re, str(out, encoding='utf-8'))
-                self.signal_sRes.emit(("script", {"index": index, "opp": opp, "proto": "Serial", "com": com, "ip": "", "res": p}))
+                p = re.findall(r'' + res_re, str(out, encoding='utf-8'))
+                self.scriptRes.append({"index": index, "opp": opp, "proto": "Serial", "com": com, "ip": "", "res": p})
             except Exception as e:
                 self.signal_tb.emit("脚本执行失败：index(" + str(index) + ") 错误：" + str(e))
                 logging.error(e)
-                self.signal_sRes.emit(("script", {"index": index, "opp": opp, "proto": "Serial", "com": com, "ip": "", "res": ""}))
+                self.scriptRes.append({"index": index, "opp": opp, "proto": "Serial", "com": com, "ip": "", "res": ""})
                 ser.close()
-        if "运行前" == opp:
-            self.signal_index.emit('0')
-        elif "运行中" == opp:
-            self.signal_index.emit('1')
-        elif "运行后" == opp:
-            self.signal_index.emit('2')
+        self.signal_index.emit(index)
 
-    def runTelnet(self, signal_sRes, signal_index, index, opp, ip, user, passwd, cmd, res_re):
+    def runTelnet(self, index, opp, ip, user, passwd, cmd, res_re):
         print("run telnet")
         if not cmd:
-            self.signal_sRes.emit(("script", {"index": index, "opp": opp, "proto": "telnet", "com": "", "ip": ip, "res": ""}))
+            self.scriptRes.append({"index": index, "opp": opp, "proto": "telnet", "com": "", "ip": ip, "res": ""})
         else:
             try:
                 tl = Telnet()
@@ -1377,46 +1361,36 @@ class ScriptThread(QThread):
                 tl.exec_cmd(cmd)
                 out = tl.read_very_lazy()
                 tl.close('exit')
-                p = re.findall(res_re, str(out, encoding='utf-8'))
-                self.signal_sRes.emit(("script", {"index": index, "opp": opp, "proto": "telnet", "com": "", "ip": ip, "res": p}))
+                p = re.findall(r'' + res_re, str(out, encoding='utf-8'))
+                self.scriptRes.append({"index": index, "opp": opp, "proto": "telnet", "com": "", "ip": ip, "res": p})
             except Exception as e:
                 self.signal_tb.emit("脚本执行失败：index(" + str(index) + ") 错误：" + str(e))
                 logging.error(e)
-                self.signal_sRes.emit(("script", {"index": index, "opp": opp, "proto": "telnet", "com": "", "ip": ip, "res": ""}))
+                self.scriptRes.append({"index": index, "opp": opp, "proto": "telnet", "com": "", "ip": ip, "res": ""})
                 tl.close()
-        if "运行前" == opp:
-            self.signal_index.emit('0')
-        elif "运行中" == opp:
-            self.signal_index.emit('1')
-        elif "运行后" == opp:
-            self.signal_index.emit('2')
+        self.signal_index.emit(index)
 
-    def runSSH(self, signal_sRes, signal_index, index, opp, ip, user, passwd, cmd, res_re):
+    def runSSH(self, index, opp, ip, user, passwd, cmd, res_re):
         print("run SSH")
         if not cmd:
-            self.signal_sRes.emit(("script", {"index": index, "opp": opp, "proto": "ssh", "com": "", "ip": ip, "res": ""}))
+            self.scriptRes.append({"index": index, "opp": opp, "proto": "ssh", "com": "", "ip": ip, "res": ""})
         else:
             ssh = SSH()
             try:
                 ssh.authSSH(ip, 22, user, passwd)
                 stdin, stdout, stderr = ssh.exec_cmd(cmd)
                 out = stdout.read().decode('utf-8')
-                print("ont", out)
+                # print("ont", out)
                 ssh.close()
-                p = re.findall(res_re, out)
-                print("p", p)
-                self.signal_sRes.emit(("script", {"index": index, "opp": opp, "proto": "ssh", "com": "", "ip": ip, "res": p}))
+                p = re.findall(r'' + res_re, out)
+                self.scriptRes.append({"index": index, "opp": opp, "proto": "ssh", "com": "", "ip": ip, "res": p})
             except Exception as e:
                 self.signal_tb.emit("脚本执行失败：index(" + str(index) + ") 错误：" + str(e))
                 logging.error(e)
-                self.signal_sRes.emit(("script", {"index": index, "opp": opp, "proto": "ssh", "com": "", "ip": ip, "res": ""}))
+                self.scriptRes.append({"index": index, "opp": opp, "proto": "ssh", "com": "", "ip": ip, "res": ""})
                 ssh.close()
-        if "运行前" == opp:
-            self.signal_index.emit('0')
-        elif "运行中" == opp:
-            self.signal_index.emit('1')
-        elif "运行后" == opp:
-            self.signal_index.emit('2')
+        self.signal_index.emit(index)
+
 
 class ReportThread(QThread):
 

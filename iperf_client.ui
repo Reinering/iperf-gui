@@ -39,7 +39,7 @@
        </font>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>4</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -1967,7 +1967,7 @@
         <item row="1" column="0">
          <widget class="QStackedWidget" name="stackedWidget">
           <property name="currentIndex">
-           <number>1</number>
+           <number>0</number>
           </property>
           <widget class="QWidget" name="page">
            <layout class="QGridLayout" name="gridLayout_11">
@@ -1979,21 +1979,6 @@
               <column>
                <property name="text">
                 <string>Protocol</string>
-               </property>
-              </column>
-              <column>
-               <property name="text">
-                <string>Throughput/Mbps</string>
-               </property>
-              </column>
-              <column>
-               <property name="text">
-                <string>Loss</string>
-               </property>
-              </column>
-              <column>
-               <property name="text">
-                <string>Delay/ms</string>
                </property>
               </column>
               <column>
