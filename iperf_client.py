@@ -63,6 +63,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.throughputdTh.signal_tb.connect(self.appendTB)
         self.tDTh = TimeDownThread()
         self.tDTh.signal_Time.connect(self.setTimeDown)
+        self.tDTh.signal_TimeOver.connect(self.throughputdTh.timeOver)
         self.cctdTh = TimeDownThread()
         self.cctdTh.signal_TimeOver.connect(self.recieveIntervCC)
         self.cCount = 0
@@ -247,9 +248,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.label_error.setText("循环等待中...")
             cInterval = self.spinBox_cInterval.value()
             if cInterval < 5 and not self.stopBool:
-                self.cctdTh.setTime(5, 0)
+                self.cctdTh.setTime(5)
             else:
-                self.cctdTh.setTime(self.spinBox_cInterval.value(), 0)
+                self.cctdTh.setTime(self.spinBox_cInterval.value())
             self.cctdTh.start()
         else:
             self.label_count.setText('共计：{}次  成功：{}次  失败：{}次'.format(self.total, self.total-self.failTotal, self.failTotal))
@@ -454,9 +455,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.pushButton_s.setEnabled(True)
         if pro == "UDP":
             c_param = c_param + ' -u '
-        c_p = self.spinBox_p.value()
-        if c_p > 1 and ' -P' not in c_param:
-            c_param = c_param + ' -P ' + str(self.spinBox_p.value())
+
+        # iperf3 udp 暂时不支持 -P
+        if self.iperfVer != '3' or pro != 'UDP':
+            c_p = self.spinBox_p.value()
+            if c_p > 1 and ' -P' not in c_param:
+                c_param = c_param + ' -P ' + str(self.spinBox_p.value())
+
         self.throughputdTh.setParam(self.iperfVer, c_ip, c_param, c_time, self.tDTh)
 
         if self.checkBox_cc.isChecked():
@@ -582,6 +587,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.lineEdit_c_param.clear()
             self.label_error_c.setText("iperf 参数无法设置iperf版本参数，请重新设置")
             return
+
+        if self.iperfVer == '3' and self.comboBox_pro.currentText() == 'UDP' and self.spinBox_p.value() > 1:
+            self.label_error_c.setText("iperf3 UDP测试暂不支持参数'-P'，程序自动忽略")
 
     @pyqtSlot()
     def on_lineEdit_script_ip_editingFinished(self):
@@ -1007,7 +1015,6 @@ class ThroughputThread(QThread):
         self.param = param
         self.tTime = tTime
         self.tDTh = tDTh
-        # self.tDTh.signal_TimeOver.connect(self.timeOver)
 
         p = re.findall(r'-P[ ]?([\d])+', param)
         if p:
@@ -1019,33 +1026,39 @@ class ThroughputThread(QThread):
 
     def timeOver(self, p0):
         if p0 == "stop":
+            if self.process.poll() == None:
+                subprocess.Popen('taskkill /f /fi "imagename eq iperf* " /fi "imagename ne iperf_client*"',
+                                 stdin=subprocess.PIPE,
+                                 stdout=subprocess.PIPE,
+                                 stderr=subprocess.PIPE,
+                                 shell=True)
+                self.signal_tb.emit("iperf3 进程已KILL")
+                return
             if ' -d' in self.param and not self.stopBool:
                 self.close()
                 return
             if not self.stopBool:
                 self.close()
-                # self.signal_result.emit(("fail",))
 
     def run(self):
+        self.stopBool = False
 
         if not getLinkState(self.c_ip):
             self.signal_result.emit(("ping fail",))
             return
         paramTemp = ' -c ' + self.c_ip + ' ' + self.param + ' -t ' + str(self.tTime)
+        tmp = sys.argv[0]
         if self.iperfVer == '2':
-            paramTemp = 'iperf ' + paramTemp
+            cmd = tmp.replace(tmp.split('\\')[-1], 'iperf\\' + 'iperf ' + paramTemp)
         elif self.iperfVer == '3':
-            paramTemp = 'iperf3 ' + paramTemp
+            cmd = tmp.replace(tmp.split('\\')[-1], 'iperf3\\' + 'iperf3 ' + paramTemp)
         else:
             self.signal_result.emit(("fail",))
             return
 
         self.tDTh.setTime(self.tTime)
         self.stopBool = False
-
         self.tDTh.start()
-        tmp = sys.argv[0]
-        cmd = tmp.replace(tmp.split('\\')[-1], 'iperf\\' + paramTemp)
         # print(os.getcwd() + '\\iperf\\' + paramTemp)
         self.process = subprocess.Popen(cmd,
                                         stdin=subprocess.PIPE,
@@ -1113,25 +1126,24 @@ class ThroughputThread(QThread):
                 elif "0.0-"+str(self.tTime)+'.' in line and tag:
                     tmp = re.findall(r'[\d.]* \w*/sec|[\d.]* \w*ms|[\d]*%', line)
                     tag = False
-                    if len(result) == 3:
+                    if len(tmp) == 3:
                         result["loss"] = tmp[2].split(' ')[0]
-                    if len(result) >= 2:
+                    if len(tmp) >= 2:
                         result["delay"] = tmp[1].split(' ')[0]
-                    if len(result) >= 1:
+                    if len(tmp) >= 1:
                         result["throughput"] = tmp[0].split(' ')[0]
                     resBool = True
                 elif "[SUM]" in line and "0.0-"+str(self.tTime)+'.' in line:
                     tmp = re.findall(r'[\d.]* \w*/sec|[\d.]* \w*ms|[\d]*%', line)
-                    if len(result) == 3:
+                    if len(tmp) == 3:
                         result["loss"] = tmp[2].split(' ')[0]
-                    if len(result) >= 2:
+                    if len(tmp) >= 2:
                         result["delay"] = tmp[1].split(' ')[0]
-                    if len(result) >= 1:
+                    if len(tmp) >= 1:
                         result["throughput"] = tmp[0].split(' ')[0]
                     resBool = True
                 else:
                     pass
-
         elif ' -u ' in self.param:
             result["proto"] = "udp"
             tag = False
@@ -1142,20 +1154,20 @@ class ThroughputThread(QThread):
                     if tag:
                         tmp = re.findall(r'[\d.]* \w*/sec|[\d.]* \w*ms|[\d]*%', line)
                         tag = False
-                        if len(result) == 3:
+                        if len(tmp) == 3:
                             result["loss"] = tmp[2].split(' ')[0]
-                        if len(result) >= 2:
+                        if len(tmp) >= 2:
                             result["delay"] = tmp[1].split(' ')[0]
-                        if len(result) >= 1:
+                        if len(tmp) >= 1:
                             result["throughput"] = tmp[0].split(' ')[0]
                         resBool = True
                     else:
                         tmp = re.findall(r'[\d.]* \w*/sec|[\d.]* \w*ms|[\d]*%', line)
-                        if len(result) == 3:
+                        if len(tmp) == 3:
                             result["loss"] = tmp[2].split(' ')[0]
-                        if len(result) >= 2:
+                        if len(tmp) >= 2:
                             result["delay"] = tmp[1].split(' ')[0]
-                        if len(result) >= 1:
+                        if len(tmp) >= 1:
                             result["throughput"] = tmp[0].split(' ')[0]
                         resBool = True
                 else:
@@ -1201,25 +1213,41 @@ class ThroughputThread(QThread):
         self.signal_tb.emit("".join(outs))
         del outs
         if ' -u ' in self.param and ' -P' in self.param:
+            pass
+            # result["proto"] = "udp"
+            # for line in lines:
+            #     if "[SUM]" in line and "sender" in line and "0.00-"+str(self.tTime)+'.' in line:
+            #         result["tx"] = re.findall(r'[\d.]* \w*/sec', line)[0].split(' ')[0]
+            #         resBool = True
+            #     elif "[SUM]" in line and "receiver" in line and "0.00-"+str(self.tTime)+'.' in line:
+            #         result["rx"] = re.findall(r'[\d.]* \w*/sec', line)[0].split(' ')[0]
+            #         resBool = True
+
+        elif ' -u ' in self.param and ' -R ' in self.param:
             result["proto"] = "udp"
             for line in lines:
-                if "[SUM]" in line and "sender" in line and "0.00-"+str(self.tTime)+'.' in line:
-                    result["tx"] = re.findall(r'[\d.]* \w*/sec', line)[0].split(' ')[0]
-                    resBool = True
-                elif "[SUM]" in line and "receiver" in line and "0.00-"+str(self.tTime)+'.' in line:
-                    result["rx"] = re.findall(r'[\d.]* \w*/sec', line)[0].split(' ')[0]
+                if "0.00-"+str(self.tTime)+'.' in line:
+                    tmp = re.findall(r'[\d.]* \w*/sec|[\d.]* \w*ms|[\d]*%', line)
+                    print(tmp)
+                    if len(tmp) == 3:
+                        result["loss"] = tmp[2].split(' ')[0]
+                    if len(tmp) >= 2:
+                        result["delay"] = tmp[1].split(' ')[0]
+                    if len(tmp) >= 1:
+                        result["rx"] = tmp[0].split(' ')[0]
                     resBool = True
         elif ' -u ' in self.param:
             result["proto"] = "udp"
             for line in lines:
                 if "0.00-"+str(self.tTime)+'.' in line:
                     tmp = re.findall(r'[\d.]* \w*/sec|[\d.]* \w*ms|[\d]*%', line)
-                    if len(result) == 3:
+                    print(tmp)
+                    if len(tmp) == 3:
                         result["loss"] = tmp[2].split(' ')[0]
-                    if len(result) >= 2:
+                    if len(tmp) >= 2:
                         result["delay"] = tmp[1].split(' ')[0]
-                    if len(result) >= 1:
-                        result["throughput"] = tmp[0].split(' ')[0]
+                    if len(tmp) >= 1:
+                        result["tx"] = tmp[0].split(' ')[0]
                     resBool = True
         elif ' -P' in self.param:
             result["proto"] = "tcp"
@@ -1267,17 +1295,19 @@ class TimeDownThread(QThread):
 
         tempTime = self.intervalTime - 0.01
         self.signal_Time.emit(self.tTime)
-        while not self.stopBool and self.tTime > 0:
+        start = time.time()
+        tT = self.tTime
+        while not self.stopBool and tT > 0:
             if tempTime > 0:
                 time.sleep(tempTime)
-                self.tTime = self.tTime - self.intervalTime
-                self.signal_Time.emit(self.tTime)
+                tT = self.tTime - (time.time() - start)
+                print("tTime", tT)
+                self.signal_Time.emit(tT)
             else:
                 time.sleep(5)
                 self.tTime = self.tTime - 5
         self.signal_TimeOver.emit('over')
-
-        time.sleep(10)
+        time.sleep(5)
         self.signal_TimeOver.emit('stop')
 
     def stop(self):
@@ -1390,6 +1420,7 @@ class ScriptThread(QThread):
                 ssh.close()
         self.signal_index.emit(index)
 
+
 class ReportThread(QThread):
 
     signal_result = pyqtSignal(tuple)
@@ -1470,6 +1501,7 @@ class ReportThread(QThread):
         self.signal_result.emit(("report", False))
         self.signal_tb.emit("测试结果上报失败")
 
+
 class ExcelThread(QThread):
 
     def __init__(self, parent=None):
@@ -1486,6 +1518,7 @@ class ExcelThread(QThread):
             writeExcel(self.filePath, self.sheetName, self.args)
         self.filePath = None
         self.sheetName = None
+
 
 def reportResult(proto, method, ipPort, uri, iperfVer, dataFormat, data):
     headers = {
@@ -1535,6 +1568,7 @@ def reportResult(proto, method, ipPort, uri, iperfVer, dataFormat, data):
         runHttp(method, headers, url, data)
     else:
         pass
+
 
 
 
