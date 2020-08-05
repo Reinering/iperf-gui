@@ -13,7 +13,7 @@ import platform
 
 Version = "v2.2.3"
 Computer_Digits = 'x86'
-TypeNum = 2
+TypeNum = 4
 pyVer = "3.6.7"
 FileList = [
     {
@@ -104,7 +104,6 @@ def packaging():
         if py['version'] == pyVer:
             cmd = py['path'] + '\Scripts\pyinstaller.exe'
             break
-
     if not PackageArgs['console']:
         cmd = cmd + ' -w'
 
@@ -210,7 +209,7 @@ def packaging():
 
 
 if __name__ == "__main__":
-    PackageArgs['console'] = True
+    # PackageArgs['console'] = True
     PackageArgs['isClean'] = True
     PackageArgs['distpath'] = r'F:\PythonAPP_Package\Iperf_GUI'
 

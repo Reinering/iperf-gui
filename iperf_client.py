@@ -125,6 +125,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.on_pushButton_refresh_clicked()
         self.statusBar.showMessage('Ready')
 
+        self.spinBox_cInterval.setValue(10)
         self.lineEdit_c_ip.setText("192.168.1.81")
         self.lineEdit_c_ip.setText("192.168.10.100")
         self.lineEdit_script.setText("cat /proc/version")
@@ -1008,6 +1009,7 @@ class ThroughputThread(QThread):
         self.iperfVer = "2"
         self.pResult = False
         self.maxlen = 10
+        self.lines = deque(maxlen=self.maxlen)
 
     def setParam(self, iperfVer, c_ip, param, tTime, tDTh):
         self.iperfVer = iperfVer
@@ -1026,7 +1028,7 @@ class ThroughputThread(QThread):
 
     def timeOver(self, p0):
         if p0 == "stop":
-            if self.process.poll() == None:
+            if self.process.poll() == None and not self.lines:
                 subprocess.Popen('taskkill /f /fi "imagename eq iperf* " /fi "imagename ne iperf_client*"',
                                  stdin=subprocess.PIPE,
                                  stdout=subprocess.PIPE,
@@ -1042,7 +1044,7 @@ class ThroughputThread(QThread):
 
     def run(self):
         self.stopBool = False
-
+        self.lines.clear()
         if not getLinkState(self.c_ip):
             self.signal_result.emit(("ping fail",))
             return
@@ -1090,7 +1092,7 @@ class ThroughputThread(QThread):
                                         shell=True)
 
     def getIperfResult(self):
-        lines = deque(maxlen=self.maxlen)
+
         now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         result = {"iperfVer": 2, "proto": "", "throughput": "", "unit": "Mbps", "loss": "", "delay": "", "direct": "down", "time": now, }
         if "-R" in self.param:
@@ -1113,14 +1115,14 @@ class ThroughputThread(QThread):
                 self.close()
                 return
             else:
-                lines.append(out)
+                self.lines.append(out)
         self.signal_tb.emit("".join(outs))
         del outs
 
         if ' -u ' in self.param and ' -P' in self.param:
             result["proto"] = "udp"
             tag = False
-            for line in lines:
+            for line in self.lines:
                 if 'Server Report:' in line:
                     tag = True
                 elif "0.0-"+str(self.tTime)+'.' in line and tag:
@@ -1147,7 +1149,7 @@ class ThroughputThread(QThread):
         elif ' -u ' in self.param:
             result["proto"] = "udp"
             tag = False
-            for line in lines:
+            for line in self.lines:
                 if 'Server Report:' in line:
                     tag = True
                 elif "0.0-"+str(self.tTime)+'.' in line:
@@ -1174,13 +1176,13 @@ class ThroughputThread(QThread):
                     pass
         elif ' -P' in self.param:
             result["proto"] = "tcp"
-            for line in lines:
+            for line in self.lines:
                 if "[SUM]" in line and "0.0-"+str(self.tTime)+'.' in line:
                     result["throughput"] = re.findall(r'([\d.]*) \w*/sec', line)[0]
                     resBool = True
         else:
             result["proto"] = "tcp"
-            for line in lines:
+            for line in self.lines:
                 if "0.0-"+str(self.tTime)+'.' in line:
                     result["throughput"] = re.findall(r'([\d.]*) \w*/sec', line)[0]
                     resBool = True
@@ -1188,7 +1190,6 @@ class ThroughputThread(QThread):
         self.signal_result.emit(("result", resBool, result))
 
     def getIperf3Result(self):
-        lines = deque(maxlen=self.maxlen)
         now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         result = {"iperfVer": "3", "proto": "", "rx": "", "tx": "", "unit": "Mbps", "loss": "", "delay": "", "direct": "up", "time": now, }
         if "-R" in self.param:
@@ -1207,7 +1208,7 @@ class ThroughputThread(QThread):
                 self.signal_result.emit(("connect fail",))
                 return
             else:
-                lines.append(out)
+                self.lines.append(out)
 
             self.process.stdout.flush()
         self.signal_tb.emit("".join(outs))
@@ -1225,7 +1226,7 @@ class ThroughputThread(QThread):
 
         elif ' -u ' in self.param and ' -R ' in self.param:
             result["proto"] = "udp"
-            for line in lines:
+            for line in self.lines:
                 if "0.00-"+str(self.tTime)+'.' in line:
                     tmp = re.findall(r'[\d.]* \w*/sec|[\d.]* \w*ms|[\d]*%', line)
                     print(tmp)
@@ -1238,7 +1239,7 @@ class ThroughputThread(QThread):
                     resBool = True
         elif ' -u ' in self.param:
             result["proto"] = "udp"
-            for line in lines:
+            for line in self.lines:
                 if "0.00-"+str(self.tTime)+'.' in line:
                     tmp = re.findall(r'[\d.]* \w*/sec|[\d.]* \w*ms|[\d]*%', line)
                     print(tmp)
@@ -1252,7 +1253,7 @@ class ThroughputThread(QThread):
         elif ' -P' in self.param:
             result["proto"] = "tcp"
             try:
-                for line in lines:
+                for line in self.lines:
                     if "[SUM]" in line and "sender" in line and "0.00-"+str(self.tTime)+'.' in line:
                         result["tx"] = re.findall(r'[\d.]* \w*/sec', line)[0].split(' ')[0]
                         resBool = True
@@ -1263,7 +1264,7 @@ class ThroughputThread(QThread):
                 print(e)
         else:
             result["proto"] = "tcp"
-            for line in lines:
+            for line in self.lines:
                 if "sender" in line and "0.00-"+str(self.tTime)+'.' in line:
                     result["tx"] = re.findall(r'[\d.]* \w*/sec', line)[0].split(' ')[0]
                     resBool = True
@@ -1419,7 +1420,6 @@ class ScriptThread(QThread):
                 self.scriptRes.append({"index": index, "opp": opp, "proto": "ssh", "com": "", "ip": ip, "res": ""})
                 ssh.close()
         self.signal_index.emit(index)
-
 
 class ReportThread(QThread):
 
