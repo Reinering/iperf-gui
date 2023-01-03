@@ -19,9 +19,9 @@ TypeNum = 2
 pyVer = "3.10.2"
 FileList = [
     {
-        'name': "main.py",
+        'name': "iperf-dev.py",
         'settingFile': "manage.py",
-        'outName': "iperf-gui",
+        'outName': "iperf-dev",
     }
 ]
 isclean = True
@@ -267,7 +267,7 @@ if __name__ == "__main__":
         # "default:default",
         # "pic;pic",
         # "ui/style;ui/style"
-        "iperf3\\*;iperf3"
+        "iperf\\*;iperf"
     ]
 
     PackageArgs['iconPath'] = r'pic\favicon.ico'
