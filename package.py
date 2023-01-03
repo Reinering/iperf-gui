@@ -255,7 +255,7 @@ if __name__ == "__main__":
     if "LINUX" in os_platform.upper():
         PackageArgs['distpath'] = os.path.join(os.getcwd(), 'dist')
     else:
-        PackageArgs['distpath'] = r'E:\Outputs\PythonApp_Package\iperf-gui'
+        PackageArgs['distpath'] = r'W:\work_2\PythonApp_Package\iperf-gui'
 
     PackageArgs['isClean'] = True
     PackageArgs['hiddenImport'] = [

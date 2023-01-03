@@ -211,6 +211,6 @@ def packaging():
 if __name__ == "__main__":
     # PackageArgs['console'] = True
     PackageArgs['isClean'] = True
-    PackageArgs['distpath'] = r'E:\Outputs\PythonApp_Package\iperf-gui'
+    PackageArgs['distpath'] = r'W:\work_2\PythonApp_Package\iperf-gui'
 
     packaging()
