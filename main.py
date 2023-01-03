@@ -4,12 +4,13 @@
 
 import sys, datetime
 import getopt
-from PyQt5.QtWidgets import QApplication, QSplashScreen
+from PyQt5.QtWidgets import QSplashScreen
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtWidgets import QApplication
 from iperf_client import MainWindow
 import logging.handlers
 import os
+# from pycrunch_trace.client.api import trace
 
 
 version = "v1.0.0"
@@ -40,8 +41,7 @@ class Usage(Exception):
     def __init__(self, msg):
         self.msg = msg
 
-
-
+# @trace()
 def main(argv=None):
     if argv is None:
         argv = sys.argv
@@ -60,8 +60,6 @@ def main(argv=None):
             if existPic:
                 splash.finish(ui)
             sys.exit(app.exec_())
-
-
         except getopt.error as msg:
             raise Usage(msg)
     except Usage as err:

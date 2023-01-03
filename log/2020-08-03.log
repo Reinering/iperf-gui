@@ -1,0 +1,433 @@
+2020-08-03 08:53:46 iperf_client.py[line:438] INFO start
+2020-08-03 08:55:37 iperf_client.py[line:439] INFO start
+2020-08-03 08:56:28 iperf_client.py[line:438] INFO start
+2020-08-03 08:57:07 iperf_client.py[line:438] INFO start
+2020-08-03 08:58:03 iperf_client.py[line:438] INFO start
+2020-08-03 08:59:00 iperf_client.py[line:438] INFO start
+2020-08-03 09:01:17 iperf_client.py[line:438] INFO start
+2020-08-03 09:01:44 iperf_client.py[line:438] INFO start
+2020-08-03 09:02:46 iperf_client.py[line:438] INFO start
+2020-08-03 09:03:40 iperf_client.py[line:438] INFO start
+2020-08-03 09:15:36 iperf_client.py[line:438] INFO start
+2020-08-03 09:16:15 iperf_client.py[line:438] INFO start
+2020-08-03 09:16:24 iperf_client.py[line:438] INFO start
+2020-08-03 09:23:16 iperf_client.py[line:438] INFO start
+2020-08-03 09:35:24 iperf_client.py[line:438] INFO start
+2020-08-03 09:58:06 iperf_client.py[line:438] INFO start
+2020-08-03 10:02:30 iperf_client.py[line:438] INFO start
+2020-08-03 10:03:23 iperf_client.py[line:438] INFO start
+2020-08-03 10:07:00 iperf_client.py[line:438] INFO start
+2020-08-03 10:09:01 iperf_client.py[line:438] INFO start
+2020-08-03 10:10:09 iperf_client.py[line:438] INFO start
+2020-08-03 10:10:46 iperf_client.py[line:438] INFO start
+2020-08-03 10:13:05 iperf_client.py[line:438] INFO start
+2020-08-03 10:14:34 iperf_client.py[line:438] INFO start
+2020-08-03 10:15:00 iperf_client.py[line:438] INFO start
+2020-08-03 10:16:21 iperf_client.py[line:438] INFO start
+2020-08-03 10:17:36 iperf_client.py[line:438] INFO start
+2020-08-03 10:18:49 iperf_client.py[line:438] INFO start
+2020-08-03 10:19:22 iperf_client.py[line:438] INFO start
+2020-08-03 10:19:41 iperf_client.py[line:438] INFO start
+2020-08-03 10:20:12 iperf_client.py[line:438] INFO start
+2020-08-03 10:22:25 iperf_client.py[line:438] INFO start
+2020-08-03 10:24:03 iperf_client.py[line:442] INFO start
+2020-08-03 10:24:58 iperf_client.py[line:442] INFO start
+2020-08-03 10:25:11 iperf_client.py[line:442] INFO start
+2020-08-03 10:28:02 iperf_client.py[line:442] INFO start
+2020-08-03 10:29:51 iperf_client.py[line:443] INFO start
+2020-08-03 10:31:54 iperf_client.py[line:443] INFO start
+2020-08-03 10:33:18 iperf_client.py[line:443] INFO start
+2020-08-03 10:33:36 iperf_client.py[line:443] INFO start
+2020-08-03 10:34:32 iperf_client.py[line:443] INFO start
+2020-08-03 10:35:17 iperf_client.py[line:443] INFO start
+2020-08-03 10:36:53 iperf_client.py[line:512] INFO stop...
+2020-08-03 10:37:26 iperf_client.py[line:443] INFO start
+2020-08-03 10:37:34 iperf_client.py[line:512] INFO stop...
+2020-08-03 10:37:43 iperf_client.py[line:443] INFO start
+2020-08-03 10:38:29 iperf_client.py[line:512] INFO stop...
+2020-08-03 10:38:48 iperf_client.py[line:442] INFO start
+2020-08-03 10:40:27 iperf_client.py[line:442] INFO start
+2020-08-03 10:41:08 iperf_client.py[line:442] INFO start
+2020-08-03 10:41:35 iperf_client.py[line:442] INFO start
+2020-08-03 10:58:28 iperf_client.py[line:442] INFO start
+2020-08-03 11:00:05 iperf_client.py[line:442] INFO start
+2020-08-03 11:08:56 iperf_client.py[line:442] INFO start
+2020-08-03 11:10:00 iperf_client.py[line:442] INFO start
+2020-08-03 11:13:21 iperf_client.py[line:442] INFO start
+2020-08-03 11:35:18 iperf_client.py[line:442] INFO start
+2020-08-03 11:39:04 iperf_client.py[line:442] INFO start
+2020-08-03 11:40:15 iperf_client.py[line:442] INFO start
+2020-08-03 11:50:43 iperf_client.py[line:442] INFO start
+2020-08-03 11:52:48 iperf_client.py[line:442] INFO start
+2020-08-03 11:53:22 iperf_client.py[line:442] INFO start
+2020-08-03 14:10:08 iperf_client.py[line:442] INFO start
+2020-08-03 14:20:45 iperf_client.py[line:442] INFO start
+2020-08-03 16:10:14 iperf_client.py[line:443] INFO start
+2020-08-03 16:11:29 iperf_client.py[line:443] INFO start
+2020-08-03 16:16:26 iperf_client.py[line:442] INFO start
+2020-08-03 16:17:59 iperf_client.py[line:441] INFO start
+2020-08-03 16:20:43 iperf_client.py[line:441] INFO start
+2020-08-03 16:40:46 iperf_client.py[line:441] INFO start
+2020-08-03 16:40:56 transport.py[line:1819] DEBUG starting thread (client mode): 0x6760cc0
+2020-08-03 16:40:56 transport.py[line:1819] DEBUG Local version/idstring: SSH-2.0-paramiko_2.7.1
+2020-08-03 16:40:56 transport.py[line:1819] DEBUG Remote version/idstring: SSH-2.0-OpenSSH_8.1
+2020-08-03 16:40:56 transport.py[line:1819] INFO Connected (version 2.0, client OpenSSH_8.1)
+2020-08-03 16:40:56 transport.py[line:1819] DEBUG kex algos:['curve25519-sha256', 'curve25519-sha256@libssh.org', 'ecdh-sha2-nistp256', 'ecdh-sha2-nistp384', 'ecdh-sha2-nistp521', 'diffie-hellman-group-exchange-sha256', 'diffie-hellman-group16-sha512', 'diffie-hellman-group18-sha512', 'diffie-hellman-group14-sha256', 'diffie-hellman-group14-sha1'] server key:['rsa-sha2-512', 'rsa-sha2-256', 'ssh-rsa', 'ssh-ed25519'] client encrypt:['chacha20-poly1305@openssh.com', 'aes128-ctr', 'aes192-ctr', 'aes256-ctr', 'aes128-gcm@openssh.com', 'aes256-gcm@openssh.com'] server encrypt:['chacha20-poly1305@openssh.com', 'aes128-ctr', 'aes192-ctr', 'aes256-ctr', 'aes128-gcm@openssh.com', 'aes256-gcm@openssh.com'] client mac:['umac-64-etm@openssh.com', 'umac-128-etm@openssh.com', 'hmac-sha2-256-etm@openssh.com', 'hmac-sha2-512-etm@openssh.com', 'hmac-sha1-etm@openssh.com', 'umac-64@openssh.com', 'umac-128@openssh.com', 'hmac-sha2-256', 'hmac-sha2-512', 'hmac-sha1'] server mac:['umac-64-etm@openssh.com', 'umac-128-etm@openssh.com', 'hmac-sha2-256-etm@openssh.com', 'hmac-sha2-512-etm@openssh.com', 'hmac-sha1-etm@openssh.com', 'umac-64@openssh.com', 'umac-128@openssh.com', 'hmac-sha2-256', 'hmac-sha2-512', 'hmac-sha1'] client compress:['none', 'zlib@openssh.com'] server compress:['none', 'zlib@openssh.com'] client lang:[''] server lang:[''] kex follows?False
+2020-08-03 16:40:56 transport.py[line:1819] DEBUG Kex agreed: curve25519-sha256@libssh.org
+2020-08-03 16:40:56 transport.py[line:1819] DEBUG HostKey agreed: ssh-ed25519
+2020-08-03 16:40:56 transport.py[line:1819] DEBUG Cipher agreed: aes128-ctr
+2020-08-03 16:40:56 transport.py[line:1819] DEBUG MAC agreed: hmac-sha2-256
+2020-08-03 16:40:56 transport.py[line:1819] DEBUG Compression agreed: none
+2020-08-03 16:40:56 transport.py[line:1819] DEBUG kex engine KexCurve25519 specified hash_algo <built-in function openssl_sha256>
+2020-08-03 16:40:56 transport.py[line:1819] DEBUG Switch to new keys ...
+2020-08-03 16:40:56 transport.py[line:1819] DEBUG Adding ssh-ed25519 host key for 192.168.2.1: b'48125fda446c1aa5e770119fe5072e93'
+2020-08-03 16:40:56 transport.py[line:1819] DEBUG userauth is OK
+2020-08-03 16:40:56 transport.py[line:1819] INFO Authentication (password) failed.
+2020-08-03 16:40:56 iperf_client.py[line:1408] ERROR Authentication failed.
+2020-08-03 16:41:56 transport.py[line:1819] DEBUG EOF in transport thread
+2020-08-03 16:42:30 iperf_client.py[line:441] INFO start
+2020-08-03 16:42:40 transport.py[line:1819] DEBUG starting thread (client mode): 0x4861c50
+2020-08-03 16:42:40 transport.py[line:1819] DEBUG Local version/idstring: SSH-2.0-paramiko_2.7.1
+2020-08-03 16:42:40 transport.py[line:1819] DEBUG Remote version/idstring: SSH-2.0-OpenSSH_8.1
+2020-08-03 16:42:40 transport.py[line:1819] INFO Connected (version 2.0, client OpenSSH_8.1)
+2020-08-03 16:42:40 transport.py[line:1819] DEBUG kex algos:['curve25519-sha256', 'curve25519-sha256@libssh.org', 'ecdh-sha2-nistp256', 'ecdh-sha2-nistp384', 'ecdh-sha2-nistp521', 'diffie-hellman-group-exchange-sha256', 'diffie-hellman-group16-sha512', 'diffie-hellman-group18-sha512', 'diffie-hellman-group14-sha256', 'diffie-hellman-group14-sha1'] server key:['rsa-sha2-512', 'rsa-sha2-256', 'ssh-rsa', 'ssh-ed25519'] client encrypt:['chacha20-poly1305@openssh.com', 'aes128-ctr', 'aes192-ctr', 'aes256-ctr', 'aes128-gcm@openssh.com', 'aes256-gcm@openssh.com'] server encrypt:['chacha20-poly1305@openssh.com', 'aes128-ctr', 'aes192-ctr', 'aes256-ctr', 'aes128-gcm@openssh.com', 'aes256-gcm@openssh.com'] client mac:['umac-64-etm@openssh.com', 'umac-128-etm@openssh.com', 'hmac-sha2-256-etm@openssh.com', 'hmac-sha2-512-etm@openssh.com', 'hmac-sha1-etm@openssh.com', 'umac-64@openssh.com', 'umac-128@openssh.com', 'hmac-sha2-256', 'hmac-sha2-512', 'hmac-sha1'] server mac:['umac-64-etm@openssh.com', 'umac-128-etm@openssh.com', 'hmac-sha2-256-etm@openssh.com', 'hmac-sha2-512-etm@openssh.com', 'hmac-sha1-etm@openssh.com', 'umac-64@openssh.com', 'umac-128@openssh.com', 'hmac-sha2-256', 'hmac-sha2-512', 'hmac-sha1'] client compress:['none', 'zlib@openssh.com'] server compress:['none', 'zlib@openssh.com'] client lang:[''] server lang:[''] kex follows?False
+2020-08-03 16:42:40 transport.py[line:1819] DEBUG Kex agreed: curve25519-sha256@libssh.org
+2020-08-03 16:42:40 transport.py[line:1819] DEBUG HostKey agreed: ssh-ed25519
+2020-08-03 16:42:40 transport.py[line:1819] DEBUG Cipher agreed: aes128-ctr
+2020-08-03 16:42:40 transport.py[line:1819] DEBUG MAC agreed: hmac-sha2-256
+2020-08-03 16:42:40 transport.py[line:1819] DEBUG Compression agreed: none
+2020-08-03 16:42:41 transport.py[line:1819] DEBUG kex engine KexCurve25519 specified hash_algo <built-in function openssl_sha256>
+2020-08-03 16:42:41 transport.py[line:1819] DEBUG Switch to new keys ...
+2020-08-03 16:42:41 transport.py[line:1819] DEBUG Adding ssh-ed25519 host key for 192.168.2.1: b'48125fda446c1aa5e770119fe5072e93'
+2020-08-03 16:42:41 transport.py[line:1819] DEBUG userauth is OK
+2020-08-03 16:42:41 transport.py[line:1819] INFO Authentication (password) failed.
+2020-08-03 16:42:41 iperf_client.py[line:1408] ERROR Authentication failed.
+2020-08-03 16:43:20 iperf_client.py[line:441] INFO start
+2020-08-03 16:43:30 transport.py[line:1819] DEBUG starting thread (client mode): 0x4b16eb8
+2020-08-03 16:43:30 transport.py[line:1819] DEBUG Local version/idstring: SSH-2.0-paramiko_2.7.1
+2020-08-03 16:43:30 transport.py[line:1819] DEBUG Remote version/idstring: SSH-2.0-OpenSSH_8.1
+2020-08-03 16:43:30 transport.py[line:1819] INFO Connected (version 2.0, client OpenSSH_8.1)
+2020-08-03 16:43:30 transport.py[line:1819] DEBUG kex algos:['curve25519-sha256', 'curve25519-sha256@libssh.org', 'ecdh-sha2-nistp256', 'ecdh-sha2-nistp384', 'ecdh-sha2-nistp521', 'diffie-hellman-group-exchange-sha256', 'diffie-hellman-group16-sha512', 'diffie-hellman-group18-sha512', 'diffie-hellman-group14-sha256', 'diffie-hellman-group14-sha1'] server key:['rsa-sha2-512', 'rsa-sha2-256', 'ssh-rsa', 'ssh-ed25519'] client encrypt:['chacha20-poly1305@openssh.com', 'aes128-ctr', 'aes192-ctr', 'aes256-ctr', 'aes128-gcm@openssh.com', 'aes256-gcm@openssh.com'] server encrypt:['chacha20-poly1305@openssh.com', 'aes128-ctr', 'aes192-ctr', 'aes256-ctr', 'aes128-gcm@openssh.com', 'aes256-gcm@openssh.com'] client mac:['umac-64-etm@openssh.com', 'umac-128-etm@openssh.com', 'hmac-sha2-256-etm@openssh.com', 'hmac-sha2-512-etm@openssh.com', 'hmac-sha1-etm@openssh.com', 'umac-64@openssh.com', 'umac-128@openssh.com', 'hmac-sha2-256', 'hmac-sha2-512', 'hmac-sha1'] server mac:['umac-64-etm@openssh.com', 'umac-128-etm@openssh.com', 'hmac-sha2-256-etm@openssh.com', 'hmac-sha2-512-etm@openssh.com', 'hmac-sha1-etm@openssh.com', 'umac-64@openssh.com', 'umac-128@openssh.com', 'hmac-sha2-256', 'hmac-sha2-512', 'hmac-sha1'] client compress:['none', 'zlib@openssh.com'] server compress:['none', 'zlib@openssh.com'] client lang:[''] server lang:[''] kex follows?False
+2020-08-03 16:43:30 transport.py[line:1819] DEBUG Kex agreed: curve25519-sha256@libssh.org
+2020-08-03 16:43:30 transport.py[line:1819] DEBUG HostKey agreed: ssh-ed25519
+2020-08-03 16:43:30 transport.py[line:1819] DEBUG Cipher agreed: aes128-ctr
+2020-08-03 16:43:30 transport.py[line:1819] DEBUG MAC agreed: hmac-sha2-256
+2020-08-03 16:43:30 transport.py[line:1819] DEBUG Compression agreed: none
+2020-08-03 16:43:31 transport.py[line:1819] DEBUG kex engine KexCurve25519 specified hash_algo <built-in function openssl_sha256>
+2020-08-03 16:43:31 transport.py[line:1819] DEBUG Switch to new keys ...
+2020-08-03 16:43:31 transport.py[line:1819] DEBUG Adding ssh-ed25519 host key for 192.168.2.1: b'48125fda446c1aa5e770119fe5072e93'
+2020-08-03 16:43:31 transport.py[line:1819] DEBUG userauth is OK
+2020-08-03 16:43:31 transport.py[line:1819] INFO Authentication (password) failed.
+2020-08-03 16:43:31 iperf_client.py[line:1408] ERROR Authentication failed.
+2020-08-03 16:43:40 transport.py[line:1819] DEBUG EOF in transport thread
+2020-08-03 16:44:04 iperf_client.py[line:441] INFO start
+2020-08-03 16:44:14 transport.py[line:1819] DEBUG starting thread (client mode): 0x4b1bc18
+2020-08-03 16:44:14 transport.py[line:1819] DEBUG Local version/idstring: SSH-2.0-paramiko_2.7.1
+2020-08-03 16:44:14 transport.py[line:1819] DEBUG Remote version/idstring: SSH-2.0-OpenSSH_8.1
+2020-08-03 16:44:14 transport.py[line:1819] INFO Connected (version 2.0, client OpenSSH_8.1)
+2020-08-03 16:44:14 transport.py[line:1819] DEBUG kex algos:['curve25519-sha256', 'curve25519-sha256@libssh.org', 'ecdh-sha2-nistp256', 'ecdh-sha2-nistp384', 'ecdh-sha2-nistp521', 'diffie-hellman-group-exchange-sha256', 'diffie-hellman-group16-sha512', 'diffie-hellman-group18-sha512', 'diffie-hellman-group14-sha256', 'diffie-hellman-group14-sha1'] server key:['rsa-sha2-512', 'rsa-sha2-256', 'ssh-rsa', 'ssh-ed25519'] client encrypt:['chacha20-poly1305@openssh.com', 'aes128-ctr', 'aes192-ctr', 'aes256-ctr', 'aes128-gcm@openssh.com', 'aes256-gcm@openssh.com'] server encrypt:['chacha20-poly1305@openssh.com', 'aes128-ctr', 'aes192-ctr', 'aes256-ctr', 'aes128-gcm@openssh.com', 'aes256-gcm@openssh.com'] client mac:['umac-64-etm@openssh.com', 'umac-128-etm@openssh.com', 'hmac-sha2-256-etm@openssh.com', 'hmac-sha2-512-etm@openssh.com', 'hmac-sha1-etm@openssh.com', 'umac-64@openssh.com', 'umac-128@openssh.com', 'hmac-sha2-256', 'hmac-sha2-512', 'hmac-sha1'] server mac:['umac-64-etm@openssh.com', 'umac-128-etm@openssh.com', 'hmac-sha2-256-etm@openssh.com', 'hmac-sha2-512-etm@openssh.com', 'hmac-sha1-etm@openssh.com', 'umac-64@openssh.com', 'umac-128@openssh.com', 'hmac-sha2-256', 'hmac-sha2-512', 'hmac-sha1'] client compress:['none', 'zlib@openssh.com'] server compress:['none', 'zlib@openssh.com'] client lang:[''] server lang:[''] kex follows?False
+2020-08-03 16:44:14 transport.py[line:1819] DEBUG Kex agreed: curve25519-sha256@libssh.org
+2020-08-03 16:44:14 transport.py[line:1819] DEBUG HostKey agreed: ssh-ed25519
+2020-08-03 16:44:14 transport.py[line:1819] DEBUG Cipher agreed: aes128-ctr
+2020-08-03 16:44:14 transport.py[line:1819] DEBUG MAC agreed: hmac-sha2-256
+2020-08-03 16:44:14 transport.py[line:1819] DEBUG Compression agreed: none
+2020-08-03 16:44:14 transport.py[line:1819] DEBUG kex engine KexCurve25519 specified hash_algo <built-in function openssl_sha256>
+2020-08-03 16:44:14 transport.py[line:1819] DEBUG Switch to new keys ...
+2020-08-03 16:44:14 transport.py[line:1819] DEBUG Adding ssh-ed25519 host key for 192.168.2.1: b'48125fda446c1aa5e770119fe5072e93'
+2020-08-03 16:44:14 iperf_client.py[line:1408] ERROR Expected unicode or bytes, got <PyQt5.QtWidgets.QLineEdit object at 0x0000000004B209D8>
+2020-08-03 16:44:30 transport.py[line:1819] DEBUG EOF in transport thread
+2020-08-03 16:45:14 transport.py[line:1819] DEBUG EOF in transport thread
+2020-08-03 16:49:23 iperf_client.py[line:441] INFO start
+2020-08-03 16:50:29 iperf_client.py[line:442] INFO start
+2020-08-03 16:51:09 iperf_client.py[line:442] INFO start
+2020-08-03 16:51:19 transport.py[line:1819] DEBUG starting thread (client mode): 0x6760f98
+2020-08-03 16:51:19 transport.py[line:1819] DEBUG Local version/idstring: SSH-2.0-paramiko_2.7.1
+2020-08-03 16:51:19 transport.py[line:1819] DEBUG Remote version/idstring: SSH-2.0-OpenSSH_8.1
+2020-08-03 16:51:19 transport.py[line:1819] INFO Connected (version 2.0, client OpenSSH_8.1)
+2020-08-03 16:51:19 transport.py[line:1819] DEBUG kex algos:['curve25519-sha256', 'curve25519-sha256@libssh.org', 'ecdh-sha2-nistp256', 'ecdh-sha2-nistp384', 'ecdh-sha2-nistp521', 'diffie-hellman-group-exchange-sha256', 'diffie-hellman-group16-sha512', 'diffie-hellman-group18-sha512', 'diffie-hellman-group14-sha256', 'diffie-hellman-group14-sha1'] server key:['rsa-sha2-512', 'rsa-sha2-256', 'ssh-rsa', 'ssh-ed25519'] client encrypt:['chacha20-poly1305@openssh.com', 'aes128-ctr', 'aes192-ctr', 'aes256-ctr', 'aes128-gcm@openssh.com', 'aes256-gcm@openssh.com'] server encrypt:['chacha20-poly1305@openssh.com', 'aes128-ctr', 'aes192-ctr', 'aes256-ctr', 'aes128-gcm@openssh.com', 'aes256-gcm@openssh.com'] client mac:['umac-64-etm@openssh.com', 'umac-128-etm@openssh.com', 'hmac-sha2-256-etm@openssh.com', 'hmac-sha2-512-etm@openssh.com', 'hmac-sha1-etm@openssh.com', 'umac-64@openssh.com', 'umac-128@openssh.com', 'hmac-sha2-256', 'hmac-sha2-512', 'hmac-sha1'] server mac:['umac-64-etm@openssh.com', 'umac-128-etm@openssh.com', 'hmac-sha2-256-etm@openssh.com', 'hmac-sha2-512-etm@openssh.com', 'hmac-sha1-etm@openssh.com', 'umac-64@openssh.com', 'umac-128@openssh.com', 'hmac-sha2-256', 'hmac-sha2-512', 'hmac-sha1'] client compress:['none', 'zlib@openssh.com'] server compress:['none', 'zlib@openssh.com'] client lang:[''] server lang:[''] kex follows?False
+2020-08-03 16:51:19 transport.py[line:1819] DEBUG Kex agreed: curve25519-sha256@libssh.org
+2020-08-03 16:51:19 transport.py[line:1819] DEBUG HostKey agreed: ssh-ed25519
+2020-08-03 16:51:19 transport.py[line:1819] DEBUG Cipher agreed: aes128-ctr
+2020-08-03 16:51:19 transport.py[line:1819] DEBUG MAC agreed: hmac-sha2-256
+2020-08-03 16:51:19 transport.py[line:1819] DEBUG Compression agreed: none
+2020-08-03 16:51:19 transport.py[line:1819] DEBUG kex engine KexCurve25519 specified hash_algo <built-in function openssl_sha256>
+2020-08-03 16:51:19 transport.py[line:1819] DEBUG Switch to new keys ...
+2020-08-03 16:51:19 transport.py[line:1819] DEBUG Adding ssh-ed25519 host key for 192.168.2.1: b'48125fda446c1aa5e770119fe5072e93'
+2020-08-03 16:51:19 transport.py[line:1819] DEBUG userauth is OK
+2020-08-03 16:51:19 transport.py[line:1819] INFO Authentication (password) failed.
+2020-08-03 16:51:19 iperf_client.py[line:1409] ERROR Authentication failed.
+2020-08-03 16:52:19 transport.py[line:1819] DEBUG EOF in transport thread
+2020-08-03 16:56:02 iperf_client.py[line:442] INFO start
+2020-08-03 16:56:12 transport.py[line:1819] DEBUG starting thread (client mode): 0x4b3ef60
+2020-08-03 16:56:12 transport.py[line:1819] DEBUG Local version/idstring: SSH-2.0-paramiko_2.7.1
+2020-08-03 16:56:12 transport.py[line:1819] DEBUG Remote version/idstring: SSH-2.0-OpenSSH_8.1
+2020-08-03 16:56:12 transport.py[line:1819] INFO Connected (version 2.0, client OpenSSH_8.1)
+2020-08-03 16:56:12 transport.py[line:1819] DEBUG kex algos:['curve25519-sha256', 'curve25519-sha256@libssh.org', 'ecdh-sha2-nistp256', 'ecdh-sha2-nistp384', 'ecdh-sha2-nistp521', 'diffie-hellman-group-exchange-sha256', 'diffie-hellman-group16-sha512', 'diffie-hellman-group18-sha512', 'diffie-hellman-group14-sha256', 'diffie-hellman-group14-sha1'] server key:['rsa-sha2-512', 'rsa-sha2-256', 'ssh-rsa', 'ssh-ed25519'] client encrypt:['chacha20-poly1305@openssh.com', 'aes128-ctr', 'aes192-ctr', 'aes256-ctr', 'aes128-gcm@openssh.com', 'aes256-gcm@openssh.com'] server encrypt:['chacha20-poly1305@openssh.com', 'aes128-ctr', 'aes192-ctr', 'aes256-ctr', 'aes128-gcm@openssh.com', 'aes256-gcm@openssh.com'] client mac:['umac-64-etm@openssh.com', 'umac-128-etm@openssh.com', 'hmac-sha2-256-etm@openssh.com', 'hmac-sha2-512-etm@openssh.com', 'hmac-sha1-etm@openssh.com', 'umac-64@openssh.com', 'umac-128@openssh.com', 'hmac-sha2-256', 'hmac-sha2-512', 'hmac-sha1'] server mac:['umac-64-etm@openssh.com', 'umac-128-etm@openssh.com', 'hmac-sha2-256-etm@openssh.com', 'hmac-sha2-512-etm@openssh.com', 'hmac-sha1-etm@openssh.com', 'umac-64@openssh.com', 'umac-128@openssh.com', 'hmac-sha2-256', 'hmac-sha2-512', 'hmac-sha1'] client compress:['none', 'zlib@openssh.com'] server compress:['none', 'zlib@openssh.com'] client lang:[''] server lang:[''] kex follows?False
+2020-08-03 16:56:12 transport.py[line:1819] DEBUG Kex agreed: curve25519-sha256@libssh.org
+2020-08-03 16:56:12 transport.py[line:1819] DEBUG HostKey agreed: ssh-ed25519
+2020-08-03 16:56:12 transport.py[line:1819] DEBUG Cipher agreed: aes128-ctr
+2020-08-03 16:56:12 transport.py[line:1819] DEBUG MAC agreed: hmac-sha2-256
+2020-08-03 16:56:12 transport.py[line:1819] DEBUG Compression agreed: none
+2020-08-03 16:56:12 transport.py[line:1819] DEBUG kex engine KexCurve25519 specified hash_algo <built-in function openssl_sha256>
+2020-08-03 16:56:12 transport.py[line:1819] DEBUG Switch to new keys ...
+2020-08-03 16:56:12 transport.py[line:1819] DEBUG Adding ssh-ed25519 host key for 192.168.2.1: b'48125fda446c1aa5e770119fe5072e93'
+2020-08-03 16:56:12 iperf_client.py[line:1409] ERROR Expected unicode or bytes, got <PyQt5.QtWidgets.QLineEdit object at 0x0000000004B498B8>
+2020-08-03 16:56:57 transport.py[line:1819] DEBUG EOF in transport thread
+2020-08-03 16:57:25 iperf_client.py[line:441] INFO start
+2020-08-03 16:57:35 transport.py[line:1819] DEBUG starting thread (client mode): 0x675fac8
+2020-08-03 16:57:35 transport.py[line:1819] DEBUG Local version/idstring: SSH-2.0-paramiko_2.7.1
+2020-08-03 16:57:35 transport.py[line:1819] DEBUG Remote version/idstring: SSH-2.0-OpenSSH_8.1
+2020-08-03 16:57:35 transport.py[line:1819] INFO Connected (version 2.0, client OpenSSH_8.1)
+2020-08-03 16:57:35 transport.py[line:1819] DEBUG kex algos:['curve25519-sha256', 'curve25519-sha256@libssh.org', 'ecdh-sha2-nistp256', 'ecdh-sha2-nistp384', 'ecdh-sha2-nistp521', 'diffie-hellman-group-exchange-sha256', 'diffie-hellman-group16-sha512', 'diffie-hellman-group18-sha512', 'diffie-hellman-group14-sha256', 'diffie-hellman-group14-sha1'] server key:['rsa-sha2-512', 'rsa-sha2-256', 'ssh-rsa', 'ssh-ed25519'] client encrypt:['chacha20-poly1305@openssh.com', 'aes128-ctr', 'aes192-ctr', 'aes256-ctr', 'aes128-gcm@openssh.com', 'aes256-gcm@openssh.com'] server encrypt:['chacha20-poly1305@openssh.com', 'aes128-ctr', 'aes192-ctr', 'aes256-ctr', 'aes128-gcm@openssh.com', 'aes256-gcm@openssh.com'] client mac:['umac-64-etm@openssh.com', 'umac-128-etm@openssh.com', 'hmac-sha2-256-etm@openssh.com', 'hmac-sha2-512-etm@openssh.com', 'hmac-sha1-etm@openssh.com', 'umac-64@openssh.com', 'umac-128@openssh.com', 'hmac-sha2-256', 'hmac-sha2-512', 'hmac-sha1'] server mac:['umac-64-etm@openssh.com', 'umac-128-etm@openssh.com', 'hmac-sha2-256-etm@openssh.com', 'hmac-sha2-512-etm@openssh.com', 'hmac-sha1-etm@openssh.com', 'umac-64@openssh.com', 'umac-128@openssh.com', 'hmac-sha2-256', 'hmac-sha2-512', 'hmac-sha1'] client compress:['none', 'zlib@openssh.com'] server compress:['none', 'zlib@openssh.com'] client lang:[''] server lang:[''] kex follows?False
+2020-08-03 16:57:35 transport.py[line:1819] DEBUG Kex agreed: curve25519-sha256@libssh.org
+2020-08-03 16:57:35 transport.py[line:1819] DEBUG HostKey agreed: ssh-ed25519
+2020-08-03 16:57:35 transport.py[line:1819] DEBUG Cipher agreed: aes128-ctr
+2020-08-03 16:57:35 transport.py[line:1819] DEBUG MAC agreed: hmac-sha2-256
+2020-08-03 16:57:35 transport.py[line:1819] DEBUG Compression agreed: none
+2020-08-03 16:57:35 transport.py[line:1819] DEBUG kex engine KexCurve25519 specified hash_algo <built-in function openssl_sha256>
+2020-08-03 16:57:35 transport.py[line:1819] DEBUG Switch to new keys ...
+2020-08-03 16:57:35 transport.py[line:1819] DEBUG Adding ssh-ed25519 host key for 192.168.2.1: b'48125fda446c1aa5e770119fe5072e93'
+2020-08-03 16:57:35 transport.py[line:1819] DEBUG userauth is OK
+2020-08-03 16:57:35 transport.py[line:1819] INFO Authentication (password) failed.
+2020-08-03 16:57:35 iperf_client.py[line:1409] ERROR Authentication failed.
+2020-08-03 16:58:35 transport.py[line:1819] DEBUG EOF in transport thread
+2020-08-03 16:59:32 iperf_client.py[line:441] INFO start
+2020-08-03 16:59:42 transport.py[line:1819] DEBUG starting thread (client mode): 0x4920ef0
+2020-08-03 16:59:42 transport.py[line:1819] DEBUG Local version/idstring: SSH-2.0-paramiko_2.7.1
+2020-08-03 16:59:42 transport.py[line:1819] DEBUG Remote version/idstring: SSH-2.0-OpenSSH_8.1
+2020-08-03 16:59:42 transport.py[line:1819] INFO Connected (version 2.0, client OpenSSH_8.1)
+2020-08-03 16:59:42 transport.py[line:1819] DEBUG kex algos:['curve25519-sha256', 'curve25519-sha256@libssh.org', 'ecdh-sha2-nistp256', 'ecdh-sha2-nistp384', 'ecdh-sha2-nistp521', 'diffie-hellman-group-exchange-sha256', 'diffie-hellman-group16-sha512', 'diffie-hellman-group18-sha512', 'diffie-hellman-group14-sha256', 'diffie-hellman-group14-sha1'] server key:['rsa-sha2-512', 'rsa-sha2-256', 'ssh-rsa', 'ssh-ed25519'] client encrypt:['chacha20-poly1305@openssh.com', 'aes128-ctr', 'aes192-ctr', 'aes256-ctr', 'aes128-gcm@openssh.com', 'aes256-gcm@openssh.com'] server encrypt:['chacha20-poly1305@openssh.com', 'aes128-ctr', 'aes192-ctr', 'aes256-ctr', 'aes128-gcm@openssh.com', 'aes256-gcm@openssh.com'] client mac:['umac-64-etm@openssh.com', 'umac-128-etm@openssh.com', 'hmac-sha2-256-etm@openssh.com', 'hmac-sha2-512-etm@openssh.com', 'hmac-sha1-etm@openssh.com', 'umac-64@openssh.com', 'umac-128@openssh.com', 'hmac-sha2-256', 'hmac-sha2-512', 'hmac-sha1'] server mac:['umac-64-etm@openssh.com', 'umac-128-etm@openssh.com', 'hmac-sha2-256-etm@openssh.com', 'hmac-sha2-512-etm@openssh.com', 'hmac-sha1-etm@openssh.com', 'umac-64@openssh.com', 'umac-128@openssh.com', 'hmac-sha2-256', 'hmac-sha2-512', 'hmac-sha1'] client compress:['none', 'zlib@openssh.com'] server compress:['none', 'zlib@openssh.com'] client lang:[''] server lang:[''] kex follows?False
+2020-08-03 16:59:42 transport.py[line:1819] DEBUG Kex agreed: curve25519-sha256@libssh.org
+2020-08-03 16:59:42 transport.py[line:1819] DEBUG HostKey agreed: ssh-ed25519
+2020-08-03 16:59:42 transport.py[line:1819] DEBUG Cipher agreed: aes128-ctr
+2020-08-03 16:59:42 transport.py[line:1819] DEBUG MAC agreed: hmac-sha2-256
+2020-08-03 16:59:42 transport.py[line:1819] DEBUG Compression agreed: none
+2020-08-03 16:59:42 transport.py[line:1819] DEBUG kex engine KexCurve25519 specified hash_algo <built-in function openssl_sha256>
+2020-08-03 16:59:42 transport.py[line:1819] DEBUG Switch to new keys ...
+2020-08-03 16:59:42 transport.py[line:1819] DEBUG Adding ssh-ed25519 host key for 192.168.2.1: b'48125fda446c1aa5e770119fe5072e93'
+2020-08-03 16:59:43 iperf_client.py[line:1409] ERROR Expected unicode or bytes, got <PyQt5.QtWidgets.QLineEdit object at 0x0000000004926438>
+2020-08-03 17:00:42 transport.py[line:1819] DEBUG EOF in transport thread
+2020-08-03 17:15:52 iperf_client.py[line:441] INFO start
+2020-08-03 17:16:02 transport.py[line:1819] DEBUG starting thread (client mode): 0x49297f0
+2020-08-03 17:16:02 transport.py[line:1819] DEBUG Local version/idstring: SSH-2.0-paramiko_2.7.1
+2020-08-03 17:16:02 transport.py[line:1819] DEBUG Remote version/idstring: SSH-2.0-OpenSSH_8.1
+2020-08-03 17:16:02 transport.py[line:1819] INFO Connected (version 2.0, client OpenSSH_8.1)
+2020-08-03 17:16:02 transport.py[line:1819] DEBUG kex algos:['curve25519-sha256', 'curve25519-sha256@libssh.org', 'ecdh-sha2-nistp256', 'ecdh-sha2-nistp384', 'ecdh-sha2-nistp521', 'diffie-hellman-group-exchange-sha256', 'diffie-hellman-group16-sha512', 'diffie-hellman-group18-sha512', 'diffie-hellman-group14-sha256', 'diffie-hellman-group14-sha1'] server key:['rsa-sha2-512', 'rsa-sha2-256', 'ssh-rsa', 'ssh-ed25519'] client encrypt:['chacha20-poly1305@openssh.com', 'aes128-ctr', 'aes192-ctr', 'aes256-ctr', 'aes128-gcm@openssh.com', 'aes256-gcm@openssh.com'] server encrypt:['chacha20-poly1305@openssh.com', 'aes128-ctr', 'aes192-ctr', 'aes256-ctr', 'aes128-gcm@openssh.com', 'aes256-gcm@openssh.com'] client mac:['umac-64-etm@openssh.com', 'umac-128-etm@openssh.com', 'hmac-sha2-256-etm@openssh.com', 'hmac-sha2-512-etm@openssh.com', 'hmac-sha1-etm@openssh.com', 'umac-64@openssh.com', 'umac-128@openssh.com', 'hmac-sha2-256', 'hmac-sha2-512', 'hmac-sha1'] server mac:['umac-64-etm@openssh.com', 'umac-128-etm@openssh.com', 'hmac-sha2-256-etm@openssh.com', 'hmac-sha2-512-etm@openssh.com', 'hmac-sha1-etm@openssh.com', 'umac-64@openssh.com', 'umac-128@openssh.com', 'hmac-sha2-256', 'hmac-sha2-512', 'hmac-sha1'] client compress:['none', 'zlib@openssh.com'] server compress:['none', 'zlib@openssh.com'] client lang:[''] server lang:[''] kex follows?False
+2020-08-03 17:16:02 transport.py[line:1819] DEBUG Kex agreed: curve25519-sha256@libssh.org
+2020-08-03 17:16:02 transport.py[line:1819] DEBUG HostKey agreed: ssh-ed25519
+2020-08-03 17:16:02 transport.py[line:1819] DEBUG Cipher agreed: aes128-ctr
+2020-08-03 17:16:02 transport.py[line:1819] DEBUG MAC agreed: hmac-sha2-256
+2020-08-03 17:16:02 transport.py[line:1819] DEBUG Compression agreed: none
+2020-08-03 17:16:02 transport.py[line:1819] DEBUG kex engine KexCurve25519 specified hash_algo <built-in function openssl_sha256>
+2020-08-03 17:16:02 transport.py[line:1819] DEBUG Switch to new keys ...
+2020-08-03 17:16:02 transport.py[line:1819] DEBUG Adding ssh-ed25519 host key for 192.168.2.1: b'48125fda446c1aa5e770119fe5072e93'
+2020-08-03 17:16:02 iperf_client.py[line:1409] ERROR Expected unicode or bytes, got <PyQt5.QtWidgets.QLineEdit object at 0x0000000004926438>
+2020-08-03 17:17:09 iperf_client.py[line:441] INFO start
+2020-08-03 17:17:36 iperf_client.py[line:441] INFO start
+2020-08-03 17:17:37 transport.py[line:1819] DEBUG starting thread (client mode): 0x6761ef0
+2020-08-03 17:17:37 transport.py[line:1819] DEBUG Local version/idstring: SSH-2.0-paramiko_2.7.1
+2020-08-03 17:17:37 transport.py[line:1819] DEBUG Remote version/idstring: SSH-2.0-OpenSSH_8.1
+2020-08-03 17:17:37 transport.py[line:1819] INFO Connected (version 2.0, client OpenSSH_8.1)
+2020-08-03 17:17:37 transport.py[line:1819] DEBUG kex algos:['curve25519-sha256', 'curve25519-sha256@libssh.org', 'ecdh-sha2-nistp256', 'ecdh-sha2-nistp384', 'ecdh-sha2-nistp521', 'diffie-hellman-group-exchange-sha256', 'diffie-hellman-group16-sha512', 'diffie-hellman-group18-sha512', 'diffie-hellman-group14-sha256', 'diffie-hellman-group14-sha1'] server key:['rsa-sha2-512', 'rsa-sha2-256', 'ssh-rsa', 'ssh-ed25519'] client encrypt:['chacha20-poly1305@openssh.com', 'aes128-ctr', 'aes192-ctr', 'aes256-ctr', 'aes128-gcm@openssh.com', 'aes256-gcm@openssh.com'] server encrypt:['chacha20-poly1305@openssh.com', 'aes128-ctr', 'aes192-ctr', 'aes256-ctr', 'aes128-gcm@openssh.com', 'aes256-gcm@openssh.com'] client mac:['umac-64-etm@openssh.com', 'umac-128-etm@openssh.com', 'hmac-sha2-256-etm@openssh.com', 'hmac-sha2-512-etm@openssh.com', 'hmac-sha1-etm@openssh.com', 'umac-64@openssh.com', 'umac-128@openssh.com', 'hmac-sha2-256', 'hmac-sha2-512', 'hmac-sha1'] server mac:['umac-64-etm@openssh.com', 'umac-128-etm@openssh.com', 'hmac-sha2-256-etm@openssh.com', 'hmac-sha2-512-etm@openssh.com', 'hmac-sha1-etm@openssh.com', 'umac-64@openssh.com', 'umac-128@openssh.com', 'hmac-sha2-256', 'hmac-sha2-512', 'hmac-sha1'] client compress:['none', 'zlib@openssh.com'] server compress:['none', 'zlib@openssh.com'] client lang:[''] server lang:[''] kex follows?False
+2020-08-03 17:17:37 transport.py[line:1819] DEBUG Kex agreed: curve25519-sha256@libssh.org
+2020-08-03 17:17:37 transport.py[line:1819] DEBUG HostKey agreed: ssh-ed25519
+2020-08-03 17:17:37 transport.py[line:1819] DEBUG Cipher agreed: aes128-ctr
+2020-08-03 17:17:37 transport.py[line:1819] DEBUG MAC agreed: hmac-sha2-256
+2020-08-03 17:17:37 transport.py[line:1819] DEBUG Compression agreed: none
+2020-08-03 17:17:37 transport.py[line:1819] DEBUG kex engine KexCurve25519 specified hash_algo <built-in function openssl_sha256>
+2020-08-03 17:17:37 transport.py[line:1819] DEBUG Switch to new keys ...
+2020-08-03 17:17:37 transport.py[line:1819] DEBUG Adding ssh-ed25519 host key for 192.168.2.1: b'48125fda446c1aa5e770119fe5072e93'
+2020-08-03 17:17:37 transport.py[line:1819] DEBUG userauth is OK
+2020-08-03 17:17:37 transport.py[line:1819] INFO Authentication (password) failed.
+2020-08-03 17:17:37 iperf_client.py[line:1411] ERROR Authentication failed.
+2020-08-03 17:17:37 transport.py[line:1819] DEBUG EOF in transport thread
+2020-08-03 17:18:05 iperf_client.py[line:441] INFO start
+2020-08-03 17:18:05 transport.py[line:1819] DEBUG starting thread (client mode): 0x4b23ef0
+2020-08-03 17:18:05 transport.py[line:1819] DEBUG Local version/idstring: SSH-2.0-paramiko_2.7.1
+2020-08-03 17:18:05 transport.py[line:1819] DEBUG Remote version/idstring: SSH-2.0-OpenSSH_8.1
+2020-08-03 17:18:05 transport.py[line:1819] INFO Connected (version 2.0, client OpenSSH_8.1)
+2020-08-03 17:18:05 transport.py[line:1819] DEBUG kex algos:['curve25519-sha256', 'curve25519-sha256@libssh.org', 'ecdh-sha2-nistp256', 'ecdh-sha2-nistp384', 'ecdh-sha2-nistp521', 'diffie-hellman-group-exchange-sha256', 'diffie-hellman-group16-sha512', 'diffie-hellman-group18-sha512', 'diffie-hellman-group14-sha256', 'diffie-hellman-group14-sha1'] server key:['rsa-sha2-512', 'rsa-sha2-256', 'ssh-rsa', 'ssh-ed25519'] client encrypt:['chacha20-poly1305@openssh.com', 'aes128-ctr', 'aes192-ctr', 'aes256-ctr', 'aes128-gcm@openssh.com', 'aes256-gcm@openssh.com'] server encrypt:['chacha20-poly1305@openssh.com', 'aes128-ctr', 'aes192-ctr', 'aes256-ctr', 'aes128-gcm@openssh.com', 'aes256-gcm@openssh.com'] client mac:['umac-64-etm@openssh.com', 'umac-128-etm@openssh.com', 'hmac-sha2-256-etm@openssh.com', 'hmac-sha2-512-etm@openssh.com', 'hmac-sha1-etm@openssh.com', 'umac-64@openssh.com', 'umac-128@openssh.com', 'hmac-sha2-256', 'hmac-sha2-512', 'hmac-sha1'] server mac:['umac-64-etm@openssh.com', 'umac-128-etm@openssh.com', 'hmac-sha2-256-etm@openssh.com', 'hmac-sha2-512-etm@openssh.com', 'hmac-sha1-etm@openssh.com', 'umac-64@openssh.com', 'umac-128@openssh.com', 'hmac-sha2-256', 'hmac-sha2-512', 'hmac-sha1'] client compress:['none', 'zlib@openssh.com'] server compress:['none', 'zlib@openssh.com'] client lang:[''] server lang:[''] kex follows?False
+2020-08-03 17:18:05 transport.py[line:1819] DEBUG Kex agreed: curve25519-sha256@libssh.org
+2020-08-03 17:18:05 transport.py[line:1819] DEBUG HostKey agreed: ssh-ed25519
+2020-08-03 17:18:05 transport.py[line:1819] DEBUG Cipher agreed: aes128-ctr
+2020-08-03 17:18:05 transport.py[line:1819] DEBUG MAC agreed: hmac-sha2-256
+2020-08-03 17:18:05 transport.py[line:1819] DEBUG Compression agreed: none
+2020-08-03 17:18:05 transport.py[line:1819] DEBUG kex engine KexCurve25519 specified hash_algo <built-in function openssl_sha256>
+2020-08-03 17:18:05 transport.py[line:1819] DEBUG Switch to new keys ...
+2020-08-03 17:18:05 transport.py[line:1819] DEBUG Adding ssh-ed25519 host key for 192.168.2.1: b'48125fda446c1aa5e770119fe5072e93'
+2020-08-03 17:18:05 iperf_client.py[line:1411] ERROR Expected unicode or bytes, got <PyQt5.QtWidgets.QLineEdit object at 0x0000000004B2A8B8>
+2020-08-03 17:18:05 transport.py[line:1819] DEBUG EOF in transport thread
+2020-08-03 17:19:07 iperf_client.py[line:441] INFO start
+2020-08-03 17:19:17 transport.py[line:1819] DEBUG starting thread (client mode): 0x6761fd0
+2020-08-03 17:19:17 transport.py[line:1819] DEBUG Local version/idstring: SSH-2.0-paramiko_2.7.1
+2020-08-03 17:19:17 transport.py[line:1819] DEBUG Remote version/idstring: SSH-2.0-OpenSSH_8.1
+2020-08-03 17:19:17 transport.py[line:1819] INFO Connected (version 2.0, client OpenSSH_8.1)
+2020-08-03 17:19:17 transport.py[line:1819] DEBUG kex algos:['curve25519-sha256', 'curve25519-sha256@libssh.org', 'ecdh-sha2-nistp256', 'ecdh-sha2-nistp384', 'ecdh-sha2-nistp521', 'diffie-hellman-group-exchange-sha256', 'diffie-hellman-group16-sha512', 'diffie-hellman-group18-sha512', 'diffie-hellman-group14-sha256', 'diffie-hellman-group14-sha1'] server key:['rsa-sha2-512', 'rsa-sha2-256', 'ssh-rsa', 'ssh-ed25519'] client encrypt:['chacha20-poly1305@openssh.com', 'aes128-ctr', 'aes192-ctr', 'aes256-ctr', 'aes128-gcm@openssh.com', 'aes256-gcm@openssh.com'] server encrypt:['chacha20-poly1305@openssh.com', 'aes128-ctr', 'aes192-ctr', 'aes256-ctr', 'aes128-gcm@openssh.com', 'aes256-gcm@openssh.com'] client mac:['umac-64-etm@openssh.com', 'umac-128-etm@openssh.com', 'hmac-sha2-256-etm@openssh.com', 'hmac-sha2-512-etm@openssh.com', 'hmac-sha1-etm@openssh.com', 'umac-64@openssh.com', 'umac-128@openssh.com', 'hmac-sha2-256', 'hmac-sha2-512', 'hmac-sha1'] server mac:['umac-64-etm@openssh.com', 'umac-128-etm@openssh.com', 'hmac-sha2-256-etm@openssh.com', 'hmac-sha2-512-etm@openssh.com', 'hmac-sha1-etm@openssh.com', 'umac-64@openssh.com', 'umac-128@openssh.com', 'hmac-sha2-256', 'hmac-sha2-512', 'hmac-sha1'] client compress:['none', 'zlib@openssh.com'] server compress:['none', 'zlib@openssh.com'] client lang:[''] server lang:[''] kex follows?False
+2020-08-03 17:19:17 transport.py[line:1819] DEBUG Kex agreed: curve25519-sha256@libssh.org
+2020-08-03 17:19:17 transport.py[line:1819] DEBUG HostKey agreed: ssh-ed25519
+2020-08-03 17:19:17 transport.py[line:1819] DEBUG Cipher agreed: aes128-ctr
+2020-08-03 17:19:17 transport.py[line:1819] DEBUG MAC agreed: hmac-sha2-256
+2020-08-03 17:19:17 transport.py[line:1819] DEBUG Compression agreed: none
+2020-08-03 17:19:18 transport.py[line:1819] DEBUG kex engine KexCurve25519 specified hash_algo <built-in function openssl_sha256>
+2020-08-03 17:19:18 transport.py[line:1819] DEBUG Switch to new keys ...
+2020-08-03 17:19:18 transport.py[line:1819] DEBUG Adding ssh-ed25519 host key for 192.168.2.1: b'48125fda446c1aa5e770119fe5072e93'
+2020-08-03 17:19:18 transport.py[line:1819] DEBUG userauth is OK
+2020-08-03 17:19:18 transport.py[line:1819] INFO Authentication (password) failed.
+2020-08-03 17:19:18 iperf_client.py[line:1411] ERROR Authentication failed.
+2020-08-03 17:19:18 transport.py[line:1819] DEBUG EOF in transport thread
+2020-08-03 17:19:37 iperf_client.py[line:441] INFO start
+2020-08-03 17:19:47 transport.py[line:1819] DEBUG starting thread (client mode): 0x4b34f60
+2020-08-03 17:19:47 transport.py[line:1819] DEBUG Local version/idstring: SSH-2.0-paramiko_2.7.1
+2020-08-03 17:19:47 transport.py[line:1819] DEBUG Remote version/idstring: SSH-2.0-OpenSSH_8.1
+2020-08-03 17:19:47 transport.py[line:1819] INFO Connected (version 2.0, client OpenSSH_8.1)
+2020-08-03 17:19:47 transport.py[line:1819] DEBUG kex algos:['curve25519-sha256', 'curve25519-sha256@libssh.org', 'ecdh-sha2-nistp256', 'ecdh-sha2-nistp384', 'ecdh-sha2-nistp521', 'diffie-hellman-group-exchange-sha256', 'diffie-hellman-group16-sha512', 'diffie-hellman-group18-sha512', 'diffie-hellman-group14-sha256', 'diffie-hellman-group14-sha1'] server key:['rsa-sha2-512', 'rsa-sha2-256', 'ssh-rsa', 'ssh-ed25519'] client encrypt:['chacha20-poly1305@openssh.com', 'aes128-ctr', 'aes192-ctr', 'aes256-ctr', 'aes128-gcm@openssh.com', 'aes256-gcm@openssh.com'] server encrypt:['chacha20-poly1305@openssh.com', 'aes128-ctr', 'aes192-ctr', 'aes256-ctr', 'aes128-gcm@openssh.com', 'aes256-gcm@openssh.com'] client mac:['umac-64-etm@openssh.com', 'umac-128-etm@openssh.com', 'hmac-sha2-256-etm@openssh.com', 'hmac-sha2-512-etm@openssh.com', 'hmac-sha1-etm@openssh.com', 'umac-64@openssh.com', 'umac-128@openssh.com', 'hmac-sha2-256', 'hmac-sha2-512', 'hmac-sha1'] server mac:['umac-64-etm@openssh.com', 'umac-128-etm@openssh.com', 'hmac-sha2-256-etm@openssh.com', 'hmac-sha2-512-etm@openssh.com', 'hmac-sha1-etm@openssh.com', 'umac-64@openssh.com', 'umac-128@openssh.com', 'hmac-sha2-256', 'hmac-sha2-512', 'hmac-sha1'] client compress:['none', 'zlib@openssh.com'] server compress:['none', 'zlib@openssh.com'] client lang:[''] server lang:[''] kex follows?False
+2020-08-03 17:19:47 transport.py[line:1819] DEBUG Kex agreed: curve25519-sha256@libssh.org
+2020-08-03 17:19:47 transport.py[line:1819] DEBUG HostKey agreed: ssh-ed25519
+2020-08-03 17:19:47 transport.py[line:1819] DEBUG Cipher agreed: aes128-ctr
+2020-08-03 17:19:47 transport.py[line:1819] DEBUG MAC agreed: hmac-sha2-256
+2020-08-03 17:19:47 transport.py[line:1819] DEBUG Compression agreed: none
+2020-08-03 17:19:47 transport.py[line:1819] DEBUG kex engine KexCurve25519 specified hash_algo <built-in function openssl_sha256>
+2020-08-03 17:19:47 transport.py[line:1819] DEBUG Switch to new keys ...
+2020-08-03 17:19:47 transport.py[line:1819] DEBUG Adding ssh-ed25519 host key for 192.168.2.1: b'48125fda446c1aa5e770119fe5072e93'
+2020-08-03 17:19:47 iperf_client.py[line:1411] ERROR Expected unicode or bytes, got <PyQt5.QtWidgets.QLineEdit object at 0x0000000004B39438>
+2020-08-03 17:19:47 transport.py[line:1819] DEBUG EOF in transport thread
+2020-08-03 17:21:53 iperf_client.py[line:441] INFO start
+2020-08-03 17:22:03 transport.py[line:1819] DEBUG starting thread (client mode): 0x4864c50
+2020-08-03 17:22:03 transport.py[line:1819] DEBUG Local version/idstring: SSH-2.0-paramiko_2.7.1
+2020-08-03 17:22:03 transport.py[line:1819] DEBUG Remote version/idstring: SSH-2.0-OpenSSH_8.1
+2020-08-03 17:22:03 transport.py[line:1819] INFO Connected (version 2.0, client OpenSSH_8.1)
+2020-08-03 17:22:03 transport.py[line:1819] DEBUG kex algos:['curve25519-sha256', 'curve25519-sha256@libssh.org', 'ecdh-sha2-nistp256', 'ecdh-sha2-nistp384', 'ecdh-sha2-nistp521', 'diffie-hellman-group-exchange-sha256', 'diffie-hellman-group16-sha512', 'diffie-hellman-group18-sha512', 'diffie-hellman-group14-sha256', 'diffie-hellman-group14-sha1'] server key:['rsa-sha2-512', 'rsa-sha2-256', 'ssh-rsa', 'ssh-ed25519'] client encrypt:['chacha20-poly1305@openssh.com', 'aes128-ctr', 'aes192-ctr', 'aes256-ctr', 'aes128-gcm@openssh.com', 'aes256-gcm@openssh.com'] server encrypt:['chacha20-poly1305@openssh.com', 'aes128-ctr', 'aes192-ctr', 'aes256-ctr', 'aes128-gcm@openssh.com', 'aes256-gcm@openssh.com'] client mac:['umac-64-etm@openssh.com', 'umac-128-etm@openssh.com', 'hmac-sha2-256-etm@openssh.com', 'hmac-sha2-512-etm@openssh.com', 'hmac-sha1-etm@openssh.com', 'umac-64@openssh.com', 'umac-128@openssh.com', 'hmac-sha2-256', 'hmac-sha2-512', 'hmac-sha1'] server mac:['umac-64-etm@openssh.com', 'umac-128-etm@openssh.com', 'hmac-sha2-256-etm@openssh.com', 'hmac-sha2-512-etm@openssh.com', 'hmac-sha1-etm@openssh.com', 'umac-64@openssh.com', 'umac-128@openssh.com', 'hmac-sha2-256', 'hmac-sha2-512', 'hmac-sha1'] client compress:['none', 'zlib@openssh.com'] server compress:['none', 'zlib@openssh.com'] client lang:[''] server lang:[''] kex follows?False
+2020-08-03 17:22:03 transport.py[line:1819] DEBUG Kex agreed: curve25519-sha256@libssh.org
+2020-08-03 17:22:03 transport.py[line:1819] DEBUG HostKey agreed: ssh-ed25519
+2020-08-03 17:22:03 transport.py[line:1819] DEBUG Cipher agreed: aes128-ctr
+2020-08-03 17:22:03 transport.py[line:1819] DEBUG MAC agreed: hmac-sha2-256
+2020-08-03 17:22:03 transport.py[line:1819] DEBUG Compression agreed: none
+2020-08-03 17:22:03 transport.py[line:1819] DEBUG kex engine KexCurve25519 specified hash_algo <built-in function openssl_sha256>
+2020-08-03 17:22:03 transport.py[line:1819] DEBUG Switch to new keys ...
+2020-08-03 17:22:03 transport.py[line:1819] DEBUG Adding ssh-ed25519 host key for 192.168.2.1: b'48125fda446c1aa5e770119fe5072e93'
+2020-08-03 17:22:03 transport.py[line:1819] DEBUG userauth is OK
+2020-08-03 17:22:03 transport.py[line:1819] INFO Authentication (password) failed.
+2020-08-03 17:22:03 iperf_client.py[line:1411] ERROR Authentication failed.
+2020-08-03 17:22:03 transport.py[line:1819] DEBUG EOF in transport thread
+2020-08-03 17:22:18 iperf_client.py[line:441] INFO start
+2020-08-03 17:22:28 transport.py[line:1819] DEBUG starting thread (client mode): 0x4922d68
+2020-08-03 17:22:28 transport.py[line:1819] DEBUG Local version/idstring: SSH-2.0-paramiko_2.7.1
+2020-08-03 17:22:28 transport.py[line:1819] DEBUG Remote version/idstring: SSH-2.0-OpenSSH_8.1
+2020-08-03 17:22:28 transport.py[line:1819] INFO Connected (version 2.0, client OpenSSH_8.1)
+2020-08-03 17:22:28 transport.py[line:1819] DEBUG kex algos:['curve25519-sha256', 'curve25519-sha256@libssh.org', 'ecdh-sha2-nistp256', 'ecdh-sha2-nistp384', 'ecdh-sha2-nistp521', 'diffie-hellman-group-exchange-sha256', 'diffie-hellman-group16-sha512', 'diffie-hellman-group18-sha512', 'diffie-hellman-group14-sha256', 'diffie-hellman-group14-sha1'] server key:['rsa-sha2-512', 'rsa-sha2-256', 'ssh-rsa', 'ssh-ed25519'] client encrypt:['chacha20-poly1305@openssh.com', 'aes128-ctr', 'aes192-ctr', 'aes256-ctr', 'aes128-gcm@openssh.com', 'aes256-gcm@openssh.com'] server encrypt:['chacha20-poly1305@openssh.com', 'aes128-ctr', 'aes192-ctr', 'aes256-ctr', 'aes128-gcm@openssh.com', 'aes256-gcm@openssh.com'] client mac:['umac-64-etm@openssh.com', 'umac-128-etm@openssh.com', 'hmac-sha2-256-etm@openssh.com', 'hmac-sha2-512-etm@openssh.com', 'hmac-sha1-etm@openssh.com', 'umac-64@openssh.com', 'umac-128@openssh.com', 'hmac-sha2-256', 'hmac-sha2-512', 'hmac-sha1'] server mac:['umac-64-etm@openssh.com', 'umac-128-etm@openssh.com', 'hmac-sha2-256-etm@openssh.com', 'hmac-sha2-512-etm@openssh.com', 'hmac-sha1-etm@openssh.com', 'umac-64@openssh.com', 'umac-128@openssh.com', 'hmac-sha2-256', 'hmac-sha2-512', 'hmac-sha1'] client compress:['none', 'zlib@openssh.com'] server compress:['none', 'zlib@openssh.com'] client lang:[''] server lang:[''] kex follows?False
+2020-08-03 17:22:28 transport.py[line:1819] DEBUG Kex agreed: curve25519-sha256@libssh.org
+2020-08-03 17:22:28 transport.py[line:1819] DEBUG HostKey agreed: ssh-ed25519
+2020-08-03 17:22:28 transport.py[line:1819] DEBUG Cipher agreed: aes128-ctr
+2020-08-03 17:22:28 transport.py[line:1819] DEBUG MAC agreed: hmac-sha2-256
+2020-08-03 17:22:28 transport.py[line:1819] DEBUG Compression agreed: none
+2020-08-03 17:22:28 transport.py[line:1819] DEBUG kex engine KexCurve25519 specified hash_algo <built-in function openssl_sha256>
+2020-08-03 17:22:28 transport.py[line:1819] DEBUG Switch to new keys ...
+2020-08-03 17:22:28 transport.py[line:1819] DEBUG Adding ssh-ed25519 host key for 192.168.2.1: b'48125fda446c1aa5e770119fe5072e93'
+2020-08-03 17:22:28 transport.py[line:1819] DEBUG userauth is OK
+2020-08-03 17:22:28 transport.py[line:1819] INFO Authentication (password) successful!
+2020-08-03 17:22:28 channel.py[line:1212] DEBUG [chan 0] Max packet in: 32768 bytes
+2020-08-03 17:22:28 transport.py[line:1819] DEBUG Received global request "hostkeys-00@openssh.com"
+2020-08-03 17:22:28 transport.py[line:1819] DEBUG Rejecting "hostkeys-00@openssh.com" global request from server.
+2020-08-03 17:22:28 channel.py[line:1212] DEBUG [chan 0] Max packet out: 32768 bytes
+2020-08-03 17:22:28 transport.py[line:1819] DEBUG Secsh channel 0 opened.
+2020-08-03 17:22:28 channel.py[line:1212] DEBUG [chan 0] Sesch channel 0 request ok
+2020-08-03 17:22:28 transport.py[line:1819] DEBUG EOF in transport thread
+2020-08-03 17:22:28 iperf_client.py[line:1411] ERROR expected string or bytes-like object
+2020-08-03 17:24:37 iperf_client.py[line:441] INFO start
+2020-08-03 17:24:47 transport.py[line:1819] DEBUG starting thread (client mode): 0x6762ef0
+2020-08-03 17:24:47 transport.py[line:1819] DEBUG Local version/idstring: SSH-2.0-paramiko_2.7.1
+2020-08-03 17:24:48 transport.py[line:1819] DEBUG Remote version/idstring: SSH-2.0-OpenSSH_8.1
+2020-08-03 17:24:48 transport.py[line:1819] INFO Connected (version 2.0, client OpenSSH_8.1)
+2020-08-03 17:24:48 transport.py[line:1819] DEBUG kex algos:['curve25519-sha256', 'curve25519-sha256@libssh.org', 'ecdh-sha2-nistp256', 'ecdh-sha2-nistp384', 'ecdh-sha2-nistp521', 'diffie-hellman-group-exchange-sha256', 'diffie-hellman-group16-sha512', 'diffie-hellman-group18-sha512', 'diffie-hellman-group14-sha256', 'diffie-hellman-group14-sha1'] server key:['rsa-sha2-512', 'rsa-sha2-256', 'ssh-rsa', 'ssh-ed25519'] client encrypt:['chacha20-poly1305@openssh.com', 'aes128-ctr', 'aes192-ctr', 'aes256-ctr', 'aes128-gcm@openssh.com', 'aes256-gcm@openssh.com'] server encrypt:['chacha20-poly1305@openssh.com', 'aes128-ctr', 'aes192-ctr', 'aes256-ctr', 'aes128-gcm@openssh.com', 'aes256-gcm@openssh.com'] client mac:['umac-64-etm@openssh.com', 'umac-128-etm@openssh.com', 'hmac-sha2-256-etm@openssh.com', 'hmac-sha2-512-etm@openssh.com', 'hmac-sha1-etm@openssh.com', 'umac-64@openssh.com', 'umac-128@openssh.com', 'hmac-sha2-256', 'hmac-sha2-512', 'hmac-sha1'] server mac:['umac-64-etm@openssh.com', 'umac-128-etm@openssh.com', 'hmac-sha2-256-etm@openssh.com', 'hmac-sha2-512-etm@openssh.com', 'hmac-sha1-etm@openssh.com', 'umac-64@openssh.com', 'umac-128@openssh.com', 'hmac-sha2-256', 'hmac-sha2-512', 'hmac-sha1'] client compress:['none', 'zlib@openssh.com'] server compress:['none', 'zlib@openssh.com'] client lang:[''] server lang:[''] kex follows?False
+2020-08-03 17:24:48 transport.py[line:1819] DEBUG Kex agreed: curve25519-sha256@libssh.org
+2020-08-03 17:24:48 transport.py[line:1819] DEBUG HostKey agreed: ssh-ed25519
+2020-08-03 17:24:48 transport.py[line:1819] DEBUG Cipher agreed: aes128-ctr
+2020-08-03 17:24:48 transport.py[line:1819] DEBUG MAC agreed: hmac-sha2-256
+2020-08-03 17:24:48 transport.py[line:1819] DEBUG Compression agreed: none
+2020-08-03 17:24:48 transport.py[line:1819] DEBUG kex engine KexCurve25519 specified hash_algo <built-in function openssl_sha256>
+2020-08-03 17:24:48 transport.py[line:1819] DEBUG Switch to new keys ...
+2020-08-03 17:24:48 transport.py[line:1819] DEBUG Adding ssh-ed25519 host key for 192.168.2.1: b'48125fda446c1aa5e770119fe5072e93'
+2020-08-03 17:24:48 transport.py[line:1819] DEBUG userauth is OK
+2020-08-03 17:24:48 transport.py[line:1819] INFO Authentication (password) successful!
+2020-08-03 17:24:48 channel.py[line:1212] DEBUG [chan 0] Max packet in: 32768 bytes
+2020-08-03 17:24:48 transport.py[line:1819] DEBUG Received global request "hostkeys-00@openssh.com"
+2020-08-03 17:24:48 transport.py[line:1819] DEBUG Rejecting "hostkeys-00@openssh.com" global request from server.
+2020-08-03 17:24:48 channel.py[line:1212] DEBUG [chan 0] Max packet out: 32768 bytes
+2020-08-03 17:24:48 transport.py[line:1819] DEBUG Secsh channel 0 opened.
+2020-08-03 17:24:48 channel.py[line:1212] DEBUG [chan 0] Sesch channel 0 request ok
+2020-08-03 17:24:48 transport.py[line:1819] DEBUG EOF in transport thread
+2020-08-03 17:24:48 iperf_client.py[line:1410] ERROR decoding to str: need a bytes-like object, tuple found
+2020-08-03 17:28:15 iperf_client.py[line:441] INFO start
+2020-08-03 17:28:25 transport.py[line:1819] DEBUG starting thread (client mode): 0x6762ef0
+2020-08-03 17:28:25 transport.py[line:1819] DEBUG Local version/idstring: SSH-2.0-paramiko_2.7.1
+2020-08-03 17:28:25 transport.py[line:1819] DEBUG Remote version/idstring: SSH-2.0-OpenSSH_8.1
+2020-08-03 17:28:25 transport.py[line:1819] INFO Connected (version 2.0, client OpenSSH_8.1)
+2020-08-03 17:28:25 transport.py[line:1819] DEBUG kex algos:['curve25519-sha256', 'curve25519-sha256@libssh.org', 'ecdh-sha2-nistp256', 'ecdh-sha2-nistp384', 'ecdh-sha2-nistp521', 'diffie-hellman-group-exchange-sha256', 'diffie-hellman-group16-sha512', 'diffie-hellman-group18-sha512', 'diffie-hellman-group14-sha256', 'diffie-hellman-group14-sha1'] server key:['rsa-sha2-512', 'rsa-sha2-256', 'ssh-rsa', 'ssh-ed25519'] client encrypt:['chacha20-poly1305@openssh.com', 'aes128-ctr', 'aes192-ctr', 'aes256-ctr', 'aes128-gcm@openssh.com', 'aes256-gcm@openssh.com'] server encrypt:['chacha20-poly1305@openssh.com', 'aes128-ctr', 'aes192-ctr', 'aes256-ctr', 'aes128-gcm@openssh.com', 'aes256-gcm@openssh.com'] client mac:['umac-64-etm@openssh.com', 'umac-128-etm@openssh.com', 'hmac-sha2-256-etm@openssh.com', 'hmac-sha2-512-etm@openssh.com', 'hmac-sha1-etm@openssh.com', 'umac-64@openssh.com', 'umac-128@openssh.com', 'hmac-sha2-256', 'hmac-sha2-512', 'hmac-sha1'] server mac:['umac-64-etm@openssh.com', 'umac-128-etm@openssh.com', 'hmac-sha2-256-etm@openssh.com', 'hmac-sha2-512-etm@openssh.com', 'hmac-sha1-etm@openssh.com', 'umac-64@openssh.com', 'umac-128@openssh.com', 'hmac-sha2-256', 'hmac-sha2-512', 'hmac-sha1'] client compress:['none', 'zlib@openssh.com'] server compress:['none', 'zlib@openssh.com'] client lang:[''] server lang:[''] kex follows?False
+2020-08-03 17:28:25 transport.py[line:1819] DEBUG Kex agreed: curve25519-sha256@libssh.org
+2020-08-03 17:28:25 transport.py[line:1819] DEBUG HostKey agreed: ssh-ed25519
+2020-08-03 17:28:25 transport.py[line:1819] DEBUG Cipher agreed: aes128-ctr
+2020-08-03 17:28:25 transport.py[line:1819] DEBUG MAC agreed: hmac-sha2-256
+2020-08-03 17:28:25 transport.py[line:1819] DEBUG Compression agreed: none
+2020-08-03 17:28:25 transport.py[line:1819] DEBUG kex engine KexCurve25519 specified hash_algo <built-in function openssl_sha256>
+2020-08-03 17:28:25 transport.py[line:1819] DEBUG Switch to new keys ...
+2020-08-03 17:28:25 transport.py[line:1819] DEBUG Adding ssh-ed25519 host key for 192.168.2.1: b'48125fda446c1aa5e770119fe5072e93'
+2020-08-03 17:28:25 transport.py[line:1819] DEBUG userauth is OK
+2020-08-03 17:28:25 transport.py[line:1819] INFO Authentication (password) successful!
+2020-08-03 17:28:25 channel.py[line:1212] DEBUG [chan 0] Max packet in: 32768 bytes
+2020-08-03 17:28:25 transport.py[line:1819] DEBUG Received global request "hostkeys-00@openssh.com"
+2020-08-03 17:28:25 transport.py[line:1819] DEBUG Rejecting "hostkeys-00@openssh.com" global request from server.
+2020-08-03 17:28:26 channel.py[line:1212] DEBUG [chan 0] Max packet out: 32768 bytes
+2020-08-03 17:28:26 transport.py[line:1819] DEBUG Secsh channel 0 opened.
+2020-08-03 17:28:26 channel.py[line:1212] DEBUG [chan 0] Sesch channel 0 request ok
+2020-08-03 17:28:26 transport.py[line:1819] DEBUG EOF in transport thread
+2020-08-03 17:28:26 iperf_client.py[line:1410] ERROR decoding to str: need a bytes-like object, ChannelFile found
+2020-08-03 17:30:13 iperf_client.py[line:441] INFO start
+2020-08-03 17:30:23 transport.py[line:1819] DEBUG starting thread (client mode): 0x6764e48
+2020-08-03 17:30:23 transport.py[line:1819] DEBUG Local version/idstring: SSH-2.0-paramiko_2.7.1
+2020-08-03 17:30:24 transport.py[line:1819] DEBUG Remote version/idstring: SSH-2.0-OpenSSH_8.1
+2020-08-03 17:30:24 transport.py[line:1819] INFO Connected (version 2.0, client OpenSSH_8.1)
+2020-08-03 17:30:24 transport.py[line:1819] DEBUG kex algos:['curve25519-sha256', 'curve25519-sha256@libssh.org', 'ecdh-sha2-nistp256', 'ecdh-sha2-nistp384', 'ecdh-sha2-nistp521', 'diffie-hellman-group-exchange-sha256', 'diffie-hellman-group16-sha512', 'diffie-hellman-group18-sha512', 'diffie-hellman-group14-sha256', 'diffie-hellman-group14-sha1'] server key:['rsa-sha2-512', 'rsa-sha2-256', 'ssh-rsa', 'ssh-ed25519'] client encrypt:['chacha20-poly1305@openssh.com', 'aes128-ctr', 'aes192-ctr', 'aes256-ctr', 'aes128-gcm@openssh.com', 'aes256-gcm@openssh.com'] server encrypt:['chacha20-poly1305@openssh.com', 'aes128-ctr', 'aes192-ctr', 'aes256-ctr', 'aes128-gcm@openssh.com', 'aes256-gcm@openssh.com'] client mac:['umac-64-etm@openssh.com', 'umac-128-etm@openssh.com', 'hmac-sha2-256-etm@openssh.com', 'hmac-sha2-512-etm@openssh.com', 'hmac-sha1-etm@openssh.com', 'umac-64@openssh.com', 'umac-128@openssh.com', 'hmac-sha2-256', 'hmac-sha2-512', 'hmac-sha1'] server mac:['umac-64-etm@openssh.com', 'umac-128-etm@openssh.com', 'hmac-sha2-256-etm@openssh.com', 'hmac-sha2-512-etm@openssh.com', 'hmac-sha1-etm@openssh.com', 'umac-64@openssh.com', 'umac-128@openssh.com', 'hmac-sha2-256', 'hmac-sha2-512', 'hmac-sha1'] client compress:['none', 'zlib@openssh.com'] server compress:['none', 'zlib@openssh.com'] client lang:[''] server lang:[''] kex follows?False
+2020-08-03 17:30:24 transport.py[line:1819] DEBUG Kex agreed: curve25519-sha256@libssh.org
+2020-08-03 17:30:24 transport.py[line:1819] DEBUG HostKey agreed: ssh-ed25519
+2020-08-03 17:30:24 transport.py[line:1819] DEBUG Cipher agreed: aes128-ctr
+2020-08-03 17:30:24 transport.py[line:1819] DEBUG MAC agreed: hmac-sha2-256
+2020-08-03 17:30:24 transport.py[line:1819] DEBUG Compression agreed: none
+2020-08-03 17:30:24 transport.py[line:1819] DEBUG kex engine KexCurve25519 specified hash_algo <built-in function openssl_sha256>
+2020-08-03 17:30:24 transport.py[line:1819] DEBUG Switch to new keys ...
+2020-08-03 17:30:24 transport.py[line:1819] DEBUG Adding ssh-ed25519 host key for 192.168.2.1: b'48125fda446c1aa5e770119fe5072e93'
+2020-08-03 17:30:24 transport.py[line:1819] DEBUG userauth is OK
+2020-08-03 17:30:24 transport.py[line:1819] INFO Authentication (password) successful!
+2020-08-03 17:30:24 channel.py[line:1212] DEBUG [chan 0] Max packet in: 32768 bytes
+2020-08-03 17:30:24 transport.py[line:1819] DEBUG Received global request "hostkeys-00@openssh.com"
+2020-08-03 17:30:24 transport.py[line:1819] DEBUG Rejecting "hostkeys-00@openssh.com" global request from server.
+2020-08-03 17:30:24 channel.py[line:1212] DEBUG [chan 0] Max packet out: 32768 bytes
+2020-08-03 17:30:24 transport.py[line:1819] DEBUG Secsh channel 0 opened.
+2020-08-03 17:30:24 channel.py[line:1212] DEBUG [chan 0] Sesch channel 0 request ok
+2020-08-03 17:30:24 channel.py[line:1212] DEBUG [chan 0] EOF received (0)
+2020-08-03 17:30:24 channel.py[line:1212] DEBUG [chan 0] EOF sent (0)
+2020-08-03 17:30:24 transport.py[line:1819] DEBUG EOF in transport thread
+2020-08-03 17:30:46 iperf_client.py[line:441] INFO start
+2020-08-03 17:30:56 transport.py[line:1819] DEBUG starting thread (client mode): 0x4958470
+2020-08-03 17:30:56 transport.py[line:1819] DEBUG Local version/idstring: SSH-2.0-paramiko_2.7.1
+2020-08-03 17:30:56 transport.py[line:1819] DEBUG Remote version/idstring: SSH-2.0-OpenSSH_8.1
+2020-08-03 17:30:56 transport.py[line:1819] INFO Connected (version 2.0, client OpenSSH_8.1)
+2020-08-03 17:30:56 transport.py[line:1819] DEBUG kex algos:['curve25519-sha256', 'curve25519-sha256@libssh.org', 'ecdh-sha2-nistp256', 'ecdh-sha2-nistp384', 'ecdh-sha2-nistp521', 'diffie-hellman-group-exchange-sha256', 'diffie-hellman-group16-sha512', 'diffie-hellman-group18-sha512', 'diffie-hellman-group14-sha256', 'diffie-hellman-group14-sha1'] server key:['rsa-sha2-512', 'rsa-sha2-256', 'ssh-rsa', 'ssh-ed25519'] client encrypt:['chacha20-poly1305@openssh.com', 'aes128-ctr', 'aes192-ctr', 'aes256-ctr', 'aes128-gcm@openssh.com', 'aes256-gcm@openssh.com'] server encrypt:['chacha20-poly1305@openssh.com', 'aes128-ctr', 'aes192-ctr', 'aes256-ctr', 'aes128-gcm@openssh.com', 'aes256-gcm@openssh.com'] client mac:['umac-64-etm@openssh.com', 'umac-128-etm@openssh.com', 'hmac-sha2-256-etm@openssh.com', 'hmac-sha2-512-etm@openssh.com', 'hmac-sha1-etm@openssh.com', 'umac-64@openssh.com', 'umac-128@openssh.com', 'hmac-sha2-256', 'hmac-sha2-512', 'hmac-sha1'] server mac:['umac-64-etm@openssh.com', 'umac-128-etm@openssh.com', 'hmac-sha2-256-etm@openssh.com', 'hmac-sha2-512-etm@openssh.com', 'hmac-sha1-etm@openssh.com', 'umac-64@openssh.com', 'umac-128@openssh.com', 'hmac-sha2-256', 'hmac-sha2-512', 'hmac-sha1'] client compress:['none', 'zlib@openssh.com'] server compress:['none', 'zlib@openssh.com'] client lang:[''] server lang:[''] kex follows?False
+2020-08-03 17:30:56 transport.py[line:1819] DEBUG Kex agreed: curve25519-sha256@libssh.org
+2020-08-03 17:30:56 transport.py[line:1819] DEBUG HostKey agreed: ssh-ed25519
+2020-08-03 17:30:56 transport.py[line:1819] DEBUG Cipher agreed: aes128-ctr
+2020-08-03 17:30:56 transport.py[line:1819] DEBUG MAC agreed: hmac-sha2-256
+2020-08-03 17:30:56 transport.py[line:1819] DEBUG Compression agreed: none
+2020-08-03 17:30:56 transport.py[line:1819] DEBUG kex engine KexCurve25519 specified hash_algo <built-in function openssl_sha256>
+2020-08-03 17:30:56 transport.py[line:1819] DEBUG Switch to new keys ...
+2020-08-03 17:30:56 transport.py[line:1819] DEBUG Adding ssh-ed25519 host key for 192.168.2.1: b'48125fda446c1aa5e770119fe5072e93'
+2020-08-03 17:30:56 transport.py[line:1819] DEBUG userauth is OK
+2020-08-03 17:30:56 transport.py[line:1819] INFO Authentication (password) successful!
+2020-08-03 17:30:56 channel.py[line:1212] DEBUG [chan 0] Max packet in: 32768 bytes
+2020-08-03 17:30:56 transport.py[line:1819] DEBUG Received global request "hostkeys-00@openssh.com"
+2020-08-03 17:30:56 transport.py[line:1819] DEBUG Rejecting "hostkeys-00@openssh.com" global request from server.
+2020-08-03 17:30:56 channel.py[line:1212] DEBUG [chan 0] Max packet out: 32768 bytes
+2020-08-03 17:30:56 transport.py[line:1819] DEBUG Secsh channel 0 opened.
+2020-08-03 17:30:56 channel.py[line:1212] DEBUG [chan 0] Sesch channel 0 request ok
+2020-08-03 17:30:56 channel.py[line:1212] DEBUG [chan 0] EOF received (0)
+2020-08-03 17:30:56 channel.py[line:1212] DEBUG [chan 0] EOF sent (0)
+2020-08-03 17:30:56 transport.py[line:1819] DEBUG Dropping user packet because connection is dead.

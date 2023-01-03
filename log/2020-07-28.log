@@ -1,0 +1,63 @@
+2020-07-28 09:16:17 iperf_client.py[line:441] INFO start
+2020-07-28 09:19:28 iperf_client.py[line:441] INFO start
+2020-07-28 09:19:40 iperf_client.py[line:441] INFO start
+2020-07-28 09:20:18 iperf_client.py[line:441] INFO start
+2020-07-28 09:20:31 iperf_client.py[line:441] INFO start
+2020-07-28 09:21:46 iperf_client.py[line:441] INFO start
+2020-07-28 09:28:25 iperf_client.py[line:441] INFO start
+2020-07-28 09:30:02 iperf_client.py[line:441] INFO start
+2020-07-28 09:30:23 iperf_client.py[line:441] INFO start
+2020-07-28 09:32:33 iperf_client.py[line:441] INFO start
+2020-07-28 09:32:33 transport.py[line:1819] DEBUG starting thread (client mode): 0x60beef0
+2020-07-28 09:32:33 transport.py[line:1819] DEBUG Local version/idstring: SSH-2.0-paramiko_2.7.1
+2020-07-28 09:32:33 transport.py[line:1819] DEBUG Remote version/idstring: SSH-2.0-dropbear_2011.54
+2020-07-28 09:32:33 transport.py[line:1819] INFO Connected (version 2.0, client dropbear_2011.54)
+2020-07-28 09:32:33 transport.py[line:1819] DEBUG kex algos:['diffie-hellman-group1-sha1', 'diffie-hellman-group14-sha1'] server key:['ssh-rsa', 'ssh-dss'] client encrypt:['aes128-ctr', '3des-ctr', 'aes256-ctr', 'aes128-cbc', '3des-cbc', 'aes256-cbc'] server encrypt:['aes128-ctr', '3des-ctr', 'aes256-ctr', 'aes128-cbc', '3des-cbc', 'aes256-cbc'] client mac:['hmac-sha1', 'hmac-md5'] server mac:['hmac-sha1', 'hmac-md5'] client compress:['none'] server compress:['none'] client lang:[''] server lang:[''] kex follows?False
+2020-07-28 09:32:33 transport.py[line:1819] DEBUG Kex agreed: diffie-hellman-group14-sha1
+2020-07-28 09:32:33 transport.py[line:1819] DEBUG HostKey agreed: ssh-rsa
+2020-07-28 09:32:33 transport.py[line:1819] DEBUG Cipher agreed: aes128-ctr
+2020-07-28 09:32:33 transport.py[line:1819] DEBUG MAC agreed: hmac-sha1
+2020-07-28 09:32:33 transport.py[line:1819] DEBUG Compression agreed: none
+2020-07-28 09:32:34 transport.py[line:1819] DEBUG kex engine KexGroup14 specified hash_algo <built-in function openssl_sha1>
+2020-07-28 09:32:34 transport.py[line:1819] DEBUG Switch to new keys ...
+2020-07-28 09:32:34 transport.py[line:1819] DEBUG Adding ssh-rsa host key for 192.168.188.251: b'b249333ac537a77dcfe0110ba11ff954'
+2020-07-28 09:32:34 transport.py[line:1819] DEBUG userauth is OK
+2020-07-28 09:32:35 transport.py[line:1819] INFO Authentication (password) failed.
+2020-07-28 09:32:35 iperf_client.py[line:1379] ERROR Authentication failed.
+2020-07-28 09:35:32 transport.py[line:1819] DEBUG EOF in transport thread
+2020-07-28 09:40:32 iperf_client.py[line:441] INFO start
+2020-07-28 09:40:32 transport.py[line:1819] DEBUG starting thread (client mode): 0x60beef0
+2020-07-28 09:40:32 transport.py[line:1819] DEBUG Local version/idstring: SSH-2.0-paramiko_2.7.1
+2020-07-28 09:40:32 transport.py[line:1819] DEBUG Remote version/idstring: SSH-2.0-dropbear_2011.54
+2020-07-28 09:40:32 transport.py[line:1819] INFO Connected (version 2.0, client dropbear_2011.54)
+2020-07-28 09:40:32 transport.py[line:1819] DEBUG kex algos:['diffie-hellman-group1-sha1', 'diffie-hellman-group14-sha1'] server key:['ssh-rsa', 'ssh-dss'] client encrypt:['aes128-ctr', '3des-ctr', 'aes256-ctr', 'aes128-cbc', '3des-cbc', 'aes256-cbc'] server encrypt:['aes128-ctr', '3des-ctr', 'aes256-ctr', 'aes128-cbc', '3des-cbc', 'aes256-cbc'] client mac:['hmac-sha1', 'hmac-md5'] server mac:['hmac-sha1', 'hmac-md5'] client compress:['none'] server compress:['none'] client lang:[''] server lang:[''] kex follows?False
+2020-07-28 09:40:32 transport.py[line:1819] DEBUG Kex agreed: diffie-hellman-group14-sha1
+2020-07-28 09:40:32 transport.py[line:1819] DEBUG HostKey agreed: ssh-rsa
+2020-07-28 09:40:32 transport.py[line:1819] DEBUG Cipher agreed: aes128-ctr
+2020-07-28 09:40:32 transport.py[line:1819] DEBUG MAC agreed: hmac-sha1
+2020-07-28 09:40:32 transport.py[line:1819] DEBUG Compression agreed: none
+2020-07-28 09:40:33 transport.py[line:1819] DEBUG kex engine KexGroup14 specified hash_algo <built-in function openssl_sha1>
+2020-07-28 09:40:33 transport.py[line:1819] DEBUG Switch to new keys ...
+2020-07-28 09:40:33 transport.py[line:1819] DEBUG Adding ssh-rsa host key for 192.168.188.251: b'b249333ac537a77dcfe0110ba11ff954'
+2020-07-28 09:40:33 transport.py[line:1819] DEBUG userauth is OK
+2020-07-28 09:40:33 transport.py[line:1819] INFO Authentication (password) failed.
+2020-07-28 09:40:33 iperf_client.py[line:1381] ERROR Authentication failed.
+2020-07-28 09:45:33 transport.py[line:1819] DEBUG EOF in transport thread
+2020-07-28 09:52:43 iperf_client.py[line:441] INFO start
+2020-07-28 09:52:43 transport.py[line:1819] DEBUG starting thread (client mode): 0x60bfef0
+2020-07-28 09:52:43 transport.py[line:1819] DEBUG Local version/idstring: SSH-2.0-paramiko_2.7.1
+2020-07-28 09:52:43 transport.py[line:1819] DEBUG Remote version/idstring: SSH-2.0-dropbear_2011.54
+2020-07-28 09:52:43 transport.py[line:1819] INFO Connected (version 2.0, client dropbear_2011.54)
+2020-07-28 09:52:43 transport.py[line:1819] DEBUG kex algos:['diffie-hellman-group1-sha1', 'diffie-hellman-group14-sha1'] server key:['ssh-rsa', 'ssh-dss'] client encrypt:['aes128-ctr', '3des-ctr', 'aes256-ctr', 'aes128-cbc', '3des-cbc', 'aes256-cbc'] server encrypt:['aes128-ctr', '3des-ctr', 'aes256-ctr', 'aes128-cbc', '3des-cbc', 'aes256-cbc'] client mac:['hmac-sha1', 'hmac-md5'] server mac:['hmac-sha1', 'hmac-md5'] client compress:['none'] server compress:['none'] client lang:[''] server lang:[''] kex follows?False
+2020-07-28 09:52:43 transport.py[line:1819] DEBUG Kex agreed: diffie-hellman-group14-sha1
+2020-07-28 09:52:43 transport.py[line:1819] DEBUG HostKey agreed: ssh-rsa
+2020-07-28 09:52:43 transport.py[line:1819] DEBUG Cipher agreed: aes128-ctr
+2020-07-28 09:52:43 transport.py[line:1819] DEBUG MAC agreed: hmac-sha1
+2020-07-28 09:52:43 transport.py[line:1819] DEBUG Compression agreed: none
+2020-07-28 09:52:45 transport.py[line:1819] DEBUG kex engine KexGroup14 specified hash_algo <built-in function openssl_sha1>
+2020-07-28 09:52:45 transport.py[line:1819] DEBUG Switch to new keys ...
+2020-07-28 09:52:45 transport.py[line:1819] DEBUG Adding ssh-rsa host key for 192.168.188.251: b'b249333ac537a77dcfe0110ba11ff954'
+2020-07-28 09:52:45 transport.py[line:1819] DEBUG userauth is OK
+2020-07-28 09:52:45 transport.py[line:1819] INFO Authentication (password) failed.
+2020-07-28 09:52:45 iperf_client.py[line:1383] ERROR Authentication failed.
+2020-07-28 09:57:45 transport.py[line:1819] DEBUG EOF in transport thread

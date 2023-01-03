@@ -1302,7 +1302,7 @@ class TimeDownThread(QThread):
             if tempTime > 0:
                 time.sleep(tempTime)
                 tT = self.tTime - (time.time() - start)
-                print("tTime", tT)
+                # print("tTime", tT)
                 self.signal_Time.emit(tT)
             else:
                 time.sleep(5)

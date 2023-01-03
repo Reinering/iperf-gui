@@ -32,7 +32,7 @@ Type = {
 }
 
 PackageArgs = {
-    'console': False,                           # [True, False] -w 关闭， -c(默认) 开启 开启或关闭显示控制台 (只对Windows有效)
+    'console': True,                           # [True, False] -w 关闭， -c(默认) 开启 开启或关闭显示控制台 (只对Windows有效)
     'debug': False,                             # [True, False] -d [{all,imports,bootloader,noarchive} 产生debug版本的可执行文件
     'specPath': '',                             # --specpath 指定spec文件的生成目录,如果没有指定,而且当前目录是PyInstaller的根目录,会自动创建一个用于输出(spec和生成的可执行文件)的目录.如果没有指定,而当前目录不是PyInstaller的根目录,则会输出到当前的目录下.
     'importPath': '',                           # -p, -–path=DIR 设置导入路径(和使用PYTHONPATH效果相似).可以用路径分割符(Windows使用分号,Linux使用冒号)分割,指定多个目录.也可以使用多个-p参数来设置多个导入路径
@@ -202,15 +202,15 @@ def packaging():
                 else:
                     subprocess.run('mv ' + tmp + ' ' + PackageArgs['distpath'] + '\\' + file['outName'] + '_' + Type[TypeNum] + Computer_Digits + '_' + now + '.exe', shell=True)
 
-    if isclean:
-        # subprocess.run("DEL /F /Q /S " + name + '.spec', shell=True)
-        subprocess.run("RD /Q /S " + "build\\" + file['name'].replace('.py', ''), shell=True)
+		if isclean:
+			# subprocess.run("DEL /F /Q /S " + name + '.spec', shell=True)
+			subprocess.run("RD /Q /S " + "build\\" + file['name'].replace('.py', ''), shell=True)
 
 
 
 if __name__ == "__main__":
     # PackageArgs['console'] = True
     PackageArgs['isClean'] = True
-    PackageArgs['distpath'] = r'F:\PythonAPP_Package\Iperf_GUI'
+    PackageArgs['distpath'] = r'G:\PythonAPP_Package\Iperf_GUI'
 
     packaging()

@@ -2,8 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ab384861-2ddd-48f5-8099-545f055a8da3" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.eric6project/iperf_gui.e4q" beforeDir="false" afterPath="$PROJECT_DIR$/.eric6project/iperf_gui.e4q" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.eric6project/iperf_gui.e6t" beforeDir="false" afterPath="$PROJECT_DIR$/.eric6project/iperf_gui.e6t" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/iperf_client.py" beforeDir="false" afterPath="$PROJECT_DIR$/iperf_client.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.spec" beforeDir="false" afterPath="$PROJECT_DIR$/main.spec" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.py" beforeDir="false" afterPath="$PROJECT_DIR$/package.py" afterDir="false" />
     </list>
@@ -133,8 +137,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.package" />
-        <item itemvalue="Python.iperf_client" />
         <item itemvalue="Python.main" />
+        <item itemvalue="Python.iperf_client" />
         <item itemvalue="Python.test" />
       </list>
     </recent_temporary>
@@ -212,6 +216,13 @@
       <workItem from="1596522731550" duration="4073000" />
       <workItem from="1596530160481" duration="16823000" />
       <workItem from="1596605965545" duration="2991000" />
+      <workItem from="1596674498711" duration="2000" />
+      <workItem from="1596683734525" duration="10707000" />
+      <workItem from="1596786181025" duration="6000" />
+      <workItem from="1597127905563" duration="303000" />
+      <workItem from="1608990102998" duration="3095000" />
+      <workItem from="1608993423084" duration="360000" />
+      <workItem from="1609217203584" duration="433000" />
     </task>
     <servers />
   </component>
@@ -219,64 +230,31 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="739" y="314" key="FileChooserDialogImpl" timestamp="1596439962699">
+    <state width="1876" height="423" key="GridCell.Tab.0.bottom" timestamp="1609217636334">
       <screen x="0" y="40" width="1920" height="1040" />
     </state>
-    <state x="739" y="314" key="FileChooserDialogImpl/0.40.1920.1040/1920.0.1600.900@0.40.1920.1040" timestamp="1596439962699" />
-    <state width="1876" height="225" key="GridCell.Tab.0.bottom" timestamp="1596612753908">
+    <state width="1876" height="423" key="GridCell.Tab.0.bottom/0.40.1920.1040/1920.0.1600.900@0.40.1920.1040" timestamp="1609217636334" />
+    <state width="1876" height="423" key="GridCell.Tab.0.bottom/0.40.1920.1040@0.40.1920.1040" timestamp="1608993783122" />
+    <state width="1876" height="423" key="GridCell.Tab.0.center" timestamp="1609217636334">
       <screen x="0" y="40" width="1920" height="1040" />
     </state>
-    <state width="1876" height="183" key="GridCell.Tab.0.bottom/0.40.1920.1040/1920.0.1600.900@0.40.1920.1040" timestamp="1596533148556" />
-    <state width="1876" height="225" key="GridCell.Tab.0.bottom/0.40.1920.1040@0.40.1920.1040" timestamp="1596612753908" />
-    <state width="2516" height="209" key="GridCell.Tab.0.bottom/0.40.2560.1400/2560.0.1920.1080@0.40.2560.1400" timestamp="1590315134050" />
-    <state width="1876" height="225" key="GridCell.Tab.0.center" timestamp="1596612753907">
+    <state width="1876" height="423" key="GridCell.Tab.0.center/0.40.1920.1040/1920.0.1600.900@0.40.1920.1040" timestamp="1609217636334" />
+    <state width="1876" height="423" key="GridCell.Tab.0.center/0.40.1920.1040@0.40.1920.1040" timestamp="1608993783121" />
+    <state width="1876" height="423" key="GridCell.Tab.0.left" timestamp="1609217636334">
       <screen x="0" y="40" width="1920" height="1040" />
     </state>
-    <state width="1876" height="183" key="GridCell.Tab.0.center/0.40.1920.1040/1920.0.1600.900@0.40.1920.1040" timestamp="1596533148556" />
-    <state width="1876" height="225" key="GridCell.Tab.0.center/0.40.1920.1040@0.40.1920.1040" timestamp="1596612753907" />
-    <state width="2516" height="209" key="GridCell.Tab.0.center/0.40.2560.1400/2560.0.1920.1080@0.40.2560.1400" timestamp="1590315134050" />
-    <state width="1876" height="225" key="GridCell.Tab.0.left" timestamp="1596612753907">
+    <state width="1876" height="423" key="GridCell.Tab.0.left/0.40.1920.1040/1920.0.1600.900@0.40.1920.1040" timestamp="1609217636334" />
+    <state width="1876" height="423" key="GridCell.Tab.0.left/0.40.1920.1040@0.40.1920.1040" timestamp="1608993783121" />
+    <state width="1876" height="423" key="GridCell.Tab.0.right" timestamp="1609217636334">
       <screen x="0" y="40" width="1920" height="1040" />
     </state>
-    <state width="1876" height="183" key="GridCell.Tab.0.left/0.40.1920.1040/1920.0.1600.900@0.40.1920.1040" timestamp="1596533148556" />
-    <state width="1876" height="225" key="GridCell.Tab.0.left/0.40.1920.1040@0.40.1920.1040" timestamp="1596612753907" />
-    <state width="2516" height="209" key="GridCell.Tab.0.left/0.40.2560.1400/2560.0.1920.1080@0.40.2560.1400" timestamp="1590315134050" />
-    <state width="1876" height="225" key="GridCell.Tab.0.right" timestamp="1596612753908">
-      <screen x="0" y="40" width="1920" height="1040" />
-    </state>
-    <state width="1876" height="183" key="GridCell.Tab.0.right/0.40.1920.1040/1920.0.1600.900@0.40.1920.1040" timestamp="1596533148556" />
-    <state width="1876" height="225" key="GridCell.Tab.0.right/0.40.1920.1040@0.40.1920.1040" timestamp="1596612753908" />
-    <state width="2516" height="209" key="GridCell.Tab.0.right/0.40.2560.1400/2560.0.1920.1080@0.40.2560.1400" timestamp="1590315134050" />
-    <state width="1876" height="391" key="GridCell.Tab.1.bottom" timestamp="1596432904665">
-      <screen x="0" y="40" width="1920" height="1040" />
-    </state>
-    <state width="1876" height="391" key="GridCell.Tab.1.bottom/0.40.1920.1040/1920.0.1600.900@0.40.1920.1040" timestamp="1596432904665" />
-    <state width="1876" height="391" key="GridCell.Tab.1.center" timestamp="1596432904665">
-      <screen x="0" y="40" width="1920" height="1040" />
-    </state>
-    <state width="1876" height="391" key="GridCell.Tab.1.center/0.40.1920.1040/1920.0.1600.900@0.40.1920.1040" timestamp="1596432904665" />
-    <state width="1876" height="391" key="GridCell.Tab.1.left" timestamp="1596432904664">
-      <screen x="0" y="40" width="1920" height="1040" />
-    </state>
-    <state width="1876" height="391" key="GridCell.Tab.1.left/0.40.1920.1040/1920.0.1600.900@0.40.1920.1040" timestamp="1596432904664" />
-    <state width="1876" height="391" key="GridCell.Tab.1.right" timestamp="1596432904665">
-      <screen x="0" y="40" width="1920" height="1040" />
-    </state>
-    <state width="1876" height="391" key="GridCell.Tab.1.right/0.40.1920.1040/1920.0.1600.900@0.40.1920.1040" timestamp="1596432904665" />
-    <state x="461" y="191" key="SettingsEditor" timestamp="1596439972704">
-      <screen x="0" y="40" width="1920" height="1040" />
-    </state>
-    <state x="461" y="191" key="SettingsEditor/0.40.1920.1040/1920.0.1600.900@0.40.1920.1040" timestamp="1596439972704" />
-    <state x="461" y="191" key="SettingsEditor/0.40.1920.1040@0.40.1920.1040" timestamp="1593395042246" />
-    <state x="769" y="476" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1592970886764">
-      <screen x="0" y="40" width="1920" height="1040" />
-    </state>
-    <state x="769" y="476" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.40.1920.1040@0.40.1920.1040" timestamp="1592970886764" />
+    <state width="1876" height="423" key="GridCell.Tab.0.right/0.40.1920.1040/1920.0.1600.900@0.40.1920.1040" timestamp="1609217636334" />
+    <state width="1876" height="423" key="GridCell.Tab.0.right/0.40.1920.1040@0.40.1920.1040" timestamp="1608993783121" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/iperf_gui$test.coverage" NAME="test Coverage Results" MODIFIED="1596186102265" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/iperf_gui$package.coverage" NAME="package Coverage Results" MODIFIED="1596610515051" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/iperf_gui$iperf_client.coverage" NAME="iperf_client Coverage Results" MODIFIED="1596590740740" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/iperf_gui$main.coverage" NAME="main Coverage Results" MODIFIED="1596526585569" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/iperf_gui$package.coverage" NAME="package Coverage Results" MODIFIED="1609217392033" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/iperf_gui$iperf_client.coverage" NAME="iperf_client Coverage Results" MODIFIED="1608991813422" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/iperf_gui$main.coverage" NAME="main Coverage Results" MODIFIED="1609217237667" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
